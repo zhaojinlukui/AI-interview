@@ -1,0 +1,137 @@
+> Task :app:compileJava UP-TO-DATE
+> Task :app:processResources UP-TO-DATE
+> Task :app:classes UP-TO-DATE
+> Task :app:resolveMainClassName UP-TO-DATE
+
+> Task :app:bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.1)
+
+2026-06-30T19:10:52.071+08:00  INFO 45524 --- [ai-interview-platform] [           main] interview.guide.App                      : Starting App using Java 21.0.7 with PID 45524 (D:\code\java\interview-guide-master\app\build\classes\java\main started by 朝槿 in D:\code\java\interview-guide-master\app)
+2026-06-30T19:10:52.073+08:00  INFO 45524 --- [ai-interview-platform] [           main] interview.guide.App                      : No active profile set, falling back to 1 default profile: "default"
+2026-06-30T19:10:53.249+08:00  INFO 45524 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-30T19:10:53.251+08:00  INFO 45524 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-30T19:10:53.599+08:00  INFO 45524 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 335 ms. Found 14 JPA repository interfaces.
+2026-06-30T19:10:53.617+08:00  INFO 45524 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-30T19:10:53.618+08:00  INFO 45524 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-30T19:10:53.644+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.aisettings.repository.SystemAiSettingsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.645+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.aisettings.repository.UserAiSettingsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.645+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.interviewschedule.repository.InterviewScheduleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.647+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.interview.repository.InterviewAnswerRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.647+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.interview.repository.InterviewSessionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.647+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.knowledgebase.repository.KnowledgeBaseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.647+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.knowledgebase.repository.RagChatMessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.648+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.knowledgebase.repository.RagChatSessionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.648+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.resume.repository.ResumeAnalysisRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.648+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.resume.repository.ResumeRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.648+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.648+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.voiceinterview.repository.VoiceInterviewEvaluationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.649+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.voiceinterview.repository.VoiceInterviewMessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.649+08:00  INFO 45524 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.voiceinterview.repository.VoiceInterviewSessionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-30T19:10:53.649+08:00  INFO 45524 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 Redis repository interfaces.
+2026-06-30T19:10:54.411+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8200 (http)
+2026-06-30T19:10:54.430+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-30T19:10:54.430+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-06-30T19:10:54.478+08:00  INFO 45524 --- [ai-interview-platform] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2368 ms
+2026-06-30T19:10:54.672+08:00  INFO 45524 --- [ai-interview-platform] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-30T19:10:54.729+08:00  INFO 45524 --- [ai-interview-platform] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-06-30T19:10:55.206+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-30T19:10:55.242+08:00  INFO 45524 --- [ai-interview-platform] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-30T19:10:55.371+08:00  INFO 45524 --- [ai-interview-platform] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6ee07d7f
+2026-06-30T19:10:55.373+08:00  INFO 45524 --- [ai-interview-platform] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-30T19:10:55.406+08:00  WARN 45524 --- [ai-interview-platform] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-30T19:10:55.434+08:00  INFO 45524 --- [ai-interview-platform] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/interview_guide]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.14
+	Default catalog/schema: interview_guide/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-30T19:10:57.033+08:00  INFO 45524 --- [ai-interview-platform] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-30T19:10:57.129+08:00  INFO 45524 --- [ai-interview-platform] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-30T19:10:57.240+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-30T19:10:57.405+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.common.ai.AgentUtilsConfiguration    : AgentUtils SkillsTool 已启用，skillsRoot=classpath:skills, configured=classpath:skills
+2026-06-30T19:10:57.616+08:00  WARN 45524 --- [ai-interview-platform] [           main] config                                   : password setting is deprecated. Use password setting in Config instead.
+2026-06-30T19:10:57.664+08:00  INFO 45524 --- [ai-interview-platform] [           main] org.redisson.Version                     : Redisson 4.0.0
+2026-06-30T19:10:57.673+08:00  WARN 45524 --- [ai-interview-platform] [           main] config                                   : password setting is deprecated. Use password setting in Config instead.
+2026-06-30T19:10:57.678+08:00  WARN 45524 --- [ai-interview-platform] [           main] config                                   : password setting is deprecated. Use password setting in Config instead.
+2026-06-30T19:10:58.062+08:00  INFO 45524 --- [ai-interview-platform] [isson-netty-1-5] o.redisson.connection.ConnectionsHolder  : 1 connections initialized for localhost/127.0.0.1:6379
+2026-06-30T19:10:58.105+08:00  INFO 45524 --- [ai-interview-platform] [sson-netty-1-24] o.redisson.connection.ConnectionsHolder  : 10 connections initialized for localhost/127.0.0.1:6379
+2026-06-30T19:10:58.166+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.guide.common.aspect.RateLimitAspect    : 限流 Lua 脚本加载完成, SHA1: 30631d5a15a49b972f5fb492065ea2b24e5ab88e
+2026-06-30T19:11:00.331+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: ai-agent-dev (ai-agent-dev)
+2026-06-30T19:11:00.335+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: algorithm (algorithm)
+2026-06-30T19:11:00.337+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: ali-backend (ali-backend)
+2026-06-30T19:11:00.341+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: bytedance-backend (bytedance-backend)
+2026-06-30T19:11:00.343+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: frontend (frontend)
+2026-06-30T19:11:00.347+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: java-backend-tencent (java-backend-tencent)
+2026-06-30T19:11:00.350+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: java-backend (java-backend)
+2026-06-30T19:11:00.352+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: python-backend (python-backend)
+2026-06-30T19:11:00.354+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: system-design (system-design)
+2026-06-30T19:11:00.356+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: test-development (test-development)
+2026-06-30T19:11:00.356+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 共加载 10 个预设 Skill
+2026-06-30T19:11:00.357+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 构建 category→reference 映射: 36 个条目
+2026-06-30T19:11:00.597+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 评估 consumer scheduled: consumerName=evaluate-consumer-5ec8c2bb
+2026-06-30T19:11:00.603+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-06-30T19:11:00.670+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#47bdfc41:0/SimpleConnection@58ade86 [delegate=amqp://guest@127.0.0.1:5672/, localPort=9637]
+2026-06-30T19:11:00.724+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=evaluate-group, routingKey=interview:evaluate:stream
+2026-06-30T19:11:00.755+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=evaluate-group, consumerName=evaluate-consumer-5ec8c2bb, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-30T19:11:00.782+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] i.g.common.async.AbstractStreamConsumer  : 评估 consumer started: consumerName=evaluate-consumer-5ec8c2bb
+2026-06-30T19:11:01.350+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.common.config.LlmEmbeddingConfig     : EmbeddingModel bean initialized as AI model delegate
+2026-06-30T19:11:01.542+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-06-30T19:11:01.545+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-06-30T19:11:01.545+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-06-30T19:11:01.664+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 向量化 consumer scheduled: consumerName=vectorize-consumer-72432d72
+2026-06-30T19:11:01.673+08:00  INFO 45524 --- [ai-interview-platform] [torize-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=vectorize-group, routingKey=knowledgebase:vectorize:stream
+2026-06-30T19:11:01.674+08:00  INFO 45524 --- [ai-interview-platform] [torize-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=vectorize-group, consumerName=vectorize-consumer-72432d72, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-30T19:11:01.681+08:00  INFO 45524 --- [ai-interview-platform] [torize-consumer] i.g.common.async.AbstractStreamConsumer  : 向量化 consumer started: consumerName=vectorize-consumer-72432d72
+2026-06-30T19:11:01.724+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 简历分析 consumer scheduled: consumerName=analyze-consumer-f4e18e53
+2026-06-30T19:11:01.733+08:00  INFO 45524 --- [ai-interview-platform] [nalyze-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=analyze-group, routingKey=resume:analyze:stream
+2026-06-30T19:11:01.733+08:00  INFO 45524 --- [ai-interview-platform] [nalyze-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=analyze-group, consumerName=analyze-consumer-f4e18e53, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-30T19:11:01.741+08:00  INFO 45524 --- [ai-interview-platform] [nalyze-consumer] i.g.common.async.AbstractStreamConsumer  : 简历分析 consumer started: consumerName=analyze-consumer-f4e18e53
+2026-06-30T19:11:01.798+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.v.service.QwenAsrService           : QwenAsrService initialized with model: qwen3-asr-flash-realtime, url: wss://dashscope.aliyuncs.com/api-ws/v1/realtime
+2026-06-30T19:11:01.802+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.v.service.QwenTtsService           : QwenTtsService initialized with model: qwen3-tts-flash-realtime, voice: Cherry, sampleRate: 24000Hz
+2026-06-30T19:11:01.822+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.v.h.VoiceInterviewWebSocketHandler : Opening audio cache warmup disabled
+2026-06-30T19:11:01.827+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 语音面试评估 consumer scheduled: consumerName=voice-evaluate-consumer-b2cd9f82
+2026-06-30T19:11:01.838+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=voice-evaluate-group, routingKey=voice:evaluate:stream
+2026-06-30T19:11:01.838+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=voice-evaluate-group, consumerName=voice-evaluate-consumer-b2cd9f82, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-30T19:11:01.847+08:00  INFO 45524 --- [ai-interview-platform] [aluate-consumer] i.g.common.async.AbstractStreamConsumer  : 语音面试评估 consumer started: consumerName=voice-evaluate-consumer-b2cd9f82
+2026-06-30T19:11:01.982+08:00  WARN 45524 --- [ai-interview-platform] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-30T19:11:02.603+08:00  INFO 45524 --- [ai-interview-platform] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8200 (http) with context path '/'
+2026-06-30T19:11:02.617+08:00  INFO 45524 --- [ai-interview-platform] [           main] interview.guide.App                      : Started App in 11.173 seconds (process running for 11.517)
+2026-06-30T19:11:02.619+08:00  WARN 45524 --- [ai-interview-platform] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-30T19:11:02.619+08:00  WARN 45524 --- [ai-interview-platform] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-30T19:11:02.757+08:00  WARN 45524 --- [ai-interview-platform] [           main] i.g.m.u.service.AdminBootstrapService    : 当前使用默认管理员密码，请在生产环境设置 APP_AUTH_ADMIN_PASSWORD
+2026-06-30T19:11:02.758+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.u.service.AdminBootstrapService    : 管理员账号已就绪: username=admin, userId=9
+2026-06-30T19:11:02.770+08:00  INFO 45524 --- [ai-interview-platform] [           main] i.g.m.u.service.AdminBootstrapService    : 历史数据归属账号已就绪: username=zhaojin, userId=6
+2026-06-30T19:12:07.955+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-0] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-30T19:12:07.955+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-30T19:12:07.958+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-06-30T19:12:47.965+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-4] i.g.m.a.service.AiSettingsService        : Updated user AI model settings: userId=6
+2026-06-30T19:12:47.968+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-4] i.guide.common.ai.AiClientFactory        : AI client cache cleared for userId=6
+2026-06-30T19:12:47.968+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-4] i.guide.common.ai.AiClientFactory        : AI client cache cleared for userId=null
+2026-06-30T19:12:48.535+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-7] i.g.m.a.service.AiSettingsService        : Updated user AI model settings: userId=6
+2026-06-30T19:12:48.542+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-7] i.guide.common.ai.AiClientFactory        : AI client cache cleared for userId=6
+2026-06-30T19:12:48.542+08:00  INFO 45524 --- [ai-interview-platform] [omcat-handler-7] i.guide.common.ai.AiClientFactory        : AI client cache cleared for userId=null
+
+> Task :app:bootRun FAILED
+
+[Incubating] Problems report is available at: file:///D:/code/java/interview-guide-master/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 1 executed, 3 up-to-date

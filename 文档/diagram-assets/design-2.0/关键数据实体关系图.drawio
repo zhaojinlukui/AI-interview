@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="关键数据实体关系图">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1"
+      connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900"
+      pageHeight="1050" math="0" shadow="0">
+      <root>
+<mxCell id="0" />
+<mxCell id="1" parent="0" />
+<mxCell id="e1" value="resumes
+PK id
+file_hash
+original_filename
+resume_text
+analyze_status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="70" y="120" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e2" value="resume_analyses
+PK id
+FK resume_id
+overall_score
+summary
+analyzed_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="370" y="120" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e3" value="interview_sessions
+PK id
+session_id
+FK resume_id
+skill_id
+status
+evaluate_status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="370" y="360" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e4" value="interview_answers
+PK id
+FK session_id
+question_index
+score
+answered_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="700" y="360" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e5" value="knowledge_bases
+PK id
+file_hash
+name
+category
+vector_status
+chunk_count" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="1070" y="120" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e6" value="rag_chat_sessions
+PK id
+title
+status
+is_pinned
+message_count" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="1400" y="120" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e7" value="rag_session_knowledge_bases
+FK session_id
+FK knowledge_base_id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="1120" y="360" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e8" value="rag_chat_messages
+PK id
+FK session_id
+type
+message_order
+completed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="1420" y="360" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e9" value="voice_interview_sessions
+PK id
+resume_id
+role_type
+status
+current_phase
+evaluate_status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="700" y="650" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e10" value="voice_interview_messages
+PK id
+FK session_id
+message_type
+sequence_num" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="1070" y="650" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e11" value="voice_interview_evaluations
+PK id
+session_id(unique)
+overall_score
+interviewer_role" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="1420" y="650" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="e12" value="interview_schedule
+PK id
+company_name
+position
+interview_time
+status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontColor=#000000;" vertex="1" parent="1"><mxGeometry x="70" y="650" width="250" height="145" as="geometry" /></mxCell>
+<mxCell id="1001" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e1" target="e2"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="1002" value="依据" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e2" target="e3"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="1003" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e3" target="e4"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="1004" value="n:m" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e5" target="e7"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="1005" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e6" target="e8"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="1006" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e9" target="e10"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="1007" value="汇总" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#333333;fontColor=#000000;" edge="1" parent="1" source="e10" target="e11"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,877 @@
+Browserslist: browsers data (caniuse-lite) is 6 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/rag-chat/sessions[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/rag-chat/sessions[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:18:54[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m21:18:17[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (238:10)
+
+[0m [90m 236 |[31m             [33m<[31m[33mRoute[31m path[33m=[31m[32m"knowledgebase/chat"[31m element[33m=[31m{[33m<[31m[33mKnowledgeBaseQueryPageWrapper[31m [35m/>} /[31m[33m>[31m
+ [90m 237 |[31m             [33m<[31m[33m/[31m[33mRoute[31m[33m>[31m
+[31m[1m>[22m[31m[90m 238 |[31m           [33m<[31m[33m/[31m[33mRoutes[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 239 |[31m         [33m<[31m[33m/[31m[33mSuspense[31m[33m>[31m
+ [90m 240 |[31m       [33m<[31m[33m/[31m[33mBrowserRouter[31m[33m>[31m
+ [90m 241 |[31m     [33m<[31m[33m/[31m[33mAuthProvider[31m[33m>[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:238:10
+[33m  246|  function InterviewHistoryWrapper() {
+  247|    const navigate = useNavigate();
+  248|    const { openInterviewModalWithResume } = useOutletContext<{ openInterviewModalWithResume: (resumeId: number) => void }>();
+     |                                 ^
+  249|  
+  250|    const handleBack = () => {[39m
+      at constructor (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4756:16)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13385:10)
+      at TypeScriptParserMixin.parseBlock (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13373:10)
+      at TypeScriptParserMixin.parseFunctionBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12174:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12160:10)
+[2m21:18:29[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (239:10)
+
+[0m [90m 237 |[31m             [33m<[31m[33mRoute[31m path[33m=[31m[32m"knowledgebase/chat"[31m element[33m=[31m{[33m<[31m[33mKnowledgeBaseQueryPageWrapper[31m [35m/>} /[31m[33m>[31m
+ [90m 238 |[31m             [33m<[31m[33m/[31m[33mRoute[31m[33m>[31m
+[31m[1m>[22m[31m[90m 239 |[31m           [33m<[31m[33m/[31m[33mRoutes[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 240 |[31m         [33m<[31m[33m/[31m[33mSuspense[31m[33m>[31m
+ [90m 241 |[31m       [33m<[31m[33m/[31m[33mBrowserRouter[31m[33m>[31m
+ [90m 242 |[31m     [33m<[31m[33m/[31m[33mAuthProvider[31m[33m>[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:239:10
+[33m  247|  function InterviewHistoryWrapper() {
+  248|    const navigate = useNavigate();
+  249|    const { openInterviewModalWithResume } = useOutletContext<{ openInterviewModalWithResume: (resumeId: number) => void }>();
+     |                                 ^
+  250|  
+  251|    const handleBack = () => {[39m
+      at constructor (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4756:16)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13385:10)
+      at TypeScriptParserMixin.parseBlock (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13373:10)
+      at TypeScriptParserMixin.parseFunctionBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12174:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12160:10)
+[2m22:32:25[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m22:32:25[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m08:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m08:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m08:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m08:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m08:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m08:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:42:29[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/rag-chat/sessions/4/messages/stream[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m18:37:28[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m18:37:28[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/me[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m19:44:12[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/resumes[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m19:44:14[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/resumes[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m19:44:16[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/resumes[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m19:44:18[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/resumes[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m19:44:20[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/resumes[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m19:44:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/resumes[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m20:16:40[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m20:16:40[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m20:16:44[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/login[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m20:16:45[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/login[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m22:09:04[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:09:04[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:09:58[22m [31m[1m[vite][22m[39m Pre-transform error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (241:10)
+
+[0m [90m 239 |[39m               [33m<[39m[33mRoute[39m path[33m=[39m[32m"knowledgebase/chat"[39m element[33m=[39m{[33m<[39m[33mKnowledgeBaseQueryPageWrapper[39m [35m/>} /[39m[33m>[39m
+ [90m 240 |[39m             [33m<[39m[33m/[39m[33mRoute[39m[33m>[39m
+[31m[1m>[22m[39m[90m 241 |[39m           [33m<[39m[33m/[39m[33mRoutes[39m[33m>[39m
+ [90m     |[39m           [31m[1m^[22m[39m
+ [90m 242 |[39m         [33m<[39m[33m/[39m[33mSuspense[39m[33m>[39m
+ [90m 243 |[39m       [33m<[39m[33m/[39m[33mBrowserRouter[39m[33m>[39m
+ [90m 244 |[39m     [33m<[39m[33m/[39m[33mAuthProvider[39m[33m>[39m[0m
+[2m22:09:58[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (241:10)
+
+[0m [90m 239 |[31m               [33m<[31m[33mRoute[31m path[33m=[31m[32m"knowledgebase/chat"[31m element[33m=[31m{[33m<[31m[33mKnowledgeBaseQueryPageWrapper[31m [35m/>} /[31m[33m>[31m
+ [90m 240 |[31m             [33m<[31m[33m/[31m[33mRoute[31m[33m>[31m
+[31m[1m>[22m[31m[90m 241 |[31m           [33m<[31m[33m/[31m[33mRoutes[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 242 |[31m         [33m<[31m[33m/[31m[33mSuspense[31m[33m>[31m
+ [90m 243 |[31m       [33m<[31m[33m/[31m[33mBrowserRouter[31m[33m>[31m
+ [90m 244 |[31m     [33m<[31m[33m/[31m[33mAuthProvider[31m[33m>[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:241:10
+[33m  247|  
+  248|  function InterviewHistoryWrapper() {
+  249|    const navigate = useNavigate();
+     |                           ^
+  250|    const { openInterviewModalWithResume } = useOutletContext<LayoutOutletContext>();
+  251|  [39m
+      at constructor (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4756:16)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13385:10)
+      at TypeScriptParserMixin.parseBlock (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13373:10)
+      at TypeScriptParserMixin.parseFunctionBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12174:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12160:10)
+[2m22:09:59[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (241:10)
+
+[0m [90m 239 |[31m               [33m<[31m[33mRoute[31m path[33m=[31m[32m"knowledgebase/chat"[31m element[33m=[31m{[33m<[31m[33mKnowledgeBaseQueryPageWrapper[31m [35m/>} /[31m[33m>[31m
+ [90m 240 |[31m             [33m<[31m[33m/[31m[33mRoute[31m[33m>[31m
+[31m[1m>[22m[31m[90m 241 |[31m           [33m<[31m[33m/[31m[33mRoutes[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 242 |[31m         [33m<[31m[33m/[31m[33mSuspense[31m[33m>[31m
+ [90m 243 |[31m       [33m<[31m[33m/[31m[33mBrowserRouter[31m[33m>[31m
+ [90m 244 |[31m     [33m<[31m[33m/[31m[33mAuthProvider[31m[33m>[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:241:10
+[33m  247|  
+  248|  function InterviewHistoryWrapper() {
+  249|    const navigate = useNavigate();
+     |                           ^
+  250|    const { openInterviewModalWithResume } = useOutletContext<LayoutOutletContext>();
+  251|  [39m
+      at constructor (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4756:16)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13385:10)
+      at TypeScriptParserMixin.parseBlock (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13373:10)
+      at TypeScriptParserMixin.parseFunctionBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12174:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12160:10)
+[2m22:10:03[22m [31m[1m[vite][22m[39m Pre-transform error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (242:10)
+
+[0m [90m 240 |[39m               [33m<[39m[33mRoute[39m path[33m=[39m[32m"knowledgebase/chat"[39m element[33m=[39m{[33m<[39m[33mKnowledgeBaseQueryPageWrapper[39m [35m/>} /[39m[33m>[39m
+ [90m 241 |[39m             [33m<[39m[33m/[39m[33mRoute[39m[33m>[39m
+[31m[1m>[22m[39m[90m 242 |[39m           [33m<[39m[33m/[39m[33mRoutes[39m[33m>[39m
+ [90m     |[39m           [31m[1m^[22m[39m
+ [90m 243 |[39m         [33m<[39m[33m/[39m[33mSuspense[39m[33m>[39m
+ [90m 244 |[39m       [33m<[39m[33m/[39m[33mBrowserRouter[39m[33m>[39m
+ [90m 245 |[39m     [33m<[39m[33m/[39m[33mAuthProvider[39m[33m>[39m[0m
+[2m22:10:03[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (242:10)
+
+[0m [90m 240 |[31m               [33m<[31m[33mRoute[31m path[33m=[31m[32m"knowledgebase/chat"[31m element[33m=[31m{[33m<[31m[33mKnowledgeBaseQueryPageWrapper[31m [35m/>} /[31m[33m>[31m
+ [90m 241 |[31m             [33m<[31m[33m/[31m[33mRoute[31m[33m>[31m
+[31m[1m>[22m[31m[90m 242 |[31m           [33m<[31m[33m/[31m[33mRoutes[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 243 |[31m         [33m<[31m[33m/[31m[33mSuspense[31m[33m>[31m
+ [90m 244 |[31m       [33m<[31m[33m/[31m[33mBrowserRouter[31m[33m>[31m
+ [90m 245 |[31m     [33m<[31m[33m/[31m[33mAuthProvider[31m[33m>[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:242:10
+[33m  248|  
+  249|  function InterviewHistoryWrapper() {
+  250|    const navigate = useNavigate();
+     |                           ^
+  251|    const { openInterviewModalWithResume } = useOutletContext<LayoutOutletContext>();
+  252|  [39m
+      at constructor (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4756:16)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13385:10)
+      at TypeScriptParserMixin.parseBlock (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13373:10)
+      at TypeScriptParserMixin.parseFunctionBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12174:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12160:10)
+[2m22:10:04[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\code\java\interview-guide-master\frontend\src\App.tsx: Expected corresponding JSX closing tag for <Route>. (242:10)
+
+[0m [90m 240 |[31m               [33m<[31m[33mRoute[31m path[33m=[31m[32m"knowledgebase/chat"[31m element[33m=[31m{[33m<[31m[33mKnowledgeBaseQueryPageWrapper[31m [35m/>} /[31m[33m>[31m
+ [90m 241 |[31m             [33m<[31m[33m/[31m[33mRoute[31m[33m>[31m
+[31m[1m>[22m[31m[90m 242 |[31m           [33m<[31m[33m/[31m[33mRoutes[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 243 |[31m         [33m<[31m[33m/[31m[33mSuspense[31m[33m>[31m
+ [90m 244 |[31m       [33m<[31m[33m/[31m[33mBrowserRouter[31m[33m>[31m
+ [90m 245 |[31m     [33m<[31m[33m/[31m[33mAuthProvider[31m[33m>[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:242:10
+[33m  248|  
+  249|  function InterviewHistoryWrapper() {
+  250|    const navigate = useNavigate();
+     |                           ^
+  251|    const { openInterviewModalWithResume } = useOutletContext<LayoutOutletContext>();
+  252|  [39m
+      at constructor (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4756:16)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13385:10)
+      at TypeScriptParserMixin.parseBlock (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:13373:10)
+      at TypeScriptParserMixin.parseFunctionBody (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12174:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (D:\code\java\interview-guide-master\frontend\node_modules\@babel\parser\lib\index.js:12160:10)
+[2m22:10:11[22m [31m[1m[vite][22m[39m Pre-transform error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?
+[2m22:10:11[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:10:12[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:10:18[22m [31m[1m[vite][22m[39m Pre-transform error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?
+[2m22:10:18[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:10:19[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:10:34[22m [31m[1m[vite][22m[39m Pre-transform error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?
+[2m22:10:34[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m22:11:17[22m [31m[1m[vite][22m[39m Pre-transform error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?
+[2m22:11:17[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AdminAiParametersPage" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mD:/code/java/interview-guide-master/frontend/src/App.tsx[39m:31:48
+[33m  58 |  const AdminUsersPage = lazy(_c31 = () => import("./pages/AdminUsersPage"));
+  59 |  _c32 = AdminUsersPage;
+  60 |  const AdminAiParametersPage = lazy(_c33 = () => import("./pages/AdminAiParametersPage"));
+     |                                                         ^
+  61 |  _c34 = AdminAiParametersPage;
+  62 |  const ProfilePage = lazy(_c35 = () => import("./pages/ProfilePage"));[39m
+      at TransformPluginContext._formatError (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+      at TransformPluginContext.error (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+      at normalizeUrl (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+      at async Promise.all (index 28)
+      at async TransformPluginContext.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+      at async PluginContainer.transform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///D:/code/java/interview-guide-master/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m08:28:55[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/login[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m09:54:37[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/interview/sessions/6f67831b53934224[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:24[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:24[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/rag-chat/sessions[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:24[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:24[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/rag-chat/sessions[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:24[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:24[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/knowledgebase/list?sortBy=time&vectorStatus=COMPLETED[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:25[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m11:06:25[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/voice-interview/sessions/6/pause[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:27[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:30[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model/test[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:31[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model/test[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/profile/stats[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/asr[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:32[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/voice/tts[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:34[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model/test[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:35[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:37[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m15:59:37[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m16:11:52[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model/test[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m16:12:37[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/login[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)
+[2m16:12:37[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/settings/ai/model/test[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7)

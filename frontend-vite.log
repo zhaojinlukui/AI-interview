@@ -1,0 +1,139 @@
+
+> ai-interview-frontend@0.0.1 dev
+> vite --host 127.0.0.1 --port 5173
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m373[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
+[2m17:07:15[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m17:07:15[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m19:11:20[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/types/auth.ts[22m
+[2m19:11:20[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/context/AuthContext.tsx[22m
+[2m19:11:21[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/context/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m19:11:21[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css, /src/components/AuthGuards.tsx, /src/components/Layout.tsx, /src/pages/LoginPage.tsx[22m
+[2m19:13:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m19:13:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m19:14:39[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LoginPage.tsx, /src/index.css[22m
+[2m19:19:13[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m19:20:10[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m19:22:13[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m20:11:45[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m20:12:16[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m20:13:43[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m20:14:40[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m20:20:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AnalysisPanel.tsx, /src/index.css[22m
+[2m20:21:21[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m21:09:45[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m21:13:10[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m21:14:04[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m21:14:27[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m21:16:38[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m21:17:13[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m21:17:53[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m21:18:17[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m21:18:29[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m21:18:36[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m21:19:04[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m21:19:33[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m21:20:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m21:32:36[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:35:12[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:35:32[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:35:55[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:38:12[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:38:34[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:38:49[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:39:43[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:39:53[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:40:16[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:45:59[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:46:20[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:46:34[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:46:51[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:47:10[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:47:31[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m21:58:32[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m22:16:00[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m22:22:52[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m22:23:02[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m22:23:59[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m22:28:12[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m08:22:39[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m08:42:32[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m08:52:59[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m08:58:22[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m09:00:46[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m09:03:24[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m09:23:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LoginPage.tsx, /src/index.css[22m
+[2m09:35:14[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m14:59:14[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/types/aiSettings.ts[22m
+[2m15:00:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m15:00:47[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m15:02:19[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m15:06:53[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/types/aiSettings.ts[22m
+[2m15:07:02[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m15:12:13[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m15:52:43[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m16:07:29[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m16:27:06[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/HistoryPage.tsx, /src/index.css[22m
+[2m19:29:58[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m20:33:09[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m20:40:58[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m20:41:11[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m20:41:24[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m20:41:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m20:42:33[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m20:42:41[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminAiParametersPage.tsx, /src/index.css[22m
+[2m20:44:28[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m22:09:04[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m22:09:57[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.tsx[22m
+[2m22:10:03[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.tsx[22m
+[2m22:10:10[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.tsx[22m
+[2m22:10:18[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/App.tsx[22m
+[2m22:10:34[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m22:11:17[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m22:12:34[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/pages/AdminAiParametersPage.tsx[22m
+[2m22:12:52[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m22:13:04[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m22:14:17[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m22:14:44[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m10:27:23[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InterviewHistoryPage.tsx, /src/index.css[22m
+[2m10:36:58[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/InterviewMessageBubble.tsx, /src/index.css[22m
+[2m10:36:58[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/InterviewDetailPanel.tsx, /src/index.css[22m
+[2m10:55:59[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ProfilePage.tsx, /src/index.css[22m
+[2m11:15:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseQueryPage.tsx, /src/index.css[22m
+[2m11:39:05[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m11:39:14[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m11:39:47[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminAiParametersPage.tsx, /src/index.css[22m
+[2m11:40:34[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m11:44:15[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m11:44:35[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m11:44:56[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m11:46:00[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m11:46:14[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m11:46:17[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m11:52:01[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m12:00:00[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:00:53[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:03:01[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:08:01[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m14:16:19[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/AdminUsersPage.tsx, /src/index.css[22m
+[2m14:29:10[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+[2m14:29:10[22m [36m[1m[vite][22m[39m server restarted.
+[2m14:36:21[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/KnowledgeBaseManagePage.tsx, /src/pages/KnowledgeBaseQueryPage.tsx[22m
+[2m14:36:21[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m14:36:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m14:37:08[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m14:40:19[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/KnowledgeBaseManagePage.tsx, /src/pages/KnowledgeBaseQueryPage.tsx[22m
+[2m14:40:19[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m15:15:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/KnowledgeBaseManagePage.tsx, /src/pages/KnowledgeBasePracticePage.tsx[22m
+[2m15:16:09[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBasePracticePage.tsx, /src/index.css[22m
+[2m15:46:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/KnowledgeBaseManagePage.tsx, /src/pages/KnowledgeBasePracticePage.tsx[22m
+[2m15:46:37[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBasePracticePage.tsx, /src/index.css[22m
+[2m15:46:45[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/KnowledgeBaseManagePage.tsx, /src/pages/KnowledgeBaseQueryPage.tsx, /src/pages/KnowledgeBaseUploadPage.tsx[22m
+[2m15:46:59[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m15:48:06[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/KnowledgeBaseManagePage.tsx, /src/index.css[22m
+[2m15:48:50[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/KnowledgeBaseManagePage.tsx, /src/pages/KnowledgeBaseQueryPage.tsx, /src/pages/KnowledgeBaseUploadPage.tsx[22m
+[2m16:10:41[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m
+[2m16:49:06[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/SettingsPage.tsx, /src/index.css[22m

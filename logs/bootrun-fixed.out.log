@@ -1,0 +1,683 @@
+> Task :app:compileJava UP-TO-DATE
+> Task :app:processResources UP-TO-DATE
+> Task :app:classes UP-TO-DATE
+> Task :app:resolveMainClassName
+
+> Task :app:bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.1)
+
+2026-06-29T17:10:04.120+08:00  INFO 35136 --- [ai-interview-platform] [           main] interview.guide.App                      : Starting App using Java 21.0.7 with PID 35136 (D:\code\java\interview-guide-master\app\build\classes\java\main started by 朝槿 in D:\code\java\interview-guide-master\app)
+2026-06-29T17:10:04.120+08:00  INFO 35136 --- [ai-interview-platform] [           main] interview.guide.App                      : No active profile set, falling back to 1 default profile: "default"
+2026-06-29T17:10:05.042+08:00  INFO 35136 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-29T17:10:05.042+08:00  INFO 35136 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-29T17:10:05.301+08:00  INFO 35136 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 250 ms. Found 14 JPA repository interfaces.
+2026-06-29T17:10:05.320+08:00  INFO 35136 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-29T17:10:05.320+08:00  INFO 35136 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-29T17:10:05.343+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.aisettings.repository.SystemAiSettingsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.343+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.aisettings.repository.UserAiSettingsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.347+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.interviewschedule.repository.InterviewScheduleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.347+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.interview.repository.InterviewAnswerRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.347+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.interview.repository.InterviewSessionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.knowledgebase.repository.KnowledgeBaseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.knowledgebase.repository.RagChatMessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.knowledgebase.repository.RagChatSessionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.resume.repository.ResumeAnalysisRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.resume.repository.ResumeRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.voiceinterview.repository.VoiceInterviewEvaluationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.voiceinterview.repository.VoiceInterviewMessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface interview.guide.modules.voiceinterview.repository.VoiceInterviewSessionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-29T17:10:05.348+08:00  INFO 35136 --- [ai-interview-platform] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2026-06-29T17:10:05.963+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8200 (http)
+2026-06-29T17:10:05.975+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-29T17:10:05.975+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-06-29T17:10:06.011+08:00  INFO 35136 --- [ai-interview-platform] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1848 ms
+2026-06-29T17:10:06.153+08:00  INFO 35136 --- [ai-interview-platform] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-29T17:10:06.197+08:00  INFO 35136 --- [ai-interview-platform] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-06-29T17:10:06.715+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-29T17:10:06.744+08:00  INFO 35136 --- [ai-interview-platform] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-29T17:10:06.906+08:00  INFO 35136 --- [ai-interview-platform] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@58d4fe33
+2026-06-29T17:10:06.908+08:00  INFO 35136 --- [ai-interview-platform] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-29T17:10:06.955+08:00  WARN 35136 --- [ai-interview-platform] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-29T17:10:06.998+08:00  INFO 35136 --- [ai-interview-platform] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/interview_guide]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.14
+	Default catalog/schema: interview_guide/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-29T17:10:08.483+08:00  INFO 35136 --- [ai-interview-platform] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-29T17:10:08.583+08:00  INFO 35136 --- [ai-interview-platform] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-29T17:10:08.692+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-29T17:10:08.847+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.common.ai.AgentUtilsConfiguration    : AgentUtils SkillsTool 已启用，skillsRoot=classpath:skills, configured=classpath:skills
+2026-06-29T17:10:09.030+08:00  WARN 35136 --- [ai-interview-platform] [           main] config                                   : password setting is deprecated. Use password setting in Config instead.
+2026-06-29T17:10:09.076+08:00  INFO 35136 --- [ai-interview-platform] [           main] org.redisson.Version                     : Redisson 4.0.0
+2026-06-29T17:10:09.081+08:00  WARN 35136 --- [ai-interview-platform] [           main] config                                   : password setting is deprecated. Use password setting in Config instead.
+2026-06-29T17:10:09.086+08:00  WARN 35136 --- [ai-interview-platform] [           main] config                                   : password setting is deprecated. Use password setting in Config instead.
+2026-06-29T17:10:09.460+08:00  INFO 35136 --- [ai-interview-platform] [isson-netty-1-5] o.redisson.connection.ConnectionsHolder  : 1 connections initialized for localhost/127.0.0.1:6379
+2026-06-29T17:10:09.503+08:00  INFO 35136 --- [ai-interview-platform] [sson-netty-1-24] o.redisson.connection.ConnectionsHolder  : 10 connections initialized for localhost/127.0.0.1:6379
+2026-06-29T17:10:09.559+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.guide.common.aspect.RateLimitAspect    : 限流 Lua 脚本加载完成, SHA1: 30631d5a15a49b972f5fb492065ea2b24e5ab88e
+2026-06-29T17:10:11.186+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: ai-agent-dev (ai-agent-dev)
+2026-06-29T17:10:11.186+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: algorithm (algorithm)
+2026-06-29T17:10:11.191+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: ali-backend (ali-backend)
+2026-06-29T17:10:11.191+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: bytedance-backend (bytedance-backend)
+2026-06-29T17:10:11.191+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: frontend (frontend)
+2026-06-29T17:10:11.191+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: java-backend-tencent (java-backend-tencent)
+2026-06-29T17:10:11.191+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: java-backend (java-backend)
+2026-06-29T17:10:11.191+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: python-backend (python-backend)
+2026-06-29T17:10:11.196+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: system-design (system-design)
+2026-06-29T17:10:11.196+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 加载预设 Skill: test-development (test-development)
+2026-06-29T17:10:11.196+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 共加载 10 个预设 Skill
+2026-06-29T17:10:11.198+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.i.skill.InterviewSkillService      : 构建 category→reference 映射: 36 个条目
+2026-06-29T17:10:11.225+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.guide.common.ai.AiClientFactory        : AI client cache cleared: 0 entries
+2026-06-29T17:10:11.349+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 评估 consumer scheduled: consumerName=evaluate-consumer-2f8f4a55
+2026-06-29T17:10:11.354+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2026-06-29T17:10:11.403+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#14c35a06:0/SimpleConnection@6a46416 [delegate=amqp://guest@127.0.0.1:5672/, localPort=11541]
+2026-06-29T17:10:11.439+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=evaluate-group, routingKey=interview:evaluate:stream
+2026-06-29T17:10:11.445+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=evaluate-group, consumerName=evaluate-consumer-2f8f4a55, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-29T17:10:11.465+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] i.g.common.async.AbstractStreamConsumer  : 评估 consumer started: consumerName=evaluate-consumer-2f8f4a55
+2026-06-29T17:10:11.931+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.common.config.LlmEmbeddingConfig     : EmbeddingModel bean initialized as AI model delegate
+2026-06-29T17:10:12.104+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-06-29T17:10:12.106+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-06-29T17:10:12.106+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-06-29T17:10:12.195+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 向量化 consumer scheduled: consumerName=vectorize-consumer-c0817ff9
+2026-06-29T17:10:12.203+08:00  INFO 35136 --- [ai-interview-platform] [torize-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=vectorize-group, routingKey=knowledgebase:vectorize:stream
+2026-06-29T17:10:12.203+08:00  INFO 35136 --- [ai-interview-platform] [torize-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=vectorize-group, consumerName=vectorize-consumer-c0817ff9, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-29T17:10:12.208+08:00  INFO 35136 --- [ai-interview-platform] [torize-consumer] i.g.common.async.AbstractStreamConsumer  : 向量化 consumer started: consumerName=vectorize-consumer-c0817ff9
+2026-06-29T17:10:12.225+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 简历分析 consumer scheduled: consumerName=analyze-consumer-9628d7b4
+2026-06-29T17:10:12.236+08:00  INFO 35136 --- [ai-interview-platform] [nalyze-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=analyze-group, routingKey=resume:analyze:stream
+2026-06-29T17:10:12.237+08:00  INFO 35136 --- [ai-interview-platform] [nalyze-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=analyze-group, consumerName=analyze-consumer-9628d7b4, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-29T17:10:12.242+08:00  INFO 35136 --- [ai-interview-platform] [nalyze-consumer] i.g.common.async.AbstractStreamConsumer  : 简历分析 consumer started: consumerName=analyze-consumer-9628d7b4
+2026-06-29T17:10:12.283+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.v.service.QwenAsrService           : QwenAsrService initialized with model: qwen3-asr-flash-realtime, url: wss://dashscope.aliyuncs.com/api-ws/v1/realtime
+2026-06-29T17:10:12.288+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.v.service.QwenTtsService           : QwenTtsService initialized with model: qwen3-tts-flash-realtime, voice: Cherry, sampleRate: 24000Hz
+2026-06-29T17:10:12.303+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.v.h.VoiceInterviewWebSocketHandler : Opening audio cache warmup disabled
+2026-06-29T17:10:12.307+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.common.async.AbstractStreamConsumer  : 语音面试评估 consumer scheduled: consumerName=voice-evaluate-consumer-c0924ac2
+2026-06-29T17:10:12.314+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async queue is ready: exchange=interview.async.tasks.exchange, queue=voice-evaluate-group, routingKey=voice:evaluate:stream
+2026-06-29T17:10:12.314+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] i.g.i.rabbitmq.RabbitMqTaskQueueService  : RabbitMQ async consumer configured: queue=voice-evaluate-group, consumerName=voice-evaluate-consumer-c0924ac2, concurrentConsumers=1, maxConcurrentConsumers=1, prefetchCount=10
+2026-06-29T17:10:12.319+08:00  INFO 35136 --- [ai-interview-platform] [aluate-consumer] i.g.common.async.AbstractStreamConsumer  : 语音面试评估 consumer started: consumerName=voice-evaluate-consumer-c0924ac2
+2026-06-29T17:10:12.404+08:00  WARN 35136 --- [ai-interview-platform] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-29T17:10:13.083+08:00  INFO 35136 --- [ai-interview-platform] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8200 (http) with context path '/'
+2026-06-29T17:10:13.101+08:00  INFO 35136 --- [ai-interview-platform] [           main] interview.guide.App                      : Started App in 9.513 seconds (process running for 9.832)
+2026-06-29T17:10:13.105+08:00  WARN 35136 --- [ai-interview-platform] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-06-29T17:10:13.105+08:00  WARN 35136 --- [ai-interview-platform] [           main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-06-29T17:10:13.236+08:00  WARN 35136 --- [ai-interview-platform] [           main] i.g.m.u.service.AdminBootstrapService    : 当前使用默认管理员密码，请在生产环境设置 APP_AUTH_ADMIN_PASSWORD
+2026-06-29T17:10:13.236+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.u.service.AdminBootstrapService    : 管理员账号已就绪: username=admin, userId=9
+2026-06-29T17:10:13.245+08:00  INFO 35136 --- [ai-interview-platform] [           main] i.g.m.u.service.AdminBootstrapService    : 历史数据归属账号已就绪: username=zhaojin, userId=6
+2026-06-29T17:11:53.828+08:00  INFO 35136 --- [ai-interview-platform] [omcat-handler-0] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-29T17:11:53.828+08:00  INFO 35136 --- [ai-interview-platform] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-29T17:11:53.830+08:00  INFO 35136 --- [ai-interview-platform] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-06-29T17:12:22.033+08:00  INFO 35136 --- [ai-interview-platform] [omcat-handler-4] i.g.m.r.service.ResumeUploadService      : 开始重新分析简历: resumeId=17, filename=卢佳豪-后端开发工程师.pdf
+2026-06-29T17:12:22.041+08:00  INFO 35136 --- [ai-interview-platform] [omcat-handler-4] i.g.common.async.AbstractStreamProducer  : 分析任务已发送到RabbitMQ: resumeId=17, messageId=dbec6bb9-876c-4105-9b72-150d89473c30
+2026-06-29T17:12:22.041+08:00  INFO 35136 --- [ai-interview-platform] [omcat-handler-4] i.g.m.r.service.ResumeUploadService      : 重新分析任务已发送: resumeId=17
+2026-06-29T17:12:22.045+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : Processing 简历分析 task: payload=resumeId=17, messageId=dbec6bb9-876c-4105-9b72-150d89473c30, retryCount=0
+2026-06-29T17:12:22.066+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis started: textLength=2263
+2026-06-29T17:12:39.367+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{"name": "backend", "arguments": {"skills": ["java-backend"]}}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:12:39.367+08:00  WARN 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，准备重试: attempt=1/2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:13:12.665+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "candidate": {
+    "name": "卢佳豪",
+    "education": [
+      {
+        "institution": "宜春学院",
+        "major": "软件工程",
+        "year_of_study": "2023.09 - 2027.06"
+      }
+    ],
+    "skills": [
+      {
+        "skill_name": "Java基础",
+        "description": "熟悉 JavaSE、JavaEE、面向对象、集合框架、异常机制等常用特性，具备良好的编码规范与开发习惯；理解 Java 并发基础，熟悉线程池、常用 JUC 工具类、常见锁策略及并发集合的基本使用。"
+      },
+      {
+        "skill_name": "后端开发",
+        "description": "熟练使用 SpringBoot、MyBatis / MyBatis-Plus 进行后端开发，理解 IoC、DI、AOP 等核心机制，具备接口开发、联调与基础并发处理优化经验。熟悉 MySQL 数据库开发，理解事务、索引、SQL 优化及常见业务场景下的性能优化；熟悉 Redis 的常用数据结构与典型应用场景；熟悉 RabbitMQ 基本消息模型与异步解耦场景。"
+      },
+      {
+        "skill_name": "微服务与AI",
+        "description": "熟悉 Spring Cloud 常用组件（Nacos、OpenFeign、Gateway、Seata）的基础使用与联调；熟悉 Spring AI 的基本应用，熟悉 MCP 工具的使用与开发。"
+      },
+      {
+        "skill_name": "前端协作与工程化",
+        "description": "具备 Vue3、HTML / CSS / JavaScript 基础，可完成页面开发与前后端数据交互；熟悉 Git 版本控制与管理，具备在 Linux 环境下进行项目部署与基础维护的能力。"
+      }
+    ],
+    "projects": [
+      {
+        "name": "MioAI 智能体开发平台",
+        "stack": ["Spring Boot / Spring AI / RAG / Tool Calling / MCP / Redis / Vue3 / OSS"],
+        "features": [
+          "流式输出响应时间缩短约90%，用户可在生成过程中实时获取内容，显著降低长回答场景下的等待感。",
+          "将文本切分结果按批次并发执行关键词增强与向量入库，在本地压测中将向量化吞吐量提升约2-3倍。"
+        ]
+      },
+      {
+        "name": "RemChat 桌面即时通讯软件",
+        "stack": ["Spring Boot / Spring AI / Netty / Redis / Redisson / MyBatis-Plus / MySQL / Electron / Vue3 / SQLite"],
+        "features": [
+          "基于 WebSocket 自建长连接通信服务，结合心跳检测、连接保活与客户端断线重连机制，实现消息实时推送与在线状态维护。"
+        ]
+      }
+    ],
+    "experience": {
+      "MioAI 智能体开发平台": "2026.02 - 2026.04",
+      "RemChat 桌面即时通讯软件": "2025.10 - 2025.12"
+    }
+  },
+  "backend_requirements_score": {
+    "Java基础": 8,
+    "后端开发": 7,
+    "微服务与AI": 6
+  }
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:13:12.665+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，已达最大重试次数: attempts=2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:13:12.665+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis AI call failed: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:13:12.667+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : 简历分析 task failed: resumeId=17
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:13:12.670+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.listener.AnalyzeStreamConsumer   : 简历分析任务已重新入队: resumeId=17, retryCount=1
+2026-06-29T17:13:12.672+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : Processing 简历分析 task: payload=resumeId=17, messageId=bfc2b8bc-f274-4d8c-b094-951ce852a247, retryCount=1
+2026-06-29T17:13:12.684+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis started: textLength=2263
+2026-06-29T17:13:15.999+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "score": {
+    "Java基础": 9,
+    "后端开发": 8.5,
+    "数据库与中间件": 7.5,
+    "微服务与AI": 6,
+    "前端协作与工程化": 8
+  }
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:13:15.999+08:00  WARN 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，准备重试: attempt=1/2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:14:23.688+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "candidate": {
+    "name": "卢佳豪",
+    "education": [
+      {
+        "institution": "宜春学院",
+        "degree": "本科",
+        "year_start": "2023.09",
+        "year_end": "2027.06"
+      }
+    ],
+    "skills": [
+      {
+        "skill_name": "Java基础",
+        "description": "熟悉 JavaSE、JavaEE、面向对象、集合框架、异常机制等常用特性，具备良好的编码规范与开发习惯；理解 Java 并发基础，熟悉线程池、常用 JUC 工具类、常见锁策略及并发集合的基本使用。"
+      },
+      {
+        "skill_name": "后端开发",
+        "description": "熟练使用 SpringBoot、MyBatis / MyBatis-Plus 进行后端开发，理解 IoC、DI、AOP 等核心机制，具备接口开发、联调与基础并发处理优化经验。熟悉 MySQL 数据库开发，理解事务、索引、SQL 优化及常见业务场景下的性能优化；熟悉 Redis 的常用数据结构与典型应用场景；熟悉 RabbitMQ 基本消息模型与异步解耦场景。熟悉 Spring Cloud 常用组件（Nacos、OpenFeign、Gateway、Seata）的基础使用与联调；熟悉 Spring AI 的基本应用，熟悉 MCP 工具的使用与开发。"
+      },
+      {
+        "skill_name": "数据库与中间件",
+        "description": "熟悉 MySQL 数据库开发，理解事务、索引、SQL 优化及常见业务场景下的性能优化；熟悉 Redis 的常用数据结构与典型应用场景；熟悉 RabbitMQ 基本消息模型与异步解耦场景。"
+      },
+      {
+        "skill_name": "微服务与 AI",
+        "description": "熟悉 Spring Cloud 常用组件（Nacos、OpenFeign、Gateway、Seata）的基础使用与联调；熟悉 Spring AI 的基本应用，熟悉 MCP 工具的使用与开发。"
+      },
+      {
+        "skill_name": "前端协作与工程化",
+        "description": "具备 Vue3、HTML / CSS / JavaScript 基础，可完成页面开发与前后端数据交互；熟悉 Git 版本控制与管理，具备在 Linux 环境下进行项目部署与基础维护的能力。"
+      }
+    ],
+    "projects": [
+      {
+        "name": "MioAI 智能体开发平台",
+        "stack": [
+          "Spring Boot / Spring AI / RAG / Tool Calling / MCP / Redis / Vue3 / OSS"
+        ],
+        "description": "面向 AI 智能体场景开发的前后端分离平台，支持智能体创建与管理、RAG 知识库构建、MCP 工具接入、工具调用、流式对话、会话记忆等功能。项目亮点：1. 将 AI 对话从一次性字符串返回改造为基于 Spring AI + SSE 的流式输出，在本地压测中首字响应时间缩短约 90%，用户可在生成过程中实时获取内容，显著降低长回答场景下的等待感。2. 针对串行向量化文档吞吐量不足的问题，基于 ExecutorService 线程池将文本切分结果 按批次并发执行关键词增强与向量入库，在本地压测中将向量化吞吐量提升约 2-3 倍，显著缩短了文本向量化的时间。3. 针对更加复杂的问题，基于 ReAct 模式构建了具备自主规划能力的 AI 智能体，支持最多 20 步自主规划执行及网页搜索、网页内容抓取、PDF 生成、资源下载等工具协作，提升了复杂任务处理的自动化能力。4. 面向智能体知识增强场景，设计并实现知识库 RAG 链路，完成文档上传至 Cloudflare R2 对象存储、解析切分、关键词增强、向量化入库与相似检索，支持 PDF、Markdown、TXT 等多类型文档接入。5. 针对 AI 工具扩展需求，开发 MCP 工具接入与校验模块，支持 SSE / STDIO 两种模式的配置检测、服务初始化与工具解析，并实现智能体对知识库和 MCP 工具的自由添加，增强了平台的扩展能力与资源复用能力。"
+      },
+      {
+        "name": "RemChat 桌面即时通讯软件",
+        "stack": [
+          "Spring Boot / Spring AI / Netty / Redis / Redisson / MyBatis-Plus / MySQL / Electron / Vue3 / SQLite"
+        ],
+        "description": "面向桌面即时通讯场景开发的前后端分离系统，支持用户好友检索与申请、单聊/群聊、富媒体传输、后台管理、客户端版本更新及 AI 机器人对话等功能，完成了从服务端消息分发到桌面端会话展示的完整业务闭环。项目亮点：1. 针对即时通讯场景下实时性要求高的问题，基于 Netty WebSocket 自建长连接通信服务，结合心跳检测、连接保活与客户端断线重连机制，实现消息实时推送与在线状态维护，提升了聊天场景下的消息到达的稳定性与交互连续性。2. 针对多用户消息分发与群聊广播场景，基于 Redisson Topic 设计消息发布订阅链路，将业务消息生产与连接层推送解耦，支持私聊、群聊、好友申请、强制下线、群成员变更等多类消息统一分发，增强了系统的可扩展性。3. 面向登录鉴权与高频状态读取场景，使用 Redis 缓存图形验证码、登录 Token、联系人列表、系统配置及用户心跳包信息，并结合 AOP + 自定义注解 实现统一登录校验和管理员权限控制，减少了重复鉴权逻辑并降低了数据库访问压力。"
+      }
+    ]
+  },
+  "backend_requirements": [
+    {
+      "skill_name": "Java基础",
+      "score": 9
+    },
+    {
+      "skill_name": "后端开发",
+      "score": 8.5
+    },
+    {
+      "skill_name": "数据库与中间件",
+      "score": 7.5
+    },
+    {
+      "skill_name": "微服务与 AI",
+      "score": 6.5
+    },
+    {
+      "skill_name": "前端协作与工程化",
+      "score": 8
+    }
+  ]
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:14:23.689+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，已达最大重试次数: attempts=2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:14:23.689+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis AI call failed: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:14:23.689+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : 简历分析 task failed: resumeId=17
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:14:23.693+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.listener.AnalyzeStreamConsumer   : 简历分析任务已重新入队: resumeId=17, retryCount=2
+2026-06-29T17:14:23.697+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : Processing 简历分析 task: payload=resumeId=17, messageId=03bd3375-89fd-4eaf-8cea-5cf22dca8bbf, retryCount=2
+2026-06-29T17:14:23.710+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis started: textLength=2263
+2026-06-29T17:15:16.067+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "backend": {
+    "java": {
+      "skills": [
+        "java-backend",
+        "java-backend-tencent"
+      ],
+      "projects": [
+        {
+          "name": "MioAI 智能体开发平台",
+          "stacks": ["Spring Boot", "Spring AI", "RAG", "Tool Calling", "MCP", "Redis"]
+        },
+        {
+          "name": "RemChat 桌面即时通讯软件",
+          "stacks": ["Spring Boot", "Spring AI", "Netty", "Redis", "Redisson", "MyBatis-Plus", "MySQL", "Electron", "Vue3", "SQLite"]
+        }
+      ],
+      "skills_summary": {
+        "Java基础": "熟悉 JavaSE、JavaEE、面向对象、集合框架、异常机制等常用特性，具备良好的编码规范与开发习惯。",
+        "后端开发": "熟练使用 SpringBoot、MyBatis / MyBatis-Plus 进行后端开发，理解 IoC、DI、AOP 等核心机制，具备接口开发、联调与基础并发处理优化经验。",
+        "数据库与中间件": "熟悉 MySQL 数据库开发，理解事务、索引、SQL 优化及常见业务场景下的性能优化；熟悉 Redis 的常用数据结构与典型应用场景；熟悉 RabbitMQ 基本消息模型与异步解耦场景。",
+        "微服务与 AI": "熟悉 Spring Cloud 常用组件（Nacos、OpenFeign、Gateway、Seata）的基础使用与联调；熟悉 Spring AI 的基本应用，熟悉 MCP 工具的使用与开发。",
+        "前端协作与工程化": "具备 Vue3、HTML / CSS / JavaScript 基础，可完成页面开发与前后端数据交互；熟悉 Git 版本控制与管理，具备在 Linux 环境下进行项目部署与基础维护的能力。"
+      },
+      "project_summary": {
+        "MioAI 智能体开发平台": "项目亮点：1. 将 AI 对话从一次性字符串返回改造为基于 Spring AI + SSE 的流式输出，在本地压测中首字响应时间缩短约 90%，用户可在生成过程中实时获取内容，显著降低长回答场景下的等待感。2. 针对串行向量化文档吞吐量不足的问题，基于 ExecutorService 线程池将文本切分结果 按批次并发执行关键词增强与向量入库，在本地压测中将向量化吞吐量提升约 2-3 倍，显著缩短了文本向量化的时间。3. 针对更加复杂的问题，基于 ReAct 模式构建了具备自主规划能力的 AI 智能体，支持最多 20 步自主规划执行及网页搜索、网页内容抓取、PDF 生成、资源下载等工具协作，提升了复杂任务处理的自动化能力。4. 面向智能体知识增强场景，设计并实现知识库 RAG 链路，完成文档上传至 Cloudflare R2 对象存储、解析切分、关键词增强、向量化入库与相似检索，支持 PDF、Markdown、TXT 等多类型文档接入。5. 针对 AI 工具扩展需求，开发 MCP 工具接入与校验模块，支持 SSE / STDIO 两种模式的配置检测、服务初始化与工具解析，并实现智能体对知识库和 MCP 工具的自由添加，增强了平台的扩展能力与资源复用能力。",
+        "RemChat 桌面即时通讯软件": "项目亮点：1. 针对即时通讯场景下实时性要求高的问题，基于 Netty WebSocket 自建长连接通信服务，结合心跳检测、连接保活与客户端断线重连机制，实现消息实时推送与在线状态维护，提升了聊天场景下的消息到达的稳定性与交互连续性。2. 针对多用户消息分发与群聊广播场景，基于 Redisson Topic 设计消息发布订阅链路，将业务消息生产与连接层推送解耦，支持私聊、群聊、好友申请、强制下线、群成员变更等多类消息统一分发，增强了系统的可扩展性。3. 面向登录鉴权与高频状态读取场景，使用 Redis 缓存图形验证码、登录 Token、联系人列表、系统配置及用户心跳包信息，并结合 AOP + 自定义注解 实现统一登录校验和管理员权限控制，减少了重复鉴权逻辑并降低了数据库访问压力。"
+      }
+    },
+    "python": {
+      "skills": [
+        "python-backend",
+        "test-development"
+      ],
+      "projects": [],
+      "skills_summary": {},
+      "project_summary": {}
+    },
+    "algorithm": {
+      "skills": ["algorithm"],
+      "projects": [],
+      "skills_summary": {},
+      "project_summary": {}
+    },
+    "system-design": {
+      "skills": ["system-design"],
+      "projects": [],
+      "skills_summary": {},
+      "project_summary": {}
+    }
+  }
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:15:16.068+08:00  WARN 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，准备重试: attempt=1/2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:16:15.516+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "candidate": {
+    "name": "卢佳豪",
+    "education": [
+      {
+        "institution": "宜春学院",
+        "degree": "本科",
+        "major": "软件工程",
+        "start_date": "2023.09",
+        "end_date": "2027.06"
+      }
+    ],
+    "skills": [
+      {
+        "name": "Java基础",
+        "description": "熟悉 JavaSE、JavaEE、面向对象、集合框架、异常机制等常用特性，具备良好的编码规范与开发习惯；理解 Java 并发基础，熟悉线程池、常用 JUC 工具类、常见锁策略及并发集合的基本使用。"
+      },
+      {
+        "name": "后端开发",
+        "description": "熟练使用 SpringBoot、MyBatis / MyBatis-Plus 进行后端开发，理解 IoC、DI、AOP 等核心机制，具备接口开发、联调与基础并发处理优化经验。熟悉 MySQL 数据库开发，理解事务、索引、SQL 优化及常见业务场景下的性能优化；熟悉 Redis 的常用数据结构与典型应用场景；熟悉 RabbitMQ 基本消息模型与异步解耦场景。"
+      },
+      {
+        "name": "微服务与 AI",
+        "description": "熟悉 Spring Cloud 常用组件（Nacos、OpenFeign、Gateway、Seata）的基础使用与联调；熟悉 Spring AI 的基本应用，熟悉 MCP 工具的使用与开发。"
+      },
+      {
+        "name": "前端协作与工程化",
+        "description": "具备 Vue3、HTML / CSS / JavaScript 基础，可完成页面开发与前后端数据交互；熟悉 Git 版本控制与管理，具备在 Linux 环境下进行项目部署与基础维护的能力。"
+      }
+    ],
+    "projects": [
+      {
+        "name": "MioAI 智能体开发平台",
+        "stacks": ["Spring Boot / Spring AI / RAG / Tool Calling / MCP / Redis / Vue3 / OSS"],
+        "description": "面向 AI 智能体场景开发的前后端分离平台，支持智能体创建与管理、RAG 知识库构建、MCP 工具接入、工具调用、流式对话、会话记忆等功能。项目亮点包括：1. 将 AI 对话从一次性字符串返回改造为基于 Spring AI + SSE 的流式输出，在本地压测中首字响应时间缩短约 90%，用户可在生成过程中实时获取内容，显著降低长回答场景下的等待感；2. 针对串行向量化文档吞吐量不足的问题，基于 ExecutorService 线程池将文本切分结果按批次并发执行关键词增强与向量入库，在本地压测中将向量化吞吐量提升约 2-3 倍，显著缩短了文本向量化的时间；3. 针对更加复杂的问题，基于 ReAct 模式构建了具备自主规划能力的 AI 智能体，支持最多 20 步自主规划执行及网页搜索、网页内容抓取、PDF 生成、资源下载等工具协作，提升了复杂任务处理的自动化能力；4. 面向智能体知识增强场景，设计并实现知识库 RAG 链路，完成文档上传至 Cloudflare R2 对象存储、解析切分、关键词增强、向量化入库与相似检索，支持 PDF、Markdown、TXT 等多类型文档接入；5. 针对 AI 工具扩展需求，开发 MCP 工具接入与校验模块，支持 SSE / STDIO 两种模式的配置检测、服务初始化与工具解析，并实现智能体对知识库和 MCP 工具的自由添加，增强了平台的扩展能力与资源复用能力。"
+      },
+      {
+        "name": "RemChat 桌面即时通讯软件",
+        "stacks": ["Spring Boot / Spring AI / Netty / Redis / Redisson / MyBatis-Plus / MySQL / Electron / Vue3 / SQLite"],
+        "description": "面向桌面即时通讯场景开发的前后端分离系统，支持用户好友检索与申请、单聊/群聊、富媒体传输、后台管理、客户端版本更新及 AI 机器人对话等功能。项目亮点包括：1. 针对即时通讯场景下实时性要求高的问题，基于 Netty WebSocket 自建长连接通信服务，结合心跳检测、连接保活与客户端断线重连机制，实现消息实时推送与在线状态维护，提升了聊天场景下的消息到达的稳定性与交互连续性；2. 针对多用户消息分发与群聊广播场景，基于 Redisson Topic 设计消息发布订阅链路，将业务消息生产与连接层推送解耦，支持私聊、群聊、好友申请、强制下线、群成员变更等多类消息统一分发，增强了系统的可扩展性；3. 面向登录鉴权与高频状态读取场景，使用 Redis 缓存图形验证码、登录 Token、联系人列表、系统配置及用户心跳包信息，并结合 AOP + 自定义注解 实现统一登录校验和管理员权限控制，减少了重复鉴权逻辑并降低了数据库访问压力。"
+      }
+    ]
+  },
+  "recommendation": {
+    "backend": [
+      {
+        "score": 9,
+        "reasons": ["Java基础", "后端开发"]
+      },
+      {
+        "score": 8.5,
+        "reasons": ["微服务与 AI"]
+      },
+      {
+        "score": 7,
+        "reasons": ["前端协作与工程化"]
+      }
+    ]
+  }
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:16:15.517+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，已达最大重试次数: attempts=2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:16:15.517+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis AI call failed: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:16:15.517+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : 简历分析 task failed: resumeId=17
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:16:15.521+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.listener.AnalyzeStreamConsumer   : 简历分析任务已重新入队: resumeId=17, retryCount=3
+2026-06-29T17:16:15.523+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : Processing 简历分析 task: payload=resumeId=17, messageId=728c1bd8-2c15-452e-abb8-7741e6766ffa, retryCount=3
+2026-06-29T17:16:15.538+08:00  INFO 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis started: textLength=2263
+2026-06-29T17:16:50.357+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "backend": {
+    "java": {
+      "skills": [
+        "java-backend",
+        "java-backend-tencent"
+      ],
+      "projects": [
+        {
+          "name": "MioAI 智能体开发平台",
+          "stacks": ["Spring Boot", "Spring AI", "RAG", "Tool Calling", "MCP", "Redis"]
+        },
+        {
+          "name": "RemChat 桌面即时通讯软件",
+          "stacks": ["Spring Boot", "Spring AI", "Netty", "Redis", "Redisson", "MyBatis-Plus", "MySQL", "Electron", "Vue3", "SQLite"]
+        }
+      ],
+      "achievements": [
+        {
+          "title": "MioAI 智能体开发平台",
+          "description": "1. 将 AI 对话从一次性字符串返回改造为基于 Spring AI + SSE 的流式输出，在本地压测中首字响应时间缩短约 90%，用户可在生成过程中实时获取内容，显著降低长回答场景下的等待感。"
+        },
+        {
+          "title": "RemChat 桌面即时通讯软件",
+          "description": "1. 针对即时通讯场景下实时性要求高的问题，基于 Netty WebSocket 自建长连接通信服务，结合心跳检测、连结保活与客户端断线重连机制，实现消息实时推送与在线状态维护，提升了聊天场景下的消息到达的稳定性与交互连续性。"
+        }
+      ]
+    },
+    "skills": [
+      {
+        "name": "Java基础",
+        "description": "熟悉 JavaSE、JavaEE、面向对象、集合框架、异常机制等常用特性，具备良好的编码规范与开发习惯；理解 Java 并发基础，熟悉线程池、常用 JUC 工具类、常见锁策略及并发集合的基本使用。"
+      },
+      {
+        "name": "后端开发",
+        "description": "熟练使用 SpringBoot、MyBatis / MyBatis-Plus 进行后端开发，理解 IoC、DI、AOP 等核心机制，具备接口开发、联调与基础并发处理优化经验。"
+      },
+      {
+        "name": "数据库与中间件",
+        "description": "熟悉 MySQL 数据库开发，理解事务、索引、SQL 优化及常见业务场景下的性能优化；熟悉 Redis 的常用数据结构与典型应用场景；熟悉 RabbitMQ 基本消息模型与异步解耦场景。"
+      },
+      {
+        "name": "微服务与 AI",
+        "description": "熟悉 Spring Cloud 常用组件（Nacos、OpenFeign、Gateway、Seata）的基础使用与联调；熟悉 Spring AI 的基本应用，熟悉 MCP 工具的使用与开发。"
+      },
+      {
+        "name": "前端协作与工程化",
+        "description": "具备 Vue3、HTML / CSS / JavaScript 基础，可完成页面开发与前后端数据交互；熟悉 Git 版本控制与管理，具备在 Linux 环境下进行项目部署与基础维护的能力。"
+      }
+    ]
+  },
+  "system_design": {
+    "skills": [
+      "system-design",
+      "test-development"
+    ],
+    "projects": [],
+    "achievements": []
+  },
+  "algorithm": {},
+  "ali-backend": {},
+  "bytedance-backend": {},
+  "frontend": {},
+  "python-backend": {}
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:16:50.358+08:00  WARN 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，准备重试: attempt=1/2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:16:53.309+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] o.s.ai.converter.BeanOutputConverter     : Could not parse the given text to the desired target type: "{
+  "score": {
+    "Java基础": 8,
+    "后端开发": 9,
+    "数据库与中间件": 7,
+    "微服务与AI": 6,
+    "前端协作与工程化": 5
+  }
+}" into class interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO
+2026-06-29T17:16:53.309+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : resume_analysis结构化解析失败，已达最大重试次数: attempts=2, error=Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+2026-06-29T17:16:53.309+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.m.r.service.ResumeGradingService     : Resume analysis AI call failed: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2026-06-29T17:16:53.309+08:00 ERROR 35136 --- [ai-interview-platform] [lyze-consumer-1] i.g.common.async.AbstractStreamConsumer  : 简历分析 task failed: resumeId=17
+
+interview.guide.common.exception.BusinessException: Resume analysis failed: Cannot map `null` into type `int` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN] (through reference chain: interview.guide.modules.resume.service.ResumeGradingService$ResumeAnalysisResponseDTO["overallScore"])
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:145)
+	at interview.guide.common.ai.StructuredOutputInvoker.invoke(StructuredOutputInvoker.java:78)
+	at interview.guide.modules.resume.service.ResumeGradingService.analyzeResume(ResumeGradingService.java:93)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:125)
+	at interview.guide.modules.resume.listener.AnalyzeStreamConsumer.processBusiness(AnalyzeStreamConsumer.java:21)
+	at interview.guide.common.async.AbstractStreamConsumer.processMessage(AbstractStreamConsumer.java:168)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.processMessage(RabbitMqTaskQueueService.java:220)
+	at interview.guide.infrastructure.rabbitmq.RabbitMqTaskQueueService.lambda$createConsumerContainer$1(RabbitMqTaskQueueService.java:177)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1683)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1612)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1599)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1590)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1539)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1520)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1116)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1061)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1465)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1359)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+
+> Task :app:bootRun FAILED
+
+[Incubating] Problems report is available at: file:///D:/code/java/interview-guide-master/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 2 executed, 2 up-to-date

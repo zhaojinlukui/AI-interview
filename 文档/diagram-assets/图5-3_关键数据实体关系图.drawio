@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.7.17">
+  <diagram name="关键数据实体关系图">
+    <mxGraphModel dx="1460" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="500" value="resumes&#xa;PK id&#xa;fileHash&#xa;originalFilename&#xa;analyzeStatus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="190" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="501" value="resume_analyses&#xa;PK id&#xa;FK resume_id&#xa;overallScore&#xa;summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="300" y="60" width="190" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="502" value="interview_sessions&#xa;PK id&#xa;FK resume_id&#xa;sessionId&#xa;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="300" y="240" width="190" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="503" value="interview_answers&#xa;PK id&#xa;FK session_id&#xa;questionIndex&#xa;score" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="560" y="250" width="190" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="504" value="knowledge_bases&#xa;PK id&#xa;fileHash&#xa;name&#xa;vectorStatus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="820" y="60" width="200" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="505" value="rag_chat_sessions&#xa;PK id&#xa;title&#xa;status&#xa;isPinned" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="60" width="200" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="506" value="rag_chat_messages&#xa;PK id&#xa;FK session_id&#xa;type&#xa;messageOrder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="250" width="200" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="507" value="voice_interview_sessions&#xa;PK id&#xa;resumeId&#xa;status&#xa;evaluateStatus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="560" y="430" width="210" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="508" value="voice_interview_messages&#xa;PK id&#xa;sessionId&#xa;messageType&#xa;sequenceNum" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="840" y="430" width="210" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="509" value="voice_interview_evaluations&#xa;PK id&#xa;sessionId(unique)&#xa;overallScore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="430" width="210" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="510" value="interview_schedule&#xa;PK id&#xa;companyName&#xa;position&#xa;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="420" width="210" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="511" value="rag_session_knowledge_bases&#xa;FK session_id&#xa;FK knowledge_base_id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7F7F7;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="840" y="250" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="520" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="500" target="501">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="521" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="500" target="502">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="522" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="502" target="503">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="523" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="505" target="506">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="524" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="504" target="511">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="525" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="505" target="511">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="526" value="1:n" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="507" target="508">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="527" value="1:1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="507" target="509">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="528" value="resumeId" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;dashed=1;fontColor=#222222;" edge="1" parent="1" source="500" target="507">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.7.17">
+  <diagram name="语音面试用例图">
+    <mxGraphModel dx="1460" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="650" value="求职者" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="90" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="651" value="创建语音会话" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="290" y="60" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="652" value="授权麦克风" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="290" y="160" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="653" value="实时语音作答" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="550" y="60" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="654" value="接收字幕与语音" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="550" y="160" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="655" value="暂停 / 恢复会话" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="550" y="260" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="656" value="结束并查看评估" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="550" y="360" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="657" value="语音与模型服务" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#FFFFFF;strokeColor=#444444;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="850" y="190" width="90" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="660" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="650" target="651">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="661" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="650" target="652">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="662" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="650" target="653">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="663" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="650" target="654">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="664" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="650" target="655">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="665" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="650" target="656">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="666" value="包含" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;dashed=1;fontColor=#222222;" edge="1" parent="1" source="653" target="654">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="667" value="扩展" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;dashed=1;fontColor=#222222;" edge="1" parent="1" source="656" target="655">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="668" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="657" target="653">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="669" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;" edge="1" parent="1" source="657" target="654">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

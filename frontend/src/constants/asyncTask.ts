@@ -1,0 +1,1 @@
+export const ASYNC_TASK_POLL_INTERVAL_MS = 2000;

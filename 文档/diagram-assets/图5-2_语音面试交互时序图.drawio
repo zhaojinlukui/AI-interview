@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.7.17">
+  <diagram name="语音面试交互时序图">
+    <mxGraphModel dx="1460" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="400" value="浏览器前端" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#444444;fontColor=#111111;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="120" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="401" value="WebSocket 处理器" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#444444;fontColor=#111111;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="300" y="40" width="120" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="402" value="Qwen ASR" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#444444;fontColor=#111111;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="540" y="40" width="120" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="403" value="LLM 服务" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#444444;fontColor=#111111;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="780" y="40" width="120" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="404" value="Qwen TTS" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#444444;fontColor=#111111;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="40" width="120" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="405" value="评估任务" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#444444;fontColor=#111111;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="40" width="120" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="420" value="建立会话" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="400" target="401">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="421" value="发送音频片段" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="400" target="401">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="422" value="转发音频 / 开始识别" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="401" target="402">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="423" value="返回字幕文本" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="402" target="401">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="424" value="提交用户文本" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="401" target="403">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="425" value="生成问题 / 回复" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="403" target="401">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="426" value="提交 TTS 文本" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="401" target="404">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="427" value="返回音频分片" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="404" target="401">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="428" value="推送字幕 / 音频" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#444444;fontColor=#222222;endArrow=block;" edge="1" parent="1" source="401" target="400">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="429" value="结束会话" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;dashed=1;fontColor=#222222;" edge="1" parent="1" source="400" target="401">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="430" value="异步触发评估" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;dashed=1;fontColor=#222222;" edge="1" parent="1" source="401" target="405">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="431" value="轮询查看评估结果" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#666666;dashed=1;fontColor=#222222;" edge="1" parent="1" source="405" target="400">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
