@@ -130,7 +130,7 @@ export const ScheduleCalendar: React.FC<ScheduleCalendarProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-slate-200/50 dark:border-slate-700/50 p-6 shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50"
+      className="bg-white dark:bg-slate-900/50 backdrop-blur-xl rounded-xl border border-slate-200/50 dark:border-slate-700/50 p-2.5 shadow-lg shadow-slate-200/40 dark:shadow-slate-900/40"
     >
       <DnDCalendar
           localizer={localizer}
@@ -145,7 +145,7 @@ export const ScheduleCalendar: React.FC<ScheduleCalendarProps> = ({
           max={finalMaxTime}
           step={30}
           timeslots={2}
-          style={{ height: 800 }}
+          style={{ height: 'clamp(500px, calc(100vh - 165px), 780px)' }}
           eventPropGetter={eventStyleGetter}
           components={{
             event: InterviewEvent as any,
@@ -169,6 +169,8 @@ export const ScheduleCalendar: React.FC<ScheduleCalendarProps> = ({
           }}
           onEventDrop={onEventDrop}
           onEventResize={onEventResize}
+          draggableAccessor={(event: any) => event.status === 'PENDING'}
+          resizableAccessor={(event: any) => event.status === 'PENDING'}
           resizable
           selectable
         />

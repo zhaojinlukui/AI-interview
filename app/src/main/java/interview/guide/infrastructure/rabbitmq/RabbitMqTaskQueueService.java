@@ -23,7 +23,6 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
-import org.springframework.data.redis.listener.Topic;
 import org.springframework.stereotype.Service;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
@@ -68,8 +67,6 @@ public class RabbitMqTaskQueueService {
      *
      * 生成唯一消息ID，将消息内容序列化为JSON后发送到指定路由键。
      * 消息设置为持久化模式，防止服务器重启丢失。
-     *
-     * @return 生成的消息ID
      */
     public String sendTask(String routingKey, Map<String, String> message, int maxLen) {
         // 生成唯一的消息ID
@@ -95,13 +92,13 @@ public class RabbitMqTaskQueueService {
                     new Message(body.getBytes(StandardCharsets.UTF_8), properties)
             );
 
-            log.debug("Sent RabbitMQ async task: routingKey={}, messageId={}, maxLen={}",
+            log.debug("已发送RabbitMQ异步任务: routingKey={}, messageId={}, maxLen={}",
                     routingKey, messageId, maxLen);
             return messageId;
         } catch (Exception e) {
-            log.error("Failed to send RabbitMQ async task: routingKey={}, messageId={}",
+            log.error("发送RabbitMQ异步任务失败: routingKey={}, messageId={}",
                     routingKey, messageId, e);
-            throw new IllegalStateException("Failed to send RabbitMQ async task", e);
+            throw new IllegalStateException("发送RabbitMQ异步任务失败", e);
         }
     }
 
@@ -109,8 +106,6 @@ public class RabbitMqTaskQueueService {
      * 启动消费者监听器
      *
      * 创建并启动一个消息监听容器，开始消费指定队列的消息。
-     *
-     * @return 消息监听容器，可用于后续停止消费者
      */
     public SimpleMessageListenerContainer startConsumer(
             String routingKey,
@@ -137,8 +132,6 @@ public class RabbitMqTaskQueueService {
      * - 手动确认模式：需要消费者显式确认消息
      * - 并发消费者：支持多线程处理消息
      * - 预取计数：控制每个消费者一次能获取多少条消息
-     *
-     * @return 配置好的消息监听容器（未启动）
      */
     SimpleMessageListenerContainer createConsumerContainer(
             String routingKey,
@@ -168,9 +161,7 @@ public class RabbitMqTaskQueueService {
 
         // 设置消费者标签策略，用于在管理界面中区分不同的消费者
         AtomicInteger tagSequence = new AtomicInteger();
-        container.setConsumerTagStrategy(queue ->
-                consumerName + "-" + tagSequence.incrementAndGet()
-        );
+        container.setConsumerTagStrategy(queue -> consumerName + "-" + tagSequence.incrementAndGet());
 
         // 设置消息监听器，处理接收到的消息
         container.setMessageListener((ChannelAwareMessageListener) (message, channel) ->
@@ -178,7 +169,7 @@ public class RabbitMqTaskQueueService {
         );
 
         log.info(
-                "RabbitMQ async consumer configured: queue={}, consumerName={}, "
+                "RabbitMQ异步消费者已配置: queue={}, consumerName={}, "
                         + "concurrentConsumers={}, maxConcurrentConsumers={}, prefetchCount={}",
                 queueName,
                 consumerName,
@@ -220,7 +211,7 @@ public class RabbitMqTaskQueueService {
             processor.process(messageId, data);
         } catch (Exception e) {
             // 记录处理失败日志，但不重新抛出异常
-            log.error("RabbitMQ async task processing failed unexpectedly: queue={}, messageId={}",
+            log.error("RabbitMQ异步任务处理异常失败: queue={}, messageId={}",
                     queueName, messageId, e);
         } finally {
             // 无论处理成功或失败，都确认消息，避免重复消费
@@ -259,7 +250,7 @@ public class RabbitMqTaskQueueService {
                 .with(routingKey);
         amqpAdmin.declareBinding(binding);
 
-        log.info("RabbitMQ async queue is ready: exchange={}, queue={}, routingKey={}",
+        log.info("RabbitMQ异步队列已就绪: exchange={}, queue={}, routingKey={}",
                 AsyncTaskStreamConstants.RABBITMQ_EXCHANGE_NAME, queueName, routingKey);
     }
 

@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import { Calendar } from 'lucide-react';
 import { useInterviewSchedule } from '../hooks/useInterviewSchedule';
-import { ScheduleHeader } from '../components/interviewschedule/ScheduleHeader';
+import { ScheduleHeader, type InterviewStatusFilter } from '../components/interviewschedule/ScheduleHeader';
 import { ScheduleCalendar } from '../components/interviewschedule/ScheduleCalendar';
 import { ScheduleList } from '../components/interviewschedule/ScheduleList';
 import { InterviewFormModal } from '../components/interviewschedule/InterviewFormModal';
@@ -23,9 +23,11 @@ export const InterviewSchedulePage: React.FC = () => {
     updateInterview,
     deleteInterview,
     updateStatus,
+    fetchInterviews,
   } = useInterviewSchedule();
 
   const [view, setView] = useState<'day' | 'week' | 'month' | 'list'>('week');
+  const [statusFilter, setStatusFilter] = useState<InterviewStatusFilter>('ALL');
   const [date, setDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
@@ -55,14 +57,21 @@ export const InterviewSchedulePage: React.FC = () => {
   const handleConfirmDelete = useCallback(async () => {
     if (interviewToDelete) {
       await deleteInterview(interviewToDelete);
+      await fetchInterviews(statusFilter === 'ALL' ? undefined : { status: statusFilter });
       setInterviewToDelete(null);
     }
     setIsDeleteConfirmOpen(false);
-  }, [interviewToDelete, deleteInterview]);
+  }, [deleteInterview, fetchInterviews, interviewToDelete, statusFilter]);
 
   const handleStatusChange = useCallback(async (id: number, status: InterviewStatus) => {
     await updateStatus(id, status);
-  }, [updateStatus]);
+    await fetchInterviews(statusFilter === 'ALL' ? undefined : { status: statusFilter });
+  }, [fetchInterviews, statusFilter, updateStatus]);
+
+  const handleStatusFilterChange = useCallback(async (status: InterviewStatusFilter) => {
+    setStatusFilter(status);
+    await fetchInterviews(status === 'ALL' ? undefined : { status });
+  }, [fetchInterviews]);
 
   const handleEventDrop = useCallback(async (data: { event: any; start: Date | string; end: Date | string }) => {
     // 拖拽后更新面试时间
@@ -80,12 +89,13 @@ export const InterviewSchedulePage: React.FC = () => {
           interviewer: interview.interviewer,
           notes: interview.notes,
         });
+        await fetchInterviews(statusFilter === 'ALL' ? undefined : { status: statusFilter });
       } catch (error) {
         console.error('Failed to update interview time:', error);
         alert('更新面试时间失败，请重试');
       }
     }
-  }, [interviews, updateInterview]);
+  }, [fetchInterviews, interviews, statusFilter, updateInterview]);
 
   const handleEventResize = useCallback(async (data: { event: any; start: Date | string; end: Date | string }) => {
     // 调整大小后更新面试时长
@@ -103,12 +113,13 @@ export const InterviewSchedulePage: React.FC = () => {
           interviewer: interview.interviewer,
           notes: interview.notes,
         });
+        await fetchInterviews(statusFilter === 'ALL' ? undefined : { status: statusFilter });
       } catch (error) {
         console.error('Failed to update interview duration:', error);
         alert('更新面试时长失败，请重试');
       }
     }
-  }, [interviews, updateInterview]);
+  }, [fetchInterviews, interviews, statusFilter, updateInterview]);
 
   const handleFormSubmit = useCallback(async (data: InterviewFormData) => {
     if (modalMode === 'create') {
@@ -116,9 +127,10 @@ export const InterviewSchedulePage: React.FC = () => {
     } else if (selectedInterview) {
       await updateInterview(selectedInterview.id, data);
     }
+    await fetchInterviews(statusFilter === 'ALL' ? undefined : { status: statusFilter });
     setIsModalOpen(false);
     setSelectedInterview(null);
-  }, [modalMode, selectedInterview, createInterview, updateInterview]);
+  }, [modalMode, selectedInterview, createInterview, updateInterview, fetchInterviews, statusFilter]);
 
   // 已移除事件拖放功能，当前 react-big-calendar 版本不支持拖拽
 
@@ -138,9 +150,10 @@ export const InterviewSchedulePage: React.FC = () => {
         });
       }
     }
+    await fetchInterviews(statusFilter === 'ALL' ? undefined : { status: statusFilter });
     setPendingChanges(new Map());
     setIsConfirmOpen(false);
-  }, [pendingChanges, interviews, updateInterview]);
+  }, [fetchInterviews, interviews, pendingChanges, statusFilter, updateInterview]);
 
   const handleCancelChanges = useCallback(() => {
     setPendingChanges(new Map());
@@ -164,8 +177,8 @@ export const InterviewSchedulePage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="flex justify-between items-start mb-8 flex-wrap gap-6">
+    <div className="max-w-7xl mx-auto px-4 py-3 lg:px-5 lg:py-4">
+      <div className="flex justify-between items-start mb-4 flex-wrap gap-3">
         <div>
           <motion.h1
             className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3"
@@ -192,6 +205,8 @@ export const InterviewSchedulePage: React.FC = () => {
         date={date}
         onDateChange={setDate}
         onAddClick={handleAddClick}
+        statusFilter={statusFilter}
+        onStatusFilterChange={handleStatusFilterChange}
       />
 
       {view === 'list' ? (

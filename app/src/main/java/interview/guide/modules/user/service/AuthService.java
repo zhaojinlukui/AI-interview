@@ -17,6 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 用户注册、登录和当前用户查询服务
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -26,6 +29,9 @@ public class AuthService {
     private final JwtService jwtService;
     private final UserMapper userMapper;
 
+    /**
+     * 注册普通用户并返回登录令牌
+     */
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         String username = normalizeUsername(request.username());
@@ -44,6 +50,9 @@ public class AuthService {
         return buildAuthResponse(user);
     }
 
+    /**
+     * 校验账号密码并返回登录令牌
+     */
     @Transactional
     public AuthResponse login(LoginRequest request) {
         UserEntity user = userRepository.findByUsernameIgnoreCase(normalizeUsername(request.username()))
@@ -62,6 +71,9 @@ public class AuthService {
         return buildAuthResponse(user);
     }
 
+    /**
+     * 获取当前登录用户信息
+     */
     public AuthUserDTO getCurrentUser() {
         Long userId = Long.valueOf(CurrentUserContext.getRequiredUserId());
         UserEntity user = userRepository.findById(userId)
@@ -69,6 +81,9 @@ public class AuthService {
         return userMapper.toAuthUserDTO(user);
     }
 
+    /**
+     * 根据用户实体生成认证响应
+     */
     private AuthResponse buildAuthResponse(UserEntity user) {
         TokenResult token = jwtService.createToken(user);
         return new AuthResponse(
@@ -79,10 +94,16 @@ public class AuthService {
         );
     }
 
+    /**
+     * 统一清理用户名输入
+     */
     private String normalizeUsername(String username) {
         return username == null ? "" : username.trim();
     }
 
+    /**
+     * 未填写昵称时使用用户名作为默认昵称
+     */
     private String resolveDisplayName(String displayName, String username) {
         return displayName == null || displayName.isBlank() ? username : displayName.trim();
     }

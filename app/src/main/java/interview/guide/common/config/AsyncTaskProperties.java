@@ -20,8 +20,7 @@ public class AsyncTaskProperties {
 
     public int rabbitMqMaxConcurrentConsumers() {
         int concurrentConsumers = rabbitMqConcurrentConsumers();
-        int maxConcurrentConsumers =
-                positiveOrDefault(rabbitmq.getMaxConcurrentConsumers(), concurrentConsumers);
+        int maxConcurrentConsumers = positiveOrDefault(rabbitmq.getMaxConcurrentConsumers(), concurrentConsumers);
         return Math.max(concurrentConsumers, maxConcurrentConsumers);
     }
 
@@ -35,7 +34,6 @@ public class AsyncTaskProperties {
 
     @Data
     public static class RabbitMqConfig {
-
         private int concurrentConsumers = DEFAULT_CONCURRENT_CONSUMERS;
         private int maxConcurrentConsumers = DEFAULT_CONCURRENT_CONSUMERS;
         private int prefetchCount = DEFAULT_PREFETCH_COUNT;

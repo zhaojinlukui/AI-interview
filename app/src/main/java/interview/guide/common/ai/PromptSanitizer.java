@@ -10,10 +10,10 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * Prompt 注入净化工具。
+ * Prompt 注入净化工具
  * <p>
- * 仅用于 4 个严重风险的直接拼接点（裸拼接，无模板包裹）。
- * 模板插值点有 Layer 2 的系统提示词保护，不需要额外净化。
+ * 仅用于 4 个严重风险的直接拼接点（裸拼接，无模板包裹）
+ * 模板插值点有 Layer 2 的系统提示词保护，不需要额外净化
  */
 @Component
 @RequiredArgsConstructor
@@ -52,8 +52,8 @@ public class PromptSanitizer {
     );
 
     /**
-     * 清洗用户文本，替换危险模式为中性占位符。
-     * 受 {@code app.ai.advisors.promptSanitizerEnabled} 配置控制。
+     * 清洗用户文本，替换危险模式为中性占位符
+     * 受 {@code app.ai.advisors.promptSanitizerEnabled} 配置控制
      */
     public String sanitize(String text) {
         if (text == null || text.isBlank()) {
@@ -92,9 +92,9 @@ public class PromptSanitizer {
     }
 
     /**
-     * 用不可预测的分隔符包裹用户文本。
+     * 用不可预测的分隔符包裹用户文本
      * 格式：{@code <data-boundary-{uuid片段}-{label}> ... </data-boundary-{uuid片段}-{label}>}
-     * UUID 片段使攻击者无法提前构造伪造分隔符。
+     * UUID 片段使攻击者无法提前构造伪造分隔符
      */
     public String wrapWithDelimiters(String label, String text) {
         String id = UUID.randomUUID().toString().substring(0, 8);
@@ -104,7 +104,7 @@ public class PromptSanitizer {
     }
 
     /**
-     * 检测注入尝试（仅日志告警，不阻断）。
+     * 检测注入尝试（仅日志告警，不阻断）
      */
     public boolean detectInjectionAttempt(String text) {
         if (text == null || text.isBlank()) {

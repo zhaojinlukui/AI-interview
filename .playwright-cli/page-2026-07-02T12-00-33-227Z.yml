@@ -1,0 +1,49 @@
+- main [ref=e5]:
+  - generic [ref=e6]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - img [ref=e11]
+        - generic [ref=e14]:
+          - generic [ref=e15]: AI Interview
+          - generic [ref=e16]: 智能面试平台
+      - generic [ref=e17]:
+        - heading "进入你的面试工作台" [level=1] [ref=e18]
+        - paragraph [ref=e19]: 简历、知识库、面试记录与系统管理统一收束在内部工作台中，登录后按账号权限进入对应空间。
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - img [ref=e23]
+          - generic [ref=e27]: 数据隔离
+          - generic [ref=e28]: 账号分区
+        - generic [ref=e29]:
+          - img [ref=e31]
+          - generic [ref=e43]: 管理端
+          - generic [ref=e44]: 用户与密码
+        - generic [ref=e45]:
+          - img [ref=e47]
+          - generic [ref=e50]: 登录方式
+          - generic [ref=e51]: 注册 / 登录
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e55]:
+          - paragraph [ref=e56]: Workspace Access
+          - heading "欢迎回来" [level=2] [ref=e57]
+          - paragraph [ref=e58]: 输入账号密码进入系统
+        - img [ref=e60]
+      - generic [ref=e63]:
+        - button "登录" [ref=e64]
+        - button "注册" [ref=e65]
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e68]: 用户名
+          - textbox "用户名" [ref=e69]:
+            - /placeholder: 请输入用户名
+        - generic [ref=e70]:
+          - generic [ref=e71]: 密码
+          - generic [ref=e72]:
+            - textbox "密码" [ref=e73]:
+              - /placeholder: 请输入密码
+            - button "显示密码" [ref=e74]:
+              - img [ref=e75]
+        - button "登录" [ref=e78]:
+          - generic [ref=e79]: 登录
+          - img [ref=e80]

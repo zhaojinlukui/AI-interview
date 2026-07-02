@@ -9,6 +9,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import org.springframework.stereotype.Service;
 
+/**
+ * 用户密码哈希与校验服务
+ */
 @Service
 public class PasswordService {
 
@@ -20,6 +23,9 @@ public class PasswordService {
 
     private final SecureRandom secureRandom = new SecureRandom();
 
+    /**
+     * 为明文密码生成带盐的 PBKDF2 哈希
+     */
     public String hash(String rawPassword) {
         byte[] salt = new byte[SALT_BYTES];
         secureRandom.nextBytes(salt);
@@ -33,6 +39,9 @@ public class PasswordService {
         );
     }
 
+    /**
+     * 校验明文密码是否匹配已编码的哈希值
+     */
     public boolean matches(String rawPassword, String encoded) {
         if (rawPassword == null || encoded == null || encoded.isBlank()) {
             return false;
@@ -52,6 +61,9 @@ public class PasswordService {
         }
     }
 
+    /**
+     * 执行 PBKDF2 哈希计算
+     */
     private byte[] hash(String rawPassword, byte[] salt, int iterations) {
         try {
             PBEKeySpec spec = new PBEKeySpec(

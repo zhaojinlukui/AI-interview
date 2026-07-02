@@ -37,6 +37,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 个人中心资料维护和统计数据服务
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -57,6 +60,9 @@ public class ProfileService {
     private final VoiceInterviewEvaluationRepository voiceEvaluationRepository;
     private final ObjectMapper objectMapper;
 
+    /**
+     * 修改当前用户昵称
+     */
     @Transactional
     public AuthUserDTO updateDisplayName(String displayName) {
         UserEntity user = getCurrentUserEntity();
@@ -65,6 +71,9 @@ public class ProfileService {
         return userMapper.toAuthUserDTO(user);
     }
 
+    /**
+     * 修改当前用户密码，并递增令牌版本
+     */
     @Transactional
     public void updatePassword(String currentPassword, String newPassword) {
         UserEntity user = getCurrentUserEntity();
@@ -76,6 +85,9 @@ public class ProfileService {
         userRepository.save(user);
     }
 
+    /**
+     * 查询当前用户的面试统计、成长趋势和薄弱项
+     */
     @Transactional(readOnly = true)
     public ProfileStatsResponse getStats() {
         String userId = CurrentUserContext.getRequiredUserId();
@@ -123,12 +135,18 @@ public class ProfileService {
         );
     }
 
+    /**
+     * 获取当前用户实体
+     */
     private UserEntity getCurrentUserEntity() {
         Long userId = Long.valueOf(CurrentUserContext.getRequiredUserId());
         return userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND, "用户不存在"));
     }
 
+    /**
+     * 批量加载语音面试评估结果
+     */
     private Map<Long, VoiceInterviewEvaluationEntity> loadVoiceEvaluations(
             List<VoiceInterviewSessionEntity> voiceSessions
     ) {
@@ -147,6 +165,9 @@ public class ProfileService {
                 );
     }
 
+    /**
+     * 构建指定周期与上一周期的面试数量和平均分对比
+     */
     private PeriodMetricDTO buildPeriodMetric(
             int days,
             List<InterviewOccurrence> occurrences,
@@ -176,6 +197,9 @@ public class ProfileService {
         );
     }
 
+    /**
+     * 构建最近 30 天的每日面试趋势
+     */
     private List<GrowthTrendPointDTO> buildGrowthTrend(
             List<InterviewOccurrence> occurrences,
             List<ScoreRecord> scores,
@@ -200,6 +224,9 @@ public class ProfileService {
         return points;
     }
 
+    /**
+     * 汇总薄弱项并按平均分从低到高取前几项
+     */
     private List<WeaknessTrendDTO> buildWeaknessTrend(
             List<CategoryScoreRecord> records,
             LocalDate today,
@@ -235,6 +262,9 @@ public class ProfileService {
                 .toList();
     }
 
+    /**
+     * 合并文本面试和语音面试中的分类评分记录
+     */
     private List<CategoryScoreRecord> loadCategoryScores(
             String userId,
             LocalDateTime earliestStart,
@@ -265,6 +295,9 @@ public class ProfileService {
         return records;
     }
 
+    /**
+     * 从语音面试评估 JSON 中解析每题分类评分
+     */
     private List<CategoryScoreRecord> parseVoiceCategoryScores(
             VoiceInterviewEvaluationEntity evaluation,
             LocalDateTime createdAt
@@ -292,6 +325,9 @@ public class ProfileService {
         }
     }
 
+    /**
+     * 按分类聚合指定时间范围内的分数
+     */
     private Map<String, ScoreBucket> aggregateCategoryScores(
             List<CategoryScoreRecord> records,
             LocalDateTime start,
@@ -308,6 +344,9 @@ public class ProfileService {
         return buckets;
     }
 
+    /**
+     * 统计指定时间范围内的面试次数
+     */
     private long countOccurrences(
             List<InterviewOccurrence> occurrences,
             LocalDateTime start,
@@ -318,6 +357,9 @@ public class ProfileService {
                 .count();
     }
 
+    /**
+     * 计算指定时间范围内的平均分
+     */
     private Double averageScore(List<ScoreRecord> scores, LocalDateTime start, LocalDateTime end) {
         List<ScoreRecord> filtered = scores.stream()
                 .filter(score -> inRange(score.recordedAt(), start, end))
@@ -332,10 +374,16 @@ public class ProfileService {
         return round(average);
     }
 
+    /**
+     * 判断时间是否落在左闭右开的范围内
+     */
     private boolean inRange(LocalDateTime value, LocalDateTime start, LocalDateTime end) {
         return value != null && !value.isBefore(start) && value.isBefore(end);
     }
 
+    /**
+     * 归一化分类名称，追问题归并到原始分类
+     */
     static String normalizeCategory(String category) {
         if (category == null || category.isBlank()) {
             return DEFAULT_WEAKNESS_ITEM;
@@ -349,6 +397,9 @@ public class ProfileService {
         return baseCategory.isBlank() ? DEFAULT_WEAKNESS_ITEM : baseCategory;
     }
 
+    /**
+     * 保留一位小数
+     */
     private Double round(double value) {
         return Math.round(value * 10.0) / 10.0;
     }
@@ -362,6 +413,9 @@ public class ProfileService {
     private record CategoryScoreRecord(LocalDateTime recordedAt, String category, int score) {
     }
 
+    /**
+     * 分类分数聚合桶
+     */
     private static class ScoreBucket {
 
         private long count;

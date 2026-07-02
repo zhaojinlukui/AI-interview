@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 面试方向管理控制器。
+ * 面试方向管理控制器
  */
 @RestController
 @RequestMapping("/api/interview/skills")
@@ -23,22 +23,13 @@ public class InterviewSkillController {
 
     private final InterviewSkillService skillService;
 
-    /**
-     * 查询所有面试方向。
-     *
-     * @return 面试方向列表
-     */
+    // 查询所有面试方向
     @GetMapping
     public Result<List<InterviewSkillService.SkillDTO>> listSkills() {
         return Result.success(skillService.getAllSkills());
     }
 
-    /**
-     * 解析岗位描述文本。
-     *
-     * @param request 岗位描述解析请求
-     * @return 匹配的面试方向分类
-     */
+    // 解析岗位描述文本
     @PostMapping("/parse-jd")
     @RateLimit(dimension = RateLimit.Dimension.IP, count = 5)
     public Result<List<InterviewSkillService.CategoryDTO>> parseJd(
@@ -47,10 +38,6 @@ public class InterviewSkillController {
         return Result.success(skillService.parseJd(request.jdText()));
     }
 
-    /**
-     * 岗位描述解析请求体。
-     *
-     * @param jdText 岗位描述文本
-     */
+    // 岗位描述解析请求体
     public record ParseJdRequest(@NotBlank String jdText) {}
 }

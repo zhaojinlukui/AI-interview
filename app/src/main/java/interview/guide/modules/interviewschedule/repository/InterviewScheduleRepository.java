@@ -14,8 +14,6 @@ import java.util.Optional;
 
 @Repository
 public interface InterviewScheduleRepository extends JpaRepository<InterviewScheduleEntity, Long> {
-    List<InterviewScheduleEntity> findByStatusAndInterviewTimeBefore(InterviewStatus status, LocalDateTime time);
-
     List<InterviewScheduleEntity> findByUserIdAndStatus(String userId, InterviewStatus status);
 
     List<InterviewScheduleEntity> findByUserIdAndInterviewTimeBetween(

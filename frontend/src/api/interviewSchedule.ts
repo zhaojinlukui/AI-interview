@@ -10,8 +10,8 @@ import type {
 } from '../types/interviewSchedule';
 
 export const interviewScheduleApi = {
-  parse: async (rawText: string, source?: 'feishu' | 'tencent' | 'zoom' | 'other'): Promise<ParseResponse> => {
-    const payload: ParseRequest = { rawText, source };
+  parse: async (rawText: string): Promise<ParseResponse> => {
+    const payload: ParseRequest = { rawText };
     return await request.post<ParseResponse>('/api/interview-schedule/parse', payload);
   },
 

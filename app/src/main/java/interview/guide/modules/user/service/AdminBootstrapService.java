@@ -15,6 +15,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * 应用启动时初始化管理员账号并修复历史数据归属
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -37,6 +40,9 @@ public class AdminBootstrapService {
     private final JdbcTemplate jdbcTemplate;
     private final TransactionTemplate transactionTemplate;
 
+    /**
+     * 应用启动完成后初始化账号和兼容历史数据
+     */
     @EventListener(ApplicationReadyEvent.class)
     public void initializeAdminAndOwnership() {
         UserEntity admin = transactionTemplate.execute(status -> createOrUpdateAdmin());
@@ -51,6 +57,9 @@ public class AdminBootstrapService {
         dropLegacyGlobalHashConstraints();
     }
 
+    /**
+     * 创建或更新管理员账号
+     */
     private UserEntity createOrUpdateAdmin() {
         String username = authProperties.getAdmin().getUsername().trim();
         String password = authProperties.getAdmin().getPassword();
@@ -88,6 +97,9 @@ public class AdminBootstrapService {
         return admin;
     }
 
+    /**
+     * 创建或更新历史数据归属账号
+     */
     private UserEntity createOrUpdateLegacyOwner() {
         String username = authProperties.getLegacyOwner().getUsername().trim();
         String password = authProperties.getLegacyOwner().getPassword();
@@ -118,6 +130,9 @@ public class AdminBootstrapService {
         return owner;
     }
 
+    /**
+     * 校验启动账号的基础配置
+     */
     private void validateAccountConfig(String accountName, String username, String password) {
         if (username.isBlank()) {
             throw new BusinessException(ErrorCode.BAD_REQUEST, accountName + "用户名不能为空");
@@ -127,6 +142,9 @@ public class AdminBootstrapService {
         }
     }
 
+    /**
+     * 将旧版本遗留数据统一归属到历史数据账号
+     */
     private void assignLegacyDataToOwner(UserEntity owner, UserEntity admin) {
         String ownerUserId = owner.getId().toString();
         assignUnclaimedDataToOwner(ownerUserId);
@@ -135,6 +153,9 @@ public class AdminBootstrapService {
         assignUserDataToOwner(ownerUserId, admin);
     }
 
+    /**
+     * 修复没有明确归属的历史数据
+     */
     private void assignUnclaimedDataToOwner(String ownerUserId) {
         for (String table : USER_OWNED_TABLES) {
             updateIgnoringFailures(
@@ -146,6 +167,9 @@ public class AdminBootstrapService {
         }
     }
 
+    /**
+     * 修复使用字面量用户名作为归属的历史数据
+     */
     private void assignLiteralOwnerToOwner(String ownerUserId, String legacyOwner) {
         for (String table : USER_OWNED_TABLES) {
             updateIgnoringFailures(
@@ -156,6 +180,9 @@ public class AdminBootstrapService {
         }
     }
 
+    /**
+     * 修复误归属到指定用户的数据
+     */
     private void assignUserDataToOwner(String ownerUserId, UserEntity sourceUser) {
         String sourceUserId = sourceUser.getId().toString();
         if (ownerUserId.equals(sourceUserId)) {
@@ -170,6 +197,9 @@ public class AdminBootstrapService {
         }
     }
 
+    /**
+     * 删除旧版本全局文件哈希唯一约束
+     */
     private void dropLegacyGlobalHashConstraints() {
         executeIgnoringFailures("ALTER TABLE resumes DROP CONSTRAINT IF EXISTS resumes_file_hash_key");
         executeIgnoringFailures("ALTER TABLE resumes DROP CONSTRAINT IF EXISTS idx_resume_hash");
@@ -180,6 +210,9 @@ public class AdminBootstrapService {
         executeIgnoringFailures("DROP INDEX IF EXISTS idx_kb_hash");
     }
 
+    /**
+     * 执行历史数据修复 SQL，兼容表不存在或字段不存在的场景
+     */
     private void updateIgnoringFailures(String sql, Object... args) {
         try {
             int rows = jdbcTemplate.update(sql, args);
@@ -191,6 +224,9 @@ public class AdminBootstrapService {
         }
     }
 
+    /**
+     * 执行兼容性 schema 调整，失败时跳过
+     */
     private void executeIgnoringFailures(String sql) {
         try {
             jdbcTemplate.execute(sql);

@@ -15,33 +15,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 管理员用户管理控制器
+ * 提供管理员对用户的管理功能，包括查看用户列表、修改用户密码和显示名称
+ */
 @RestController
 @RequestMapping("/api/admin/users")
 @RequiredArgsConstructor
 public class AdminUserController {
 
-  private final AdminUserService adminUserService;
+    private final AdminUserService adminUserService;
 
-  @GetMapping
-  public Result<List<AdminUserDTO>> listUsers() {
-    return Result.success(adminUserService.listUsers());
-  }
+    // 获取所有用户列表
+    @GetMapping
+    public Result<List<AdminUserDTO>> listUsers() {
+        return Result.success(adminUserService.listUsers());
+    }
 
-  @PutMapping("/{id}/password")
-  public Result<Void> updatePassword(
-      @PathVariable Long id,
-      @Valid @RequestBody UpdateUserPasswordRequest request
-  ) {
-    adminUserService.updatePassword(id, request.newPassword());
-    return Result.success();
-  }
+    // 修改指定用户的密码
+    @PutMapping("/{id}/password")
+    public Result<Void> updatePassword(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateUserPasswordRequest request
+    ) {
+        adminUserService.updatePassword(id, request.newPassword());
+        return Result.success();
+    }
 
-  @PutMapping("/{id}/display-name")
-  public Result<Void> updateDisplayName(
-      @PathVariable Long id,
-      @Valid @RequestBody UpdateDisplayNameRequest request
-  ) {
-    adminUserService.updateDisplayName(id, request.displayName());
-    return Result.success();
-  }
+    // 修改指定用户的显示名称
+    @PutMapping("/{id}/display-name")
+    public Result<Void> updateDisplayName(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateDisplayNameRequest request
+    ) {
+        adminUserService.updateDisplayName(id, request.displayName());
+        return Result.success();
+    }
 }

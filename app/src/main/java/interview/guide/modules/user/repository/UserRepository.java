@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-  Optional<UserEntity> findByUsernameIgnoreCase(String username);
+    Optional<UserEntity> findByUsernameIgnoreCase(String username);
 
-  boolean existsByUsernameIgnoreCase(String username);
+    boolean existsByUsernameIgnoreCase(String username);
 
-  List<UserEntity> findAllByOrderByCreatedAtDesc();
+    List<UserEntity> findAllByOrderByCreatedAtDesc();
 }

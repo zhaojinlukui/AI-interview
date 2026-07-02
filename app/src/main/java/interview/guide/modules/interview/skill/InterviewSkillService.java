@@ -150,8 +150,8 @@ public class InterviewSkillService {
     }
 
     /**
-     * 从 JD 解析结果构建自定义 SkillDTO。
-     * 遍历 customCategories，尝试在 categoryRefIndex 中匹配参考文件。
+     * 从 JD 解析结果构建自定义 SkillDTO
+     * 遍历 customCategories，尝试在 categoryRefIndex 中匹配参考文件
      */
     public SkillDTO buildCustomSkill(List<CategoryDTO> customCategories, String jdText) {
         List<SkillCategoryDTO> categories = customCategories.stream()
@@ -342,7 +342,7 @@ public class InterviewSkillService {
     }
 
     /**
-     * 评估阶段参考基线：不限制题量分配，覆盖该 skill 下所有配置了 reference 的分类。
+     * 评估阶段参考基线：不限制题量分配，覆盖该 skill 下所有配置了 reference 的分类
      */
     public String buildEvaluationReferenceSection(String skillId) {
         SkillDTO skill = getSkill(skillId);
@@ -354,7 +354,7 @@ public class InterviewSkillService {
     }
 
     /**
-     * 安全版本的评估参考基线：skillId 为空或加载失败时返回空字符串，不抛异常。
+     * 安全版本的评估参考基线：skillId 为空或加载失败时返回空字符串，不抛异常
      */
     public String buildEvaluationReferenceSectionSafe(String skillId) {
         if (skillId == null || skillId.isBlank()) {
@@ -577,8 +577,8 @@ public class InterviewSkillService {
     }
 
     /**
-     * 清洗 category key：截断长度，非法字符替换为下划线，转大写。
-     * 首字符必须为字母，否则添加 "CAT_" 前缀。
+     * 清洗 category key：截断长度，非法字符替换为下划线，转大写
+     * 首字符必须为字母，否则添加 "CAT_" 前缀
      */
     private String sanitizeCategoryKey(String key) {
         if (key == null || key.isBlank()) {
@@ -600,7 +600,7 @@ public class InterviewSkillService {
     }
 
     /**
-     * 清洗 category label：截断长度，移除换行。
+     * 清洗 category label：截断长度，移除换行
      */
     private String sanitizeCategoryLabel(String label) {
         if (label == null || label.isBlank()) {

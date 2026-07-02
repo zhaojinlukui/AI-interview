@@ -14,17 +14,15 @@ import java.time.LocalDateTime;
 @Component
 @RequiredArgsConstructor
 public class ScheduleStatusUpdater {
-
     private final InterviewScheduleRepository repository;
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 */15 * * * ?")
     @Transactional
     public void updateExpiredInterviews() {
         int updated = repository.updateStatusByStatusAndInterviewTimeBefore(
-            InterviewStatus.CANCELLED, InterviewStatus.PENDING, LocalDateTime.now());
-
+                InterviewStatus.EXPIRED, InterviewStatus.PENDING, LocalDateTime.now());
         if (updated > 0) {
-            log.info("已将 {} 条过期面试标记为已取消", updated);
+            log.info("已将 {} 条过期且未面试的面试标记为已过期", updated);
         }
     }
 }

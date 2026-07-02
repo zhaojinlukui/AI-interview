@@ -19,29 +19,19 @@ public class FileValidationService {
     
     /**
      * 验证文件基本属性（是否为空、文件大小）
-     *
-     * @param file 上传的文件
-     * @param maxSizeBytes 最大文件大小（字节）
-     * @param fileTypeName 文件类型名称（用于错误消息，如"简历"、"知识库"）
      */
     public void validateFile(MultipartFile file, long maxSizeBytes, String fileTypeName) {
         if (file.isEmpty()) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, 
-                String.format("请选择要上传的%s文件", fileTypeName));
+            throw new BusinessException(ErrorCode.BAD_REQUEST, String.format("请选择要上传的%s文件", fileTypeName));
         }
-        
         if (file.getSize() > maxSizeBytes) {
             throw new BusinessException(ErrorCode.BAD_REQUEST,
-                String.format("%s文件大小超过限制，最大支持 %s", fileTypeName, formatFileSize(maxSizeBytes)));
+                    String.format("%s文件大小超过限制，最大支持 %s", fileTypeName, formatFileSize(maxSizeBytes)));
         }
     }
     
     /**
      * 验证文件类型（基于MIME类型）
-     *
-     * @param contentType 文件的MIME类型
-     * @param allowedTypes 允许的MIME类型列表（支持部分匹配，如"pdf"会匹配"application/pdf"）
-     * @param errorMessage 验证失败时的错误消息
      */
     public void validateContentTypeByList(String contentType, List<String> allowedTypes, String errorMessage) {
         if (!isAllowedType(contentType, allowedTypes)) {
@@ -52,12 +42,6 @@ public class FileValidationService {
     
     /**
      * 验证文件类型（基于MIME类型和文件扩展名）
-     *
-     * @param contentType 文件的MIME类型
-     * @param fileName 文件名（用于扩展名检查）
-     * @param mimeTypeChecker MIME类型检查器
-     * @param extensionChecker 文件扩展名检查器
-     * @param errorMessage 验证失败时的错误消息
      */
     public void validateContentType(String contentType, String fileName,
                                    Predicate<String> mimeTypeChecker,

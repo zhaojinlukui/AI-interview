@@ -96,7 +96,6 @@ export const InterviewFormModal: React.FC<InterviewFormModalProps> = ({
       setParseResult({
         success: false,
         data: null,
-        confidence: 0,
         parseMethod: 'ai',
         log: '解析失败,请手动输入',
       });
@@ -253,11 +252,6 @@ export const InterviewFormModal: React.FC<InterviewFormModalProps> = ({
               <span className="font-semibold text-lg">
                 {parseResult.success ? '解析成功' : '解析失败'}
               </span>
-              {parseResult.success && (
-                <span className="text-sm text-slate-600 dark:text-slate-400 ml-auto">
-                  置信度: <span className="font-semibold text-emerald-700 dark:text-emerald-300">{(parseResult.confidence * 100).toFixed(0)}%</span>
-                </span>
-              )}
             </div>
 
             {parseResult.success && parseResult.data && (

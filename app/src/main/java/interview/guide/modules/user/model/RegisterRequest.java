@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/**
+ * 用户注册请求
+ */
 public record RegisterRequest(
     @NotBlank(message = "用户名不能为空")
     String username,

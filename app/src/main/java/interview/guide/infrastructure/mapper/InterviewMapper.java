@@ -6,10 +6,15 @@ import interview.guide.modules.interview.model.InterviewHistoryItemDTO;
 import interview.guide.modules.interview.model.InterviewQuestionDTO;
 import interview.guide.modules.interview.model.InterviewReportDTO;
 import interview.guide.modules.interview.model.InterviewSessionEntity;
-import org.mapstruct.*;
-
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 
 /**
  * 面试相关的对象映射器
@@ -52,14 +57,60 @@ public interface InterviewMapper {
     );
 
     /**
+     * 将未回答的问题映射为空答案占位详情。
+     */
+    @Mapping(target = "questionIndex", source = "questionIndex")
+    @Mapping(target = "question", source = "question")
+    @Mapping(target = "category", source = "category", qualifiedByName = "normalizeCategory")
+    @Mapping(target = "userAnswer", ignore = true)
+    @Mapping(target = "score", source = "score", qualifiedByName = "nullScoreToZero")
+    @Mapping(target = "feedback", source = "feedback")
+    @Mapping(target = "referenceAnswer", ignore = true)
+    @Mapping(target = "keyPoints", ignore = true)
+    @Mapping(target = "answeredAt", ignore = true)
+    InterviewDetailDTO.AnswerDetailDTO toMissingAnswerDetailDTO(InterviewQuestionDTO question);
+
+    /**
      * 批量转换（需要在 Service 层处理 JSON）
      */
     default List<InterviewDetailDTO.AnswerDetailDTO> toAnswerDetailDTOList(
         List<InterviewAnswerEntity> entities,
         Function<InterviewAnswerEntity, List<String>> keyPointsExtractor
     ) {
-        return entities.stream()
+        List<InterviewAnswerEntity> safeEntities = entities != null ? entities : List.of();
+        return safeEntities.stream()
             .map(e -> toAnswerDetailDTO(e, keyPointsExtractor.apply(e)))
+            .toList();
+    }
+
+    /**
+     * 按题目列表组装完整答案详情，未回答题目使用空答案占位。
+     */
+    default List<InterviewDetailDTO.AnswerDetailDTO> toAnswerDetailDTOList(
+        List<InterviewQuestionDTO> allQuestions,
+        List<InterviewAnswerEntity> answers,
+        Function<InterviewAnswerEntity, List<String>> keyPointsExtractor
+    ) {
+        List<InterviewAnswerEntity> safeAnswers = answers != null ? answers : List.of();
+        if (allQuestions == null || allQuestions.isEmpty()) {
+            return toAnswerDetailDTOList(safeAnswers, keyPointsExtractor);
+        }
+
+        Map<Integer, InterviewAnswerEntity> answerMap = safeAnswers.stream()
+            .collect(Collectors.toMap(
+                InterviewAnswerEntity::getQuestionIndex,
+                answer -> answer,
+                (first, second) -> first
+            ));
+
+        return allQuestions.stream()
+            .map(question -> {
+                InterviewAnswerEntity answer = answerMap.get(question.questionIndex());
+                if (answer != null) {
+                    return toAnswerDetailDTO(answer, keyPointsExtractor.apply(answer));
+                }
+                return toMissingAnswerDetailDTO(question);
+            })
             .toList();
     }
 

@@ -117,22 +117,20 @@ public class AnalyzeStreamConsumer extends AbstractStreamConsumer<AnalyzeStreamC
         // 第一步：检查简历是否还存在
         if (!resumeRepository.existsById(resumeId)) {
             log.warn("简历已被删除，跳过分析任务: resumeId={}", resumeId);
-            return;  // 简历不存在，直接返回（消息会被确认，不会重试）
+            return;
         }
 
         // 第二步：调用 AI 服务进行简历分析
-        // gradingService.analyzeResume() 可能会调用外部 AI API
         ResumeAnalysisResponse analysis = gradingService.analyzeResume(payload.content());
 
         // 第三步：再次检查简历是否存在（分析过程可能耗时较长）
         ResumeEntity resume = resumeRepository.findById(resumeId).orElse(null);
         if (resume == null) {
             log.warn("简历在分析期间被删除，跳过保存结果: resumeId={}", resumeId);
-            return;  // 简历已被删除，不保存结果
+            return;
         }
 
         // 第四步：保存分析结果到数据库
-        // persistenceService.saveAnalysis() 会将评分、建议等信息保存到相关表
         persistenceService.saveAnalysis(resume, analysis);
     }
 

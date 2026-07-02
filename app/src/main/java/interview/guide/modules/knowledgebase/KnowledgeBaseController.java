@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * 知识库管理控制器。
+ * 知识库管理控制器
  */
 @RestController
 @RequiredArgsConstructor
@@ -38,13 +38,7 @@ public class KnowledgeBaseController {
     private final KnowledgeBaseListService listService;
     private final KnowledgeBaseDeleteService deleteService;
 
-    /**
-     * 查询知识库列表。
-     *
-     * @param sortBy 排序字段，可选
-     * @param vectorStatus 向量化状态，可选
-     * @return 知识库列表
-     */
+    // 查询知识库列表
     @GetMapping("/api/knowledgebase/list")
     public Result<List<KnowledgeBaseListItemDTO>> getAllKnowledgeBases(
             @RequestParam(value = "sortBy", required = false) String sortBy,
@@ -62,25 +56,14 @@ public class KnowledgeBaseController {
         return Result.success(listService.listKnowledgeBases(status, sortBy));
     }
 
-    /**
-     * 删除知识库。
-     *
-     * @param id 知识库 ID
-     * @return 删除结果
-     */
+    // 删除知识库
     @DeleteMapping("/api/knowledgebase/{id}")
     public Result<Void> deleteKnowledgeBase(@PathVariable Long id) {
         deleteService.deleteKnowledgeBase(id);
         return Result.success(null);
     }
 
-    /**
-     * 批量上传知识库文件。
-     *
-     * @param files 知识库文件列表
-     * @param names 知识库名称列表，可选
-     * @return 批量上传结果
-     */
+    // 批量上传知识库文件
     @PostMapping(
             value = "/api/knowledgebase/upload/batch",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -94,12 +77,7 @@ public class KnowledgeBaseController {
         return Result.success(uploadService.uploadKnowledgeBases(files, names));
     }
 
-    /**
-     * 下载知识库原始文件。
-     *
-     * @param id 知识库 ID
-     * @return 文件响应
-     */
+    // 下载知识库原始文件
     @GetMapping("/api/knowledgebase/{id}/download")
     public ResponseEntity<byte[]> downloadKnowledgeBase(@PathVariable Long id) {
         var entity = listService.getEntityForDownload(id);
@@ -122,33 +100,19 @@ public class KnowledgeBaseController {
                 .body(fileContent);
     }
 
-    /**
-     * 按关键字搜索知识库。
-     *
-     * @param keyword 搜索关键字
-     * @return 知识库列表
-     */
+    // 按关键字搜索知识库
     @GetMapping("/api/knowledgebase/search")
     public Result<List<KnowledgeBaseListItemDTO>> search(@RequestParam("keyword") String keyword) {
         return Result.success(listService.search(keyword));
     }
 
-    /**
-     * 获取知识库统计信息。
-     *
-     * @return 知识库统计信息
-     */
+    // 获取知识库统计信息
     @GetMapping("/api/knowledgebase/stats")
     public Result<KnowledgeBaseStatsDTO> getStatistics() {
         return Result.success(listService.getStatistics());
     }
 
-    /**
-     * 重新向量化指定知识库。
-     *
-     * @param id 知识库 ID
-     * @return 任务提交结果
-     */
+    // 重新向量化指定知识库
     @PostMapping("/api/knowledgebase/{id}/revectorize")
     @RateLimit(dimension = RateLimit.Dimension.GLOBAL, count = 2)
     @RateLimit(dimension = RateLimit.Dimension.IP, count = 2)

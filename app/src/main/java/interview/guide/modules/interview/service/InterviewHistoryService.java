@@ -1,8 +1,5 @@
 package interview.guide.modules.interview.service;
 
-import tools.jackson.core.JacksonException;
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
 import interview.guide.common.exception.BusinessException;
 import interview.guide.common.exception.ErrorCode;
 import interview.guide.infrastructure.export.PdfExportService;
@@ -11,152 +8,113 @@ import interview.guide.modules.interview.model.InterviewAnswerEntity;
 import interview.guide.modules.interview.model.InterviewDetailDTO;
 import interview.guide.modules.interview.model.InterviewQuestionDTO;
 import interview.guide.modules.interview.model.InterviewSessionEntity;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 /**
- * 面试历史服务
- * 获取面试会话详情和导出面试报告
+ * 面试历史记录服务
+ * 负责查询面试会话详情以及导出面试报告PDF
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class InterviewHistoryService {
 
-    private final InterviewPersistenceService interviewPersistenceService;
-    private final PdfExportService pdfExportService;
-    private final ObjectMapper objectMapper;
-    private final InterviewMapper interviewMapper;
+    private final InterviewPersistenceService interviewPersistenceService; // 面试数据持久化服务
+    private final PdfExportService pdfExportService; // PDF导出服务
+    private final ObjectMapper objectMapper; // JSON序列化/反序列化工具
+    private final InterviewMapper interviewMapper; // 面试数据转换器
 
     /**
      * 获取面试会话详情
+     * 从数据库中查询指定会话，解析JSON字段并组装为完整的详情DTO
      */
     public InterviewDetailDTO getInterviewDetail(String sessionId) {
+        // 查询当前用户的面试会话，若不存在则抛出业务异常
         Optional<InterviewSessionEntity> sessionOpt =
-            interviewPersistenceService.findBySessionIdForCurrentUser(sessionId);
+                interviewPersistenceService.findBySessionIdForCurrentUser(sessionId);
         if (sessionOpt.isEmpty()) {
             throw new BusinessException(ErrorCode.INTERVIEW_SESSION_NOT_FOUND);
         }
 
         InterviewSessionEntity session = sessionOpt.get();
-
-        // 解析JSON字段
+        // 解析会话中存储的各类JSON字段
         List<Object> questions = parseJson(session.getQuestionsJson(), new TypeReference<>() {});
         List<String> strengths = parseJson(session.getStrengthsJson(), new TypeReference<>() {});
         List<String> improvements = parseJson(session.getImprovementsJson(), new TypeReference<>() {});
         List<Object> referenceAnswers = parseJson(session.getReferenceAnswersJson(), new TypeReference<>() {});
-
-        // 解析所有题目（用于构建完整的答案列表）
         List<InterviewQuestionDTO> allQuestions = parseJson(
-            session.getQuestionsJson(),
-                new TypeReference<>() {
-                }
+                session.getQuestionsJson(),
+                new TypeReference<>() {}
         );
 
-        // 构建答案详情列表（包含所有题目，未回答的也要显示）
-        List<InterviewDetailDTO.AnswerDetailDTO> answerList = buildAnswerDetailList(
-            allQuestions,
-            session.getAnswers()
-        );
-
-        // 使用 MapStruct 组装最终 DTO
+        // 将会话实体和解析后的数据组装为详情DTO并返回
         return interviewMapper.toDetailDTO(
-            session,
-            questions,
-            strengths,
-            improvements,
-            referenceAnswers,
-            answerList
+                session,
+                questions,
+                strengths,
+                improvements,
+                referenceAnswers,
+                interviewMapper.toAnswerDetailDTOList(
+                        allQuestions,
+                        session.getAnswers(),
+                        this::extractKeyPoints
+                )
         );
     }
 
     /**
-     * 构建答案详情列表（包含所有题目）
-     * 对于用户已回答的题目使用答案数据，对于未回答的题目构建空答案
-     */
-    private List<InterviewDetailDTO.AnswerDetailDTO> buildAnswerDetailList(
-        List<InterviewQuestionDTO> allQuestions,
-        List<InterviewAnswerEntity> answers
-    ) {
-        if (allQuestions == null || allQuestions.isEmpty()) {
-            // 如果没有题目数据，回退到仅显示已回答的题目
-            return interviewMapper.toAnswerDetailDTOList(answers, this::extractKeyPoints);
-        }
-
-        // 将答案按 questionIndex 索引
-        java.util.Map<Integer, InterviewAnswerEntity> answerMap = answers.stream()
-            .collect(java.util.stream.Collectors.toMap(
-                InterviewAnswerEntity::getQuestionIndex,
-                a -> a,
-                (a1, a2) -> a1  // 如果有重复，取第一个
-            ));
-
-        // 遍历所有题目，构建完整的答案详情列表
-        return allQuestions.stream()
-            .map(question -> {
-                InterviewAnswerEntity answer = answerMap.get(question.questionIndex());
-                if (answer != null) {
-                    // 用户已回答，使用答案数据
-                    return interviewMapper.toAnswerDetailDTO(answer, extractKeyPoints(answer));
-                } else {
-                    // 用户未回答，构建空答案
-                    return new InterviewDetailDTO.AnswerDetailDTO(
-                        question.questionIndex(),
-                        question.question(),
-                        question.category(),
-                        null,  // userAnswer
-                        question.score() != null ? question.score() : 0,  // score
-                        question.feedback(),  // feedback
-                        null,  // referenceAnswer
-                        null,  // keyPoints
-                        null   // answeredAt
-                    );
-                }
-            })
-            .toList();
-    }
-
-    /**
-     * 从 JSON 提取 keyPoints
+     * 提取回答中的关键点
+     * 将回答实体中存储的关键点JSON解析为字符串列表
      */
     private List<String> extractKeyPoints(InterviewAnswerEntity answer) {
         return parseJson(answer.getKeyPointsJson(), new TypeReference<>() {});
     }
 
     /**
-     * 通用 JSON 解析方法
+     * 安全解析JSON字符串
+     * 将JSON字符串反序列化为指定类型，若字符串为空或解析失败则返回null
      */
     private <T> T parseJson(String json, TypeReference<T> typeRef) {
+        // JSON字符串为空时直接返回null
         if (json == null) {
             return null;
         }
         try {
+            // 使用Jackson将JSON字符串反序列化为目标类型
             return objectMapper.readValue(json, typeRef);
         } catch (JacksonException e) {
-            log.error("解析 JSON 失败", e);
+            // 解析失败时记录错误日志并返回null，避免中断主流程
+            log.error("解析面试历史 JSON 失败", e);
             return null;
         }
     }
 
     /**
-     * 导出面试报告为PDF
+     * 导出面试报告PDF
+     * 根据会话ID生成面试报告的PDF文件并返回字节数组
      */
     public byte[] exportInterviewPdf(String sessionId) {
+        // 查询当前用户的面试会话，若不存在则抛出业务异常
         Optional<InterviewSessionEntity> sessionOpt =
-            interviewPersistenceService.findBySessionIdForCurrentUser(sessionId);
+                interviewPersistenceService.findBySessionIdForCurrentUser(sessionId);
         if (sessionOpt.isEmpty()) {
             throw new BusinessException(ErrorCode.INTERVIEW_SESSION_NOT_FOUND);
         }
 
         InterviewSessionEntity session = sessionOpt.get();
         try {
+            // 调用PDF导出服务生成面试报告
             return pdfExportService.exportInterviewReport(session);
         } catch (Exception e) {
-            log.error("导出PDF失败: sessionId={}", sessionId, e);
+            // 导出失败时记录日志并抛出业务异常
+            log.error("导出面试 PDF 失败: sessionId={}", sessionId, e);
             throw new BusinessException(ErrorCode.EXPORT_PDF_FAILED, "导出PDF失败: " + e.getMessage());
         }
     }

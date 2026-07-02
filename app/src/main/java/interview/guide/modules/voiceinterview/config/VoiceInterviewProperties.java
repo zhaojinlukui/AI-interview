@@ -25,31 +25,31 @@ public class VoiceInterviewProperties {
     private boolean openingAudioWarmupEnabled = false;
 
     /**
-     * 语音面试单轮面试官回复最大字符数（超出会截断到句子边界）。
+     * 语音面试单轮面试官回复最大字符数（超出会截断到句子边界）
      */
     private int aiQuestionMaxChars = 120;
     /**
-     * 是否启用 LLM 流式文本下发（先文本后音频），用于降低首字等待时延。
+     * 是否启用 LLM 流式文本下发（先文本后音频），用于降低首字等待时延
      */
     private boolean llmStreamingEnabled = true;
     /**
-     * 流式文本最小推送间隔（毫秒），避免 WebSocket 过于频繁刷屏。
+     * 流式文本最小推送间隔（毫秒），避免 WebSocket 过于频繁刷屏
      */
     private int aiStreamPushIntervalMs = 180;
     /**
-     * 流式文本推送最小增量字符数。
+     * 流式文本推送最小增量字符数
      */
     private int aiStreamMinCharsDelta = 12;
     /**
-     * 每会话允许的并发 TTS 合成调用上限（防止 DashScope 连接限制）。
+     * 每会话允许的并发 TTS 合成调用上限（防止 DashScope 连接限制）
      */
     private int maxConcurrentTtsPerSession = 3;
     /**
-     * 是否启用分块音频推送（每句 TTS 完成后立即推送，不等全部完成）。
+     * 是否启用分块音频推送（每句 TTS 完成后立即推送，不等全部完成）
      */
     private boolean chunkedAudioEnabled = true;
     /**
-     * 单句 TTS 合成超时（秒），超时后跳过该句，用已成功的句子拼合音频。
+     * 单句 TTS 合成超时（秒），超时后跳过该句，用已成功的句子拼合音频
      */
     private int ttsTimeoutSeconds = 8;
 

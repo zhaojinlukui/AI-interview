@@ -105,7 +105,7 @@ public class VoiceInterviewService {
     }
 
     /**
-     * 结束面试会话并触发异步评估。
+     * 结束面试会话并触发异步评估
      *
      * @param sessionId 会话 ID 字符串
      */
@@ -122,6 +122,7 @@ public class VoiceInterviewService {
         endSession(session);
     }
 
+    // 结束面试会话
     private void endSession(VoiceInterviewSessionEntity session) {
         session.setEndTime(LocalDateTime.now());
         session.setCurrentPhase(VoiceInterviewSessionEntity.InterviewPhase.COMPLETED);

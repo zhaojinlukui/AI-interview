@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "app.resume.analysis")
 public class ResumeAnalysisProperties {
-
     private String systemPromptPath = "classpath:prompts/resume-analysis-system.st";
     private String userPromptPath = "classpath:prompts/resume-analysis-user.st";
 }
