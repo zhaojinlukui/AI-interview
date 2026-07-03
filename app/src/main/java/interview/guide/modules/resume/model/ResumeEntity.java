@@ -62,11 +62,6 @@ public class ResumeEntity {
     @Column(nullable = false)
     private LocalDateTime uploadedAt;                // 上传时间
 
-    private LocalDateTime lastAccessedAt;            // 最后访问时间
-
-    @Builder.Default
-    private Integer accessCount = 0;                 // 访问次数
-
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     @Builder.Default
@@ -78,12 +73,5 @@ public class ResumeEntity {
     @PrePersist
     protected void onCreate() {
         uploadedAt = LocalDateTime.now();
-        lastAccessedAt = LocalDateTime.now();
-        accessCount = 1;
-    }
-
-    public void incrementAccessCount() {
-        this.accessCount++;
-        this.lastAccessedAt = LocalDateTime.now();
     }
 }

@@ -57,8 +57,7 @@ public class AuthService {
     public AuthResponse login(LoginRequest request) {
         UserEntity user = userRepository.findByUsernameIgnoreCase(normalizeUsername(request.username()))
                 .orElseThrow(() -> new BusinessException(
-                        ErrorCode.USER_INVALID_CREDENTIALS,
-                        "用户名或密码错误"
+                        ErrorCode.USER_INVALID_CREDENTIALS, "用户名或密码错误"
                 ));
         if (!Boolean.TRUE.equals(user.getEnabled())) {
             throw new BusinessException(ErrorCode.USER_DISABLED, "用户已被禁用");
@@ -86,11 +85,8 @@ public class AuthService {
      */
     private AuthResponse buildAuthResponse(UserEntity user) {
         TokenResult token = jwtService.createToken(user);
-        return new AuthResponse(
-                token.token(),
-                "Bearer",
-                token.expiresAtEpochSecond(),
-                userMapper.toAuthUserDTO(user)
+        return new AuthResponse(token.token(), "Bearer",
+                token.expiresAtEpochSecond(), userMapper.toAuthUserDTO(user)
         );
     }
 

@@ -83,4 +83,6 @@ public interface RagChatSessionRepository extends JpaRepository<RagChatSessionEn
     );
 
     boolean existsByIdAndUserId(Long id, String userId);
+
+    void deleteByUserId(String userId);
 }

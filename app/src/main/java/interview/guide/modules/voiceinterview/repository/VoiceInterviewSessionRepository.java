@@ -64,4 +64,6 @@ public interface VoiceInterviewSessionRepository extends JpaRepository<VoiceInte
       AsyncTaskStatus evaluateStatus,
       LocalDateTime time
   );
+
+  void deleteByUserId(String userId);
 }

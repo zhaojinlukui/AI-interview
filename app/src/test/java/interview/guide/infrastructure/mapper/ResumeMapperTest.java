@@ -27,7 +27,6 @@ class ResumeMapperTest {
     resume.setOriginalFilename("resume.pdf");
     resume.setFileSize(2048L);
     resume.setUploadedAt(LocalDateTime.of(2026, 1, 2, 3, 4));
-    resume.setAccessCount(5);
     resume.setAnalyzeStatus(AsyncTaskStatus.FAILED);
     resume.setAnalyzeError("parse failed");
 
@@ -53,7 +52,6 @@ class ResumeMapperTest {
     resume.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
     resume.setStorageUrl("s3://bucket/backend.docx");
     resume.setUploadedAt(LocalDateTime.of(2026, 2, 1, 10, 0));
-    resume.setAccessCount(2);
     resume.setResumeText("Java backend resume");
     resume.setAnalyzeStatus(AsyncTaskStatus.COMPLETED);
 

@@ -185,7 +185,7 @@ public class AnalyzeStreamConsumer extends AbstractStreamConsumer<AnalyzeStreamC
         try {
             // 查找简历并更新状态
             resumeRepository.findById(resumeId).ifPresent(resume -> {
-                resume.setAnalyzeStatus(status);      // 设置分析状态
+                resume.setAnalyzeStatus(status);       // 设置分析状态
                 resume.setAnalyzeError(error);         // 设置错误信息（可能为null）
                 resumeRepository.save(resume);         // 保存到数据库
                 log.debug("分析状态已更新: resumeId={}, status={}", resumeId, status);

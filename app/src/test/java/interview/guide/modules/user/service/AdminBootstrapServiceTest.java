@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import interview.guide.common.auth.AuthProperties;
@@ -21,7 +22,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -35,9 +35,6 @@ class AdminBootstrapServiceTest {
   @Mock
   private PasswordService passwordService;
 
-  @Mock
-  private JdbcTemplate jdbcTemplate;
-
   private AuthProperties authProperties;
   private AdminBootstrapService service;
 
@@ -48,7 +45,6 @@ class AdminBootstrapServiceTest {
         authProperties,
         userRepository,
         passwordService,
-        jdbcTemplate,
         new ImmediateTransactionTemplate()
     );
   }
@@ -58,79 +54,50 @@ class AdminBootstrapServiceTest {
   class BuiltInAccount {
 
     @Test
-    @DisplayName("默认管理员为 admin，历史数据归属用户为 zhaojin")
-    void defaultAccountsAreConfigured() {
+    @DisplayName("默认管理员为 admin")
+    void defaultAdminIsConfigured() {
+      assertThat(authProperties.getAdmin().isInitializeOnStartup()).isFalse();
       assertThat(authProperties.getAdmin().getUsername()).isEqualTo("admin");
       assertThat(authProperties.getAdmin().getPassword()).isEqualTo("123456");
       assertThat(authProperties.getAdmin().getDisplayName()).isEqualTo("系统管理员");
-      assertThat(authProperties.getLegacyOwner().getUsername()).isEqualTo("zhaojin");
-      assertThat(authProperties.getLegacyOwner().getPassword()).isEqualTo("123456");
-      assertThat(authProperties.getLegacyOwner().getDisplayName()).isEqualTo("zhaojin");
     }
 
     @Test
-    @DisplayName("启动时创建 admin 和 zhaojin，并把历史数据归属迁移到 zhaojin")
-    void createsAdminAndOwnerThenAssignsLegacyDataToZhaojin() {
-      when(passwordService.hash("123456")).thenReturn("admin-hash", "owner-hash");
+    @DisplayName("默认关闭启动初始化时不写入管理员账号")
+    void skipsAdminBootstrapByDefault() {
+      service.initializeAdmin();
+
+      verifyNoInteractions(userRepository, passwordService);
+    }
+
+    @Test
+    @DisplayName("启动时只创建管理员账号，不创建历史数据归属用户")
+    void createsOnlyAdminOnStartup() {
+      authProperties.getAdmin().setInitializeOnStartup(true);
+      when(passwordService.hash("123456")).thenReturn("admin-hash");
       when(userRepository.findByUsernameIgnoreCase("admin")).thenReturn(Optional.empty());
-      when(userRepository.findByUsernameIgnoreCase("zhaojin")).thenReturn(Optional.empty());
       when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> {
         UserEntity user = invocation.getArgument(0);
-        user.setId("admin".equals(user.getUsername()) ? 9L : 6L);
+        user.setId(9L);
         return user;
       });
-      when(jdbcTemplate.update(anyString(), any(Object[].class))).thenReturn(1);
 
-      service.initializeAdminAndOwnership();
+      service.initializeAdmin();
 
       ArgumentCaptor<UserEntity> userCaptor = ArgumentCaptor.forClass(UserEntity.class);
-      verify(userRepository, times(2)).save(userCaptor.capture());
-      assertThat(userCaptor.getAllValues())
-          .anySatisfy(saved -> {
-            assertThat(saved.getUsername()).isEqualTo("admin");
-            assertThat(saved.getPasswordHash()).isEqualTo("admin-hash");
-            assertThat(saved.getRole()).isEqualTo(UserRole.ADMIN);
-            assertThat(saved.getEnabled()).isTrue();
-          })
-          .anySatisfy(saved -> {
-            assertThat(saved.getUsername()).isEqualTo("zhaojin");
-            assertThat(saved.getPasswordHash()).isEqualTo("owner-hash");
-            assertThat(saved.getRole()).isEqualTo(UserRole.USER);
-            assertThat(saved.getEnabled()).isTrue();
-          });
-
-      ArgumentCaptor<String> sqlCaptor = ArgumentCaptor.forClass(String.class);
-      ArgumentCaptor<Object[]> argsCaptor = ArgumentCaptor.forClass(Object[].class);
-      verify(jdbcTemplate, times(24)).update(sqlCaptor.capture(), argsCaptor.capture());
-
-      assertThat(sqlCaptor.getAllValues())
-          .anySatisfy(sql -> assertThat(sql)
-              .contains("UPDATE resumes SET user_id = ?")
-              .contains("user_id IS NULL"))
-          .anySatisfy(sql -> assertThat(sql)
-              .isEqualTo("UPDATE resumes SET user_id = ? WHERE user_id = ?"));
-      assertThat(argsCaptor.getAllValues())
-          .anySatisfy(args -> assertThat(args).containsExactly("6", "default"))
-          .anySatisfy(args -> assertThat(args).containsExactly("6", "admin"))
-          .anySatisfy(args -> assertThat(args).containsExactly("6", "zhaojin"))
-          .anySatisfy(args -> assertThat(args).containsExactly("6", "9"));
-
-      ArgumentCaptor<String> executeSqlCaptor = ArgumentCaptor.forClass(String.class);
-      verify(jdbcTemplate, times(6)).execute(executeSqlCaptor.capture());
-      assertThat(executeSqlCaptor.getAllValues())
-          .contains(
-              "ALTER TABLE resumes DROP CONSTRAINT IF EXISTS resumes_file_hash_key",
-              "ALTER TABLE resumes DROP CONSTRAINT IF EXISTS idx_resume_hash",
-              "ALTER TABLE knowledge_bases DROP CONSTRAINT IF EXISTS knowledge_bases_file_hash_key",
-              "ALTER TABLE knowledge_bases DROP CONSTRAINT IF EXISTS idx_kb_hash",
-              "DROP INDEX IF EXISTS idx_resume_hash",
-              "DROP INDEX IF EXISTS idx_kb_hash"
-          );
+      verify(userRepository, times(1)).save(userCaptor.capture());
+      UserEntity saved = userCaptor.getValue();
+      assertThat(saved.getUsername()).isEqualTo("admin");
+      assertThat(saved.getPasswordHash()).isEqualTo("admin-hash");
+      assertThat(saved.getRole()).isEqualTo(UserRole.ADMIN);
+      assertThat(saved.getEnabled()).isTrue();
+      verify(userRepository, never()).findByUsernameIgnoreCase("zhaojin");
     }
 
     @Test
-    @DisplayName("已存在账号的数据库密码不会被启动配置覆盖，角色按配置修正")
+    @DisplayName("已存在管理员的数据库密码不会被启动配置覆盖，角色按配置修正")
     void keepsExistingDatabasePasswordsAndFixesRoles() {
+      authProperties.getAdmin().setInitializeOnStartup(true);
       UserEntity existingAdmin = UserEntity.builder()
           .id(9L)
           .username("admin")
@@ -139,37 +106,20 @@ class AdminBootstrapServiceTest {
           .role(UserRole.USER)
           .enabled(false)
           .build();
-      UserEntity existingOwner = UserEntity.builder()
-          .id(7L)
-          .username("zhaojin")
-          .displayName("zhaojin")
-          .passwordHash("owner-database-password-hash")
-          .role(UserRole.ADMIN)
-          .enabled(false)
-          .build();
       when(userRepository.findByUsernameIgnoreCase("admin")).thenReturn(Optional.of(existingAdmin));
-      when(userRepository.findByUsernameIgnoreCase("zhaojin")).thenReturn(Optional.of(existingOwner));
       when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
-      when(jdbcTemplate.update(anyString(), any(Object[].class))).thenReturn(0);
 
-      service.initializeAdminAndOwnership();
+      service.initializeAdmin();
 
       ArgumentCaptor<UserEntity> userCaptor = ArgumentCaptor.forClass(UserEntity.class);
-      verify(userRepository, times(2)).save(userCaptor.capture());
-      assertThat(userCaptor.getAllValues())
-          .anySatisfy(saved -> {
-            assertThat(saved.getUsername()).isEqualTo("admin");
-            assertThat(saved.getPasswordHash()).isEqualTo("admin-database-password-hash");
-            assertThat(saved.getRole()).isEqualTo(UserRole.ADMIN);
-            assertThat(saved.getEnabled()).isTrue();
-          })
-          .anySatisfy(saved -> {
-            assertThat(saved.getUsername()).isEqualTo("zhaojin");
-            assertThat(saved.getPasswordHash()).isEqualTo("owner-database-password-hash");
-            assertThat(saved.getRole()).isEqualTo(UserRole.USER);
-            assertThat(saved.getEnabled()).isTrue();
-          });
+      verify(userRepository, times(1)).save(userCaptor.capture());
+      UserEntity saved = userCaptor.getValue();
+      assertThat(saved.getUsername()).isEqualTo("admin");
+      assertThat(saved.getPasswordHash()).isEqualTo("admin-database-password-hash");
+      assertThat(saved.getRole()).isEqualTo(UserRole.ADMIN);
+      assertThat(saved.getEnabled()).isTrue();
       verify(passwordService, never()).hash(anyString());
+      verify(userRepository, never()).findByUsernameIgnoreCase("zhaojin");
     }
   }
 

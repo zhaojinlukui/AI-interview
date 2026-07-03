@@ -116,7 +116,6 @@ public class ResumeUploadService {
     // 处理重复简历
     private Map<String, Object> handleDuplicateResume(ResumeEntity resume) {
         log.info("检测到重复简历，返回历史分析结果: resumeId={}", resume.getId());
-
         // 获取历史分析结果
         Optional<ResumeAnalysisResponse> analysisOpt = persistenceService.getLatestAnalysisAsDTO(resume.getId());
 

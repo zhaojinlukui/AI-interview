@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UserAiSettingsRepository extends JpaRepository<UserAiSettingsEntity, Long> {
 
   Optional<UserAiSettingsEntity> findByUserId(String userId);
+
+  void deleteByUserId(String userId);
 }

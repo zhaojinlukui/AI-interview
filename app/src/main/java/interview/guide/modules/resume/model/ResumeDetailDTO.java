@@ -15,7 +15,6 @@ public record ResumeDetailDTO(
     String contentType,                      // 文件 MIME 类型
     String storageUrl,                       // 文件访问 URL
     LocalDateTime uploadedAt,                // 上传时间
-    Integer accessCount,                     // 访问次数
     String resumeText,                       // 简历文本
     AsyncTaskStatus analyzeStatus,           // 简历分析状态
     String analyzeError,                     // 简历分析失败信息

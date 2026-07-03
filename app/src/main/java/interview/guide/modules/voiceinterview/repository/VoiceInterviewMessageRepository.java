@@ -25,4 +25,6 @@ public interface VoiceInterviewMessageRepository extends JpaRepository<VoiceInte
     long countBySessionId(Long sessionId);
 
     void deleteBySessionId(Long sessionId);
+
+    void deleteBySessionIdIn(List<Long> sessionIds);
 }

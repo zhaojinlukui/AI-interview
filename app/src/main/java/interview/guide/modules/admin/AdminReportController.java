@@ -51,7 +51,7 @@ public class AdminReportController {
         try {
             return toPdfResponse(adminReportService.exportResumeAnalysisPdf(resumeId));
         } catch (Exception e) {
-            log.error("Admin resume PDF export failed: resumeId={}", resumeId, e);
+            log.error("管理员简历导出失败：resumeId={}", resumeId, e);
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -74,7 +74,7 @@ public class AdminReportController {
         try {
             return toPdfResponse(adminReportService.exportTextInterviewPdf(sessionId));
         } catch (Exception e) {
-            log.error("Admin text interview PDF export failed: sessionId={}", sessionId, e);
+            log.error("管理员导出文本面试报告失败: sessionId={}", sessionId, e);
             return ResponseEntity.internalServerError().build();
         }
     }

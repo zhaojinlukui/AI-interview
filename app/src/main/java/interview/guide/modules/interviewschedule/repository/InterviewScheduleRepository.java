@@ -26,6 +26,8 @@ public interface InterviewScheduleRepository extends JpaRepository<InterviewSche
 
     Optional<InterviewScheduleEntity> findByIdAndUserId(Long id, String userId);
 
+    void deleteByUserId(String userId);
+
     @Modifying
     @Query("UPDATE InterviewScheduleEntity e SET e.status = :newStatus WHERE e.status = :oldStatus AND e.interviewTime < :cutoff")
     int updateStatusByStatusAndInterviewTimeBefore(

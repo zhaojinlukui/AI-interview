@@ -8,7 +8,6 @@ export interface ResumeListItem {
   filename: string;
   fileSize: number;
   uploadedAt: string;
-  accessCount: number;
   latestScore?: number;
   lastAnalyzedAt?: string;
   interviewCount: number;
@@ -67,7 +66,6 @@ export interface ResumeDetail {
   contentType: string;
   storageUrl: string;
   uploadedAt: string;
-  accessCount: number;
   resumeText: string;
   analyzeStatus?: AnalyzeStatus;
   analyzeError?: string;

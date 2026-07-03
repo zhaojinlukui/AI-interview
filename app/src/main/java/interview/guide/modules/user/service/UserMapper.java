@@ -25,13 +25,6 @@ public class UserMapper {
     }
 
     /**
-     * 转换为管理端用户展示信息，统计数据使用默认值
-     */
-    public AdminUserDTO toAdminUserDTO(UserEntity user) {
-        return toAdminUserDTO(user, 0, 0, 0, user.getLastLoginAt());
-    }
-
-    /**
      * 转换为管理端用户展示信息，并附带业务统计数据
      */
     public AdminUserDTO toAdminUserDTO(

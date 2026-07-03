@@ -96,14 +96,11 @@ app:
     token-secret: ${APP_AUTH_TOKEN_SECRET:dev-only-change-me-at-least-32-characters}
     access-token-ttl-minutes: ${APP_AUTH_ACCESS_TOKEN_TTL_MINUTES:1440}
     admin:
+      initialize-on-startup: ${APP_AUTH_ADMIN_INITIALIZE_ON_STARTUP:false}
       username: ${APP_AUTH_ADMIN_USERNAME:admin}
       password: ${APP_AUTH_ADMIN_PASSWORD:123456}
       display-name: ${APP_AUTH_ADMIN_DISPLAY_NAME:系统管理员}
       reset-password-on-startup: ${APP_AUTH_ADMIN_RESET_PASSWORD_ON_STARTUP:false}
-    legacy-owner:
-      username: ${APP_AUTH_LEGACY_OWNER_USERNAME:zhaojin}
-      password: ${APP_AUTH_LEGACY_OWNER_PASSWORD:123456}
-      display-name: ${APP_AUTH_LEGACY_OWNER_DISPLAY_NAME:zhaojin}
 
   async-task:
     rabbitmq:

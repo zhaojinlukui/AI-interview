@@ -41,14 +41,11 @@ public class ResumePersistenceService {
     public Optional<ResumeEntity> findExistingResume(MultipartFile file) {
         try {
             String userId = CurrentUserContext.getRequiredUserId();
-            String fileHash = fileHashService.calculateHash(file);
+            String fileHash = fileHashService.calculateHash(file);  // 获取哈希值
             Optional<ResumeEntity> existing = resumeRepository.findByUserIdAndFileHash(userId, fileHash);
 
             if (existing.isPresent()) {
                 log.info("检测到重复简历：userId={}, hash={}", userId, fileHash);
-                ResumeEntity resume = existing.get();
-                resume.incrementAccessCount();
-                resumeRepository.save(resume);
             }
             return existing;
         } catch (Exception e) {

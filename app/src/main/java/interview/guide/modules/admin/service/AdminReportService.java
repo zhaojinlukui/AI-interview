@@ -45,7 +45,6 @@ import tools.jackson.databind.ObjectMapper;
  * 管理员报表服务
  * 提供管理员视角下的简历管理、面试记录查询和 PDF 导出功能
  * 整合了文本面试和语音面试两种模式的统一视图
- * 相比之前版本，将部分转换逻辑委托给了专门的 Mapper 类，使 Service 层更聚焦于业务编排
  */
 @Slf4j
 @Service

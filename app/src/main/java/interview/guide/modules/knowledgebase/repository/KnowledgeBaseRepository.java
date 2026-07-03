@@ -107,4 +107,6 @@ public interface KnowledgeBaseRepository extends JpaRepository<KnowledgeBaseEnti
     );
 
     Optional<KnowledgeBaseEntity> findByIdAndUserId(Long id, String userId);
+
+    void deleteByUserId(String userId);
 }

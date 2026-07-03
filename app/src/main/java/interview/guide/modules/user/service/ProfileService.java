@@ -38,18 +38,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 个人中心资料维护和统计数据服务
+ * 个人中心服务
+ * 负责用户资料维护（昵称、密码）以及面试统计数据（成长趋势、薄弱项分析）的查询与计算
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
 
-    private static final String DEFAULT_WEAKNESS_ITEM = "综合能力";
+    private static final String DEFAULT_WEAKNESS_ITEM = "综合能力"; // 默认薄弱项分类名称
+    // 追问分类匹配模式，用于将"XX 追问1"归一化为"XX"
     private static final Pattern FOLLOW_UP_CATEGORY_PATTERN =
             Pattern.compile("(?i)^(.*?)\\s*(?:follow[-_\\s]*up|追问)\\s*\\d+\\s*$");
-    private static final int TREND_DAYS = 30;
-    private static final int WEAKNESS_LIMIT = 5;
+    private static final int TREND_DAYS = 30; // 趋势图展示天数
+    private static final int WEAKNESS_LIMIT = 5; // 薄弱项展示数量上限
 
     private final UserRepository userRepository;
     private final PasswordService passwordService;
@@ -62,6 +64,7 @@ public class ProfileService {
 
     /**
      * 修改当前用户昵称
+     * 更新后返回最新的用户信息
      */
     @Transactional
     public AuthUserDTO updateDisplayName(String displayName) {
@@ -72,42 +75,52 @@ public class ProfileService {
     }
 
     /**
-     * 修改当前用户密码，并递增令牌版本
+     * 修改当前用户密码
+     * 验证旧密码后更新为新密码，并递增令牌版本使旧令牌失效
      */
     @Transactional
     public void updatePassword(String currentPassword, String newPassword) {
         UserEntity user = getCurrentUserEntity();
+        // 验证当前密码是否正确
         if (!passwordService.matches(currentPassword, user.getPasswordHash())) {
             throw new BusinessException(ErrorCode.USER_INVALID_CREDENTIALS, "当前密码错误");
         }
+        // 加密并更新密码
         user.setPasswordHash(passwordService.hash(newPassword));
+        // 递增令牌版本，使所有旧的认证令牌失效
         user.rotateTokenVersion();
         userRepository.save(user);
     }
 
     /**
-     * 查询当前用户的面试统计、成长趋势和薄弱项
+     * 查询当前用户的面试统计概览
+     * 包含7天/30天的面试次数与平均分对比、30天成长趋势以及薄弱项分析
      */
     @Transactional(readOnly = true)
     public ProfileStatsResponse getStats() {
         String userId = CurrentUserContext.getRequiredUserId();
         LocalDate today = LocalDate.now();
         LocalDateTime tomorrowStart = today.plusDays(1).atStartOfDay();
+        // 查询足够多的历史数据用于本期和上期对比（最多需要60天）
         LocalDateTime earliestStart = today.minusDays(TREND_DAYS * 2L - 1).atStartOfDay();
 
+        // 加载文本面试会话
         List<InterviewSessionEntity> textSessions =
                 interviewSessionRepository.findByUserIdAndCreatedAtGreaterThanEqualOrderByCreatedAtAsc(
                         userId,
                         earliestStart
                 );
+        // 加载语音面试会话
         List<VoiceInterviewSessionEntity> voiceSessions =
                 voiceSessionRepository.findByUserIdAndCreatedAtGreaterThanEqualOrderByCreatedAtAsc(
                         userId,
                         earliestStart
                 );
+        // 批量加载语音面试评估结果
         Map<Long, VoiceInterviewEvaluationEntity> voiceEvaluations =
                 loadVoiceEvaluations(voiceSessions);
 
+        // 统一收集面试发生时间和评分记录
         List<InterviewOccurrence> occurrences = new ArrayList<>();
         List<ScoreRecord> scores = new ArrayList<>();
         for (InterviewSessionEntity session : textSessions) {
@@ -124,6 +137,7 @@ public class ProfileService {
             }
         }
 
+        // 加载分类评分记录用于薄弱项分析
         List<CategoryScoreRecord> categoryScores =
                 loadCategoryScores(userId, earliestStart, voiceSessions, voiceEvaluations);
 
@@ -136,7 +150,7 @@ public class ProfileService {
     }
 
     /**
-     * 获取当前用户实体
+     * 获取当前登录用户实体
      */
     private UserEntity getCurrentUserEntity() {
         Long userId = Long.valueOf(CurrentUserContext.getRequiredUserId());
@@ -146,6 +160,7 @@ public class ProfileService {
 
     /**
      * 批量加载语音面试评估结果
+     * 返回sessionId到评估实体的映射
      */
     private Map<Long, VoiceInterviewEvaluationEntity> loadVoiceEvaluations(
             List<VoiceInterviewSessionEntity> voiceSessions
@@ -166,7 +181,8 @@ public class ProfileService {
     }
 
     /**
-     * 构建指定周期与上一周期的面试数量和平均分对比
+     * 构建指定周期的面试统计指标
+     * 计算本期与上期的面试次数、平均分及变化量
      */
     private PeriodMetricDTO buildPeriodMetric(
             int days,
@@ -182,6 +198,7 @@ public class ProfileService {
         long previousInterviewCount = countOccurrences(occurrences, previousStart, currentStart);
         Double averageScore = averageScore(scores, currentStart, tomorrowStart);
         Double previousAverageScore = averageScore(scores, previousStart, currentStart);
+        // 计算平均分变化，仅当两期都有数据时才计算
         Double averageScoreChange = averageScore != null && previousAverageScore != null
                 ? round(averageScore - previousAverageScore)
                 : null;
@@ -198,7 +215,8 @@ public class ProfileService {
     }
 
     /**
-     * 构建最近 30 天的每日面试趋势
+     * 构建最近30天的每日面试趋势
+     * 每天一个数据点，包含当天面试次数和平均分
      */
     private List<GrowthTrendPointDTO> buildGrowthTrend(
             List<InterviewOccurrence> occurrences,
@@ -212,6 +230,7 @@ public class ProfileService {
             LocalDate date = startDate.plusDays(i);
             LocalDateTime start = date.atStartOfDay();
             LocalDateTime end = date.plusDays(1).atStartOfDay();
+            // 未来日期截止到当前时刻
             if (end.isAfter(tomorrowStart)) {
                 end = tomorrowStart;
             }
@@ -225,7 +244,8 @@ public class ProfileService {
     }
 
     /**
-     * 汇总薄弱项并按平均分从低到高取前几项
+     * 汇总薄弱项并按平均分从低到高排序
+     * 取平均分最低的几项作为需要提升的薄弱项
      */
     private List<WeaknessTrendDTO> buildWeaknessTrend(
             List<CategoryScoreRecord> records,
@@ -235,6 +255,7 @@ public class ProfileService {
         LocalDateTime currentStart = today.minusDays(TREND_DAYS - 1L).atStartOfDay();
         LocalDateTime previousStart = currentStart.minusDays(TREND_DAYS);
 
+        // 分别聚合本期和上期的分类分数
         Map<String, ScoreBucket> current = aggregateCategoryScores(records, currentStart, tomorrowStart);
         Map<String, ScoreBucket> previous = aggregateCategoryScores(records, previousStart, currentStart);
 
@@ -244,6 +265,7 @@ public class ProfileService {
                     Double averageScore = entry.getValue().average();
                     ScoreBucket previousBucket = previous.get(item);
                     Double previousAverageScore = previousBucket == null ? null : previousBucket.average();
+                    // 计算变化量
                     Double change = averageScore != null && previousAverageScore != null
                             ? round(averageScore - previousAverageScore)
                             : null;
@@ -255,6 +277,7 @@ public class ProfileService {
                             entry.getValue().count()
                     );
                 })
+                // 按平均分升序排序（分数最低的排最前），同分时按样本量降序
                 .sorted(Comparator
                         .comparing(WeaknessTrendDTO::averageScore, Comparator.nullsLast(Double::compareTo))
                         .thenComparing(WeaknessTrendDTO::sampleCount, Comparator.reverseOrder()))
@@ -263,7 +286,8 @@ public class ProfileService {
     }
 
     /**
-     * 合并文本面试和语音面试中的分类评分记录
+     * 加载分类评分记录
+     * 合并文本面试的回答评分和语音面试的题目评估评分
      */
     private List<CategoryScoreRecord> loadCategoryScores(
             String userId,
@@ -272,6 +296,7 @@ public class ProfileService {
             Map<Long, VoiceInterviewEvaluationEntity> voiceEvaluations
     ) {
         List<CategoryScoreRecord> records = new ArrayList<>();
+        // 加载文本面试中已评分的回答
         for (InterviewAnswerEntity answer :
                 interviewAnswerRepository.findScoredAnswersByUserIdSince(userId, earliestStart)) {
             records.add(new CategoryScoreRecord(
@@ -281,6 +306,7 @@ public class ProfileService {
             ));
         }
 
+        // 加载语音面试的题目评估评分
         Map<Long, LocalDateTime> voiceCreatedAt = new HashMap<>();
         for (VoiceInterviewSessionEntity session : voiceSessions) {
             voiceCreatedAt.put(session.getId(), session.getCreatedAt());
@@ -296,7 +322,7 @@ public class ProfileService {
     }
 
     /**
-     * 从语音面试评估 JSON 中解析每题分类评分
+     * 从语音面试评估JSON中解析每道题的分类和评分
      */
     private List<CategoryScoreRecord> parseVoiceCategoryScores(
             VoiceInterviewEvaluationEntity evaluation,
@@ -320,7 +346,7 @@ public class ProfileService {
                     ))
                     .toList();
         } catch (Exception e) {
-            log.warn("Voice evaluation category parse failed: sessionId={}", evaluation.getSessionId(), e);
+            log.warn("语音面试评估分类解析失败: sessionId={}", evaluation.getSessionId(), e);
             return List.of();
         }
     }
@@ -345,7 +371,7 @@ public class ProfileService {
     }
 
     /**
-     * 统计指定时间范围内的面试次数
+     * 统计指定时间范围内的面试发生次数
      */
     private long countOccurrences(
             List<InterviewOccurrence> occurrences,
@@ -375,14 +401,15 @@ public class ProfileService {
     }
 
     /**
-     * 判断时间是否落在左闭右开的范围内
+     * 判断时间是否落在左闭右开区间内
      */
     private boolean inRange(LocalDateTime value, LocalDateTime start, LocalDateTime end) {
         return value != null && !value.isBefore(start) && value.isBefore(end);
     }
 
     /**
-     * 归一化分类名称，追问题归并到原始分类
+     * 归一化分类名称
+     * 将追问分类（如"Java 追问1"）归并到原始分类（如"Java"）
      */
     static String normalizeCategory(String category) {
         if (category == null || category.isBlank()) {
@@ -398,29 +425,42 @@ public class ProfileService {
     }
 
     /**
-     * 保留一位小数
+     * 四舍五入保留一位小数
      */
     private Double round(double value) {
         return Math.round(value * 10.0) / 10.0;
     }
 
+    /**
+     * 面试发生时间记录
+     */
     private record InterviewOccurrence(LocalDateTime createdAt) {
     }
 
+    /**
+     * 评分记录
+     */
     private record ScoreRecord(LocalDateTime recordedAt, int score) {
     }
 
+    /**
+     * 分类评分记录
+     */
     private record CategoryScoreRecord(LocalDateTime recordedAt, String category, int score) {
     }
 
     /**
      * 分类分数聚合桶
+     * 用于累计某分类下的分数并计算平均分
      */
     private static class ScoreBucket {
 
-        private long count;
-        private long total;
+        private long count; // 样本数量
+        private long total; // 分数总和
 
+        /**
+         * 累加一个分数
+         */
         void add(int score) {
             count++;
             total += score;
@@ -430,6 +470,9 @@ public class ProfileService {
             return count;
         }
 
+        /**
+         * 计算平均分，保留一位小数
+         */
         Double average() {
             if (count == 0) {
                 return null;

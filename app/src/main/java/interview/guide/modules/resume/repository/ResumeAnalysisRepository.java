@@ -14,11 +14,6 @@ import java.util.List;
 public interface ResumeAnalysisRepository extends JpaRepository<ResumeAnalysisEntity, Long> {
     
     /**
-     * 根据简历查找所有评测记录
-     */
-    List<ResumeAnalysisEntity> findByResumeOrderByAnalyzedAtDesc(ResumeEntity resume);
-    
-    /**
      * 根据简历ID查找最新评测记录
      */
     ResumeAnalysisEntity findFirstByResumeIdOrderByAnalyzedAtDesc(Long resumeId);
@@ -27,4 +22,6 @@ public interface ResumeAnalysisRepository extends JpaRepository<ResumeAnalysisEn
      * 根据简历ID查找所有评测记录
      */
     List<ResumeAnalysisEntity> findByResumeIdOrderByAnalyzedAtDesc(Long resumeId);
+
+    void deleteByResumeUserId(String userId);
 }

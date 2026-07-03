@@ -30,6 +30,14 @@ export const adminApi = {
     return request.put<void>(`/api/admin/users/${id}/password`, { newPassword });
   },
 
+  updateEnabled(id: number, enabled: boolean): Promise<void> {
+    return request.put<void>(`/api/admin/users/${id}/enabled`, { enabled });
+  },
+
+  deleteUser(id: number): Promise<void> {
+    return request.delete<void>(`/api/admin/users/${id}`);
+  },
+
   listUserResumes(id: number): Promise<AdminResumeListItem[]> {
     return request.get<AdminResumeListItem[]>(`/api/admin/users/${id}/resumes`);
   },

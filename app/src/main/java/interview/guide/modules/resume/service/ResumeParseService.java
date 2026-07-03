@@ -27,12 +27,6 @@ public class ResumeParseService {
         return documentParseService.parseContent(file);
     }
 
-    // 解析字节数组形式的简历文件
-    public String parseResume(byte[] fileBytes, String fileName) {
-        log.info("开始解析简历文件（从字节数组）: {}", fileName);
-        return documentParseService.parseContent(fileBytes, fileName);
-    }
-
     // 从存储下载文件并解析内容
     public String downloadAndParseContent(String storageKey, String originalFilename) {
         log.info("从存储下载并解析简历文件: {}", originalFilename);

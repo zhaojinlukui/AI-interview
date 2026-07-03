@@ -102,9 +102,6 @@ public class ResumeGradingService {
     /**
      * 分析简历文本
      * 使用AI模型对简历进行多维度评分和分析
-     *
-     * @param resumeText 简历文本内容
-     * @return 包含评分、优势、建议等分析结果
      */
     public ResumeAnalysisResponse analyzeResume(String resumeText) {
         log.info("开始分析简历，文本长度={}", resumeText.length());
