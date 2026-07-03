@@ -103,17 +103,6 @@ public class PromptSanitizer {
         return openTag + "\n" + text + "\n" + closeTag;
     }
 
-    /**
-     * 检测注入尝试（仅日志告警，不阻断）
-     */
-    public boolean detectInjectionAttempt(String text) {
-        if (text == null || text.isBlank()) {
-            return false;
-        }
-        return ROLE_INJECTION_PATTERN.matcher(text).find()
-            || INJECTION_PHRASE_PATTERN.matcher(text).find();
-    }
-
     private boolean isSanitizerEnabled() {
         return properties.getAdvisors() == null
             || properties.getAdvisors().isPromptSanitizerEnabled();

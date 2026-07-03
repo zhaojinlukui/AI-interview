@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SystemAiSettingsResolver {
 
-    private final SystemAiSettingsRepository settingsRepository; // 系统AI配置数据访问层
-    private final AiSettingsMapper aiSettingsMapper; // AI配置映射器
+    private final SystemAiSettingsRepository settingsRepository;
+    private final AiSettingsMapper aiSettingsMapper;
 
     /**
      * 解析当前系统AI配置
@@ -71,13 +71,13 @@ public class SystemAiSettingsResolver {
      * 返回系统默认配置
      * 简历权重：项目经验40%、技能匹配20%、内容质量15%、结构清晰度15%、表达能力10%
      * 面试题目：简历题60%、方向题40%，温度均为0.2
-     * 知识库搜索：短问题Top20(相似度0.18)、中等问题Top12(相似度0.28)、长问题Top8(相似度0.28)
+     * 知识库搜索：短问题Top20(相似度0.18)、中等问题Top12(相似度0.23)、长问题Top8(相似度0.28)
      */
     private SystemAiSettingsSnapshot defaultSnapshot() {
         return new SystemAiSettingsSnapshot(
                 new ResumeWeightsSnapshot(40, 20, 15, 15, 10),
-                new InterviewSnapshot(60, 40, 0.2, 0.2, 0.2, 0.2),
-                new RagSearchSnapshot(20, 12, 8, 0.18, 0.28, 0.28)
+                new InterviewSnapshot(60, 40, 0.4, 0.6, 0.2, 0.5),
+                new RagSearchSnapshot(20, 12, 8, 0.18, 0.23, 0.28)
         );
     }
 

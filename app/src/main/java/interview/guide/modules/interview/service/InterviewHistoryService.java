@@ -26,10 +26,10 @@ import tools.jackson.databind.ObjectMapper;
 @RequiredArgsConstructor
 public class InterviewHistoryService {
 
-    private final InterviewPersistenceService interviewPersistenceService; // 面试数据持久化服务
-    private final PdfExportService pdfExportService; // PDF导出服务
-    private final ObjectMapper objectMapper; // JSON序列化/反序列化工具
-    private final InterviewMapper interviewMapper; // 面试数据转换器
+    private final InterviewPersistenceService interviewPersistenceService;
+    private final PdfExportService pdfExportService;
+    private final ObjectMapper objectMapper;
+    private final InterviewMapper interviewMapper;
 
     /**
      * 获取面试会话详情

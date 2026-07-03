@@ -46,8 +46,8 @@ public class InterviewQuestionService {
 
     private static final Logger log = LoggerFactory.getLogger(InterviewQuestionService.class);
 
-    private static final String DEFAULT_QUESTION_TYPE = "综合"; // 默认题目类型
-    private static final int MAX_FOLLOW_UP_COUNT = 2; // 最大追问数量上限
+    private static final String DEFAULT_QUESTION_TYPE = "综合";
+    private static final int MAX_FOLLOW_UP_COUNT = 2;
     // 无简历模式下的系统提示词追加内容，要求AI不引用简历相关信息
     private static final String GENERIC_MODE_SYSTEM_APPEND = """
         \n\n# 通用面试模式
@@ -175,9 +175,7 @@ public class InterviewQuestionService {
         // 解析方向信息和难度描述
         SkillDTO skill = resolveSkill(skillId, customCategories, jdText);
         String difficultyDesc = resolveDifficulty(difficulty);
-        // 获取AI客户端
         ChatClient questionChatClient = aiClientFactory.getPlainChatClient();
-        // 解析系统AI配置
         InterviewSnapshot settings = systemAiSettingsResolver.resolve().interview();
         // 判断是否有简历内容
         boolean hasResume = resumeText != null && !resumeText.isBlank();
@@ -879,8 +877,7 @@ public class InterviewQuestionService {
         if (skill == null || skill.persona() == null || skill.persona().isBlank()) {
             return "";
         }
-        return "\n\n# 方向人设\n"
-                + promptSanitizer.wrapWithDelimiters("方向人设", skill.persona());
+        return "\n\n# 方向人设\n" + promptSanitizer.wrapWithDelimiters("方向人设", skill.persona());
     }
 
     /**
@@ -895,17 +892,6 @@ public class InterviewQuestionService {
                 .map(String::trim)
                 .limit(followUpCount)
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * 构建默认追问列表
-     */
-    private List<String> buildDefaultFollowUps(String mainQuestion) {
-        List<String> defaults = new ArrayList<>();
-        for (int order = 1; order <= followUpCount; order++) {
-            defaults.add(buildDefaultFollowUp(mainQuestion, order));
-        }
-        return defaults;
     }
 
     /**

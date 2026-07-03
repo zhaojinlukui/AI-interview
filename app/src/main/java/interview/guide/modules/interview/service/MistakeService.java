@@ -35,7 +35,9 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 /**
- * 错题服务。
+ * 错题服务
+ * 负责错题的查询、详情获取和错题重练会话创建，
+ * 同时聚合文字面试和语音面试两种来源的错题，按创建时间降序排列
  */
 @Slf4j
 @Service
@@ -55,6 +57,10 @@ public class MistakeService {
     private final ResumeRepository resumeRepository;
     private final ObjectMapper objectMapper;
 
+    /**
+     * 获取当前用户的所有错题列表
+     * 合并文字面试和语音面试的错题，按创建时间降序排列
+     */
     public List<MistakeSessionDTO> listMistakes() {
         List<MistakeSessionDTO> result = new ArrayList<>();
         result.addAll(listTextMistakes());
@@ -65,6 +71,9 @@ public class MistakeService {
                 .toList();
     }
 
+    /**
+     * 获取指定来源的错题详情
+     */
     public MistakeSessionDTO getMistakeSession(String sourceType, String sourceSessionId) {
         return switch (normalizeSourceType(sourceType)) {
             case TEXT_SOURCE -> buildTextMistakeSession(sourceSessionId)
@@ -77,15 +86,21 @@ public class MistakeService {
         };
     }
 
+    /**
+     * 基于错题创建重练会话
+     * 提取错题中的问题，复用原面试的技能和简历上下文创建新的练习会话
+     */
     public CreateMistakePracticeResponse createPractice(String sourceType, String sourceSessionId) {
         String normalizedType = normalizeSourceType(sourceType);
         MistakeSessionDTO mistakeSession = getMistakeSession(normalizedType, sourceSessionId);
+        // 将错题重新构建为面试题目列表
         List<InterviewQuestionDTO> questions = rebuildPracticeQuestions(mistakeSession);
 
         InterviewSessionEntity.MistakeSourceType sourceEnum =
                 InterviewSessionEntity.MistakeSourceType.valueOf(normalizedType);
         PracticeContext context = buildPracticeContext(normalizedType, sourceSessionId);
 
+        // 创建错题重练会话
         InterviewSessionDTO practiceSession = interviewSessionService.createMistakeReviewSession(
                 context.resumeText(),
                 context.resumeId(),
@@ -99,6 +114,10 @@ public class MistakeService {
         return new CreateMistakePracticeResponse(practiceSession.sessionId());
     }
 
+    /**
+     * 查询所有文字面试的错题
+     * 过滤掉错题重练类型的会话，仅统计已评估完成的会话
+     */
     private List<MistakeSessionDTO> listTextMistakes() {
         return interviewPersistenceService.findAll().stream()
                 .filter(session -> session.getPracticeType() != InterviewSessionEntity.PracticeType.MISTAKE_REVIEW)
@@ -109,12 +128,17 @@ public class MistakeService {
                 .toList();
     }
 
+    /**
+     * 构建单次文字面试的错题详情
+     * 筛选分数低于阈值的回答作为错题
+     */
     private Optional<MistakeSessionDTO> buildTextMistakeSession(String sessionId) {
         InterviewSessionEntity session = interviewPersistenceService.findBySessionIdForCurrentUser(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.INTERVIEW_SESSION_NOT_FOUND));
 
         List<InterviewAnswerEntity> answers = interviewPersistenceService.findAnswersBySessionId(sessionId);
         List<InterviewQuestionDTO> sourceQuestions = parseQuestions(session);
+        // 构建题目索引映射，方便按序号查找题目信息
         Map<Integer, InterviewQuestionDTO> questionMap = sourceQuestions.stream()
                 .collect(Collectors.toMap(
                         InterviewQuestionDTO::questionIndex,
@@ -122,6 +146,7 @@ public class MistakeService {
                         (first, second) -> first
                 ));
 
+        // 筛选分数低于阈值的回答作为错题
         List<MistakeQuestionDTO> mistakes = answers.stream()
                 .filter(answer -> answer.getScore() != null && answer.getScore() < MISTAKE_SCORE_THRESHOLD)
                 .map(answer -> toTextMistakeQuestion(answer, questionMap.get(answer.getQuestionIndex())))
@@ -143,6 +168,9 @@ public class MistakeService {
         ));
     }
 
+    /**
+     * 查询所有语音面试的错题
+     */
     private List<MistakeSessionDTO> listVoiceMistakes() {
         return voiceSessionRepository.findByUserIdOrderByUpdatedAtDesc(CurrentUserContext.getRequiredUserId()).stream()
                 .map(VoiceInterviewSessionEntity::getId)
@@ -151,6 +179,9 @@ public class MistakeService {
                 .toList();
     }
 
+    /**
+     * 安全构建语音面试错题，单个会话异常时跳过而不中断整体查询
+     */
     private Optional<MistakeSessionDTO> safeBuildVoiceMistakeSession(Long sessionId) {
         try {
             return buildVoiceMistakeSession(sessionId);
@@ -160,6 +191,9 @@ public class MistakeService {
         }
     }
 
+    /**
+     * 构建单次语音面试的错题详情
+     */
     private Optional<MistakeSessionDTO> buildVoiceMistakeSession(Long sessionId) {
         VoiceInterviewEvaluationEntity evaluation = voiceEvaluationRepository.findBySessionId(sessionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.VOICE_EVALUATION_NOT_FOUND,
@@ -171,6 +205,7 @@ public class MistakeService {
                         "语音面试会话不存在: " + sessionId));
 
         VoiceEvaluationDetailDTO detail = voiceEvaluationService.buildDetailDTO(evaluation);
+        // 筛选分数低于阈值的回答作为错题
         List<MistakeQuestionDTO> mistakes = detail.getAnswers().stream()
                 .filter(answer -> answer.getScore() < MISTAKE_SCORE_THRESHOLD)
                 .map(this::toVoiceMistakeQuestion)
@@ -192,6 +227,9 @@ public class MistakeService {
         ));
     }
 
+    /**
+     * 将文字面试回答转换为错题DTO
+     */
     private MistakeQuestionDTO toTextMistakeQuestion(
             InterviewAnswerEntity answer,
             InterviewQuestionDTO sourceQuestion
@@ -210,6 +248,9 @@ public class MistakeService {
         );
     }
 
+    /**
+     * 将语音面试回答转换为错题DTO
+     */
     private MistakeQuestionDTO toVoiceMistakeQuestion(VoiceEvaluationDetailDTO.AnswerDetail answer) {
         return new MistakeQuestionDTO(
                 answer.getQuestionIndex(),
@@ -225,6 +266,10 @@ public class MistakeService {
         );
     }
 
+    /**
+     * 将错题重新构建为面试题目列表
+     * 用于创建错题重练会话时作为题目输入
+     */
     private List<InterviewQuestionDTO> rebuildPracticeQuestions(MistakeSessionDTO mistakeSession) {
         List<MistakeQuestionDTO> mistakes = mistakeSession.mistakes();
         List<InterviewQuestionDTO> questions = new ArrayList<>();
@@ -243,6 +288,10 @@ public class MistakeService {
         return questions;
     }
 
+    /**
+     * 构建错题重练的上下文信息
+     * 复用原面试的简历和技能配置
+     */
     private PracticeContext buildPracticeContext(String sourceType, String sourceSessionId) {
         if (TEXT_SOURCE.equals(sourceType)) {
             InterviewSessionEntity session = interviewPersistenceService.findBySessionIdForCurrentUser(sourceSessionId)
@@ -273,6 +322,9 @@ public class MistakeService {
         );
     }
 
+    /**
+     * 从会话实体的JSON字段中解析题目列表
+     */
     private List<InterviewQuestionDTO> parseQuestions(InterviewSessionEntity session) {
         String json = session.getQuestionsJson();
         if (json == null || json.isBlank()) {
@@ -286,6 +338,9 @@ public class MistakeService {
         }
     }
 
+    /**
+     * 从JSON中解析关键点列表
+     */
     private List<String> parseKeyPoints(String keyPointsJson) {
         if (keyPointsJson == null || keyPointsJson.isBlank()) {
             return null;
@@ -298,6 +353,9 @@ public class MistakeService {
         }
     }
 
+    /**
+     * 构建文字面试错题的标题
+     */
     private String buildTextTitle(InterviewSessionEntity session) {
         String skillId = defaultIfBlank(session.getSkillId(), InterviewDefaults.SKILL_ID);
         if (session.getPracticeType() == InterviewSessionEntity.PracticeType.MISTAKE_REVIEW) {
@@ -306,6 +364,9 @@ public class MistakeService {
         return skillId;
     }
 
+    /**
+     * 标准化来源类型为大写
+     */
     private String normalizeSourceType(String sourceType) {
         if (sourceType == null || sourceType.isBlank()) {
             throw new BusinessException(ErrorCode.BAD_REQUEST, "错题来源不能为空");
@@ -313,6 +374,9 @@ public class MistakeService {
         return sourceType.toUpperCase(Locale.ROOT);
     }
 
+    /**
+     * 解析语音面试会话ID
+     */
     private Long parseVoiceSessionId(String sourceSessionId) {
         try {
             return Long.parseLong(sourceSessionId);
@@ -321,15 +385,21 @@ public class MistakeService {
         }
     }
 
+    /**
+     * 字符串为空时返回默认值
+     */
     private String defaultIfBlank(String value, String fallback) {
         return value != null && !value.isBlank() ? value : fallback;
     }
 
+    /**
+     * 错题重练上下文信息
+     */
     private record PracticeContext(
-            String resumeText,
-            Long resumeId,
-            String skillId,
-            String difficulty
+            String resumeText, // 简历文本
+            Long resumeId, // 简历ID
+            String skillId, // 技能方向ID
+            String difficulty // 难度等级
     ) {
     }
 }

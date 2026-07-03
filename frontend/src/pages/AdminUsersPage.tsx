@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ComponentType, type ReactNode } from
 import {
   ArrowLeft,
   ChevronRight,
+  CheckCircle,
   Download,
   FileText,
   Loader2,
@@ -366,21 +367,35 @@ function AccountPanel({
   const [savingName, setSavingName] = useState(false);
   const [savingPassword, setSavingPassword] = useState(false);
   const [message, setMessage] = useState('');
+  const [successToast, setSuccessToast] = useState('');
 
   useEffect(() => {
     setDisplayName(user.displayName);
     setPassword('');
     setMessage('');
+    setSuccessToast('');
   }, [user.id, user.displayName]);
+
+  useEffect(() => {
+    if (!successToast) return undefined;
+    const timer = window.setTimeout(() => setSuccessToast(''), 2400);
+    return () => window.clearTimeout(timer);
+  }, [successToast]);
+
+  const showSuccessToast = (text: string) => {
+    setMessage('');
+    setSuccessToast(text);
+  };
 
   const saveDisplayName = async () => {
     if (!displayName.trim()) return;
     setSavingName(true);
     setMessage('');
+    setSuccessToast('');
     try {
       await adminApi.updateDisplayName(user.id, displayName.trim());
       await onSaved();
-      setMessage('昵称已保存');
+      showSuccessToast('昵称修改成功');
     } catch (err) {
       setMessage(err instanceof Error ? err.message : '保存昵称失败');
     } finally {
@@ -395,11 +410,12 @@ function AccountPanel({
     }
     setSavingPassword(true);
     setMessage('');
+    setSuccessToast('');
     try {
       await adminApi.updatePassword(user.id, password);
       setPassword('');
       await onSaved();
-      setMessage('密码已更新，用户现有登录状态将失效');
+      showSuccessToast('密码修改成功，用户现有登录状态将失效');
     } catch (err) {
       setMessage(err instanceof Error ? err.message : '修改密码失败');
     } finally {
@@ -409,6 +425,7 @@ function AccountPanel({
 
   return (
     <div className="dark-card p-6">
+      <SuccessToast message={successToast} />
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
           <h3 className="mb-4 flex items-center gap-2 font-semibold text-slate-900 dark:text-white">
@@ -503,6 +520,26 @@ function AccountPanel({
           </div>
 
           {message && <p className="text-sm text-slate-500 dark:text-slate-400">{message}</p>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SuccessToast({ message }: { message: string }) {
+  if (!message) return null;
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed left-4 right-4 top-4 z-50 rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm text-emerald-700 shadow-lg shadow-slate-900/10 dark:border-emerald-900/70 dark:bg-slate-900 dark:text-emerald-300 sm:left-auto sm:w-[360px]"
+    >
+      <div className="flex items-start gap-3">
+        <CheckCircle className="mt-0.5 h-5 w-5 shrink-0" />
+        <div>
+          <p className="font-semibold">修改成功</p>
+          <p className="mt-0.5 text-emerald-600 dark:text-emerald-400">{message}</p>
         </div>
       </div>
     </div>

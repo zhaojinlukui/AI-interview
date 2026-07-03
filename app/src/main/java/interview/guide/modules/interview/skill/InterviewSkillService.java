@@ -32,10 +32,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 面试方向 Skill 管理：分类分配、References 注入、自定义 Skill 构建。
- *
+ * 面试方向 Skill 管理：分类分配、References 注入、自定义 Skill 构建
  * 与 SkillsTool 互补：SkillsTool 负责 LLM 按需加载 persona（SKILL.md body），
- * 本类负责后端解析分类配置（skill.meta.yml）并批量注入 references 到 Prompt。
+ * 本类负责后端解析分类配置（skill.meta.yml）并批量注入 references 到 Prompt
  */
 @Slf4j
 @Service
@@ -248,10 +247,6 @@ public class InterviewSkillService {
             sb.append(row);
         }
         return sb.toString();
-    }
-
-    public Map<String, Integer> calculateAllocation(String skillId, int totalQuestions) {
-        return calculateAllocation(getSkill(skillId).categories(), totalQuestions);
     }
 
     // 计算题目分配策略（基于分类列表）
@@ -662,7 +657,6 @@ public class InterviewSkillService {
     /**
      * JD 解析返回分类（可携带 LLM 匹配的 ref/shared 信息，后端会按本地 categoryRefIndex 纠正）
      */
-    public record CategoryDTO(String key, String label, String priority,
-                               String ref, Boolean shared) {}
+    public record CategoryDTO(String key, String label, String priority, String ref, Boolean shared) {}
     private record CategoryListDTO(List<CategoryDTO> categories) {}
 }

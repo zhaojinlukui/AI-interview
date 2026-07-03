@@ -72,11 +72,11 @@ public class InterviewSessionService {
 
         // 根据面试方向、难度、历史题目和可选 JD 生成问题
         List<InterviewQuestionDTO> questions = questionService.generateQuestionsBySkill(
-            skillId,  // 面试方向
-            difficulty,  // 难度
+            skillId,
+            difficulty,
             request.resumeText(),
             request.questionCount(),
-            historicalQuestions,  // 历史题目
+            historicalQuestions,
             request.customCategories(),
             request.jdText()
         );
@@ -111,10 +111,7 @@ public class InterviewSessionService {
     }
 
     /**
-     * 获取面试会话，缓存未命中时从数据库恢复
-     */
-    /**
-     * 使用固定题目创建错题重练文字面试场次。
+     * 使用固定题目创建错题重练文字面试场次
      */
     public InterviewSessionDTO createMistakeReviewSession(
         String resumeText,
@@ -174,6 +171,7 @@ public class InterviewSessionService {
         );
     }
 
+    // 获取面试会话
     public InterviewSessionDTO getSession(String sessionId) {
         // 1. 优先读取 Redis 缓存
         Optional<CachedSession> cachedOpt = sessionCache.getSession(sessionId);
@@ -293,11 +291,8 @@ public class InterviewSessionService {
         };
     }
 
-
     /**
      * 提交面试回答并推进当前题目索引
-     *
-     * <p>回答会先写入 Redis 会话状态，再尽量同步持久化到数据库；最后一题提交后会投递异步评估任务</p>
      */
     public SubmitAnswerResponse submitAnswer(SubmitAnswerRequest request) {
         CachedSession session = getOrRestoreSession(request.sessionId());
@@ -359,7 +354,6 @@ public class InterviewSessionService {
             questions.size()
         );
     }
-
 
     /**
      * 提前完成面试并触发异步评估
