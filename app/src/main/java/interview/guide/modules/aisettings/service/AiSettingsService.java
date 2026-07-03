@@ -6,6 +6,7 @@ import interview.guide.common.config.AiProperties;
 import interview.guide.common.config.ConfigPlaceholderResolver;
 import interview.guide.common.exception.BusinessException;
 import interview.guide.common.exception.ErrorCode;
+import interview.guide.infrastructure.mapper.AiSettingsMapper;
 import interview.guide.modules.aisettings.dto.AsrConfigDTO;
 import interview.guide.modules.aisettings.dto.AsrConfigRequest;
 import interview.guide.modules.aisettings.dto.ModelSettingsDTO;
@@ -37,40 +38,44 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 
+/**
+ * AI配置管理服务
+ * 负责用户级AI配置的查询、更新和连通性测试，
+ * 包括大模型、语音识别和语音合成三类配置，
+ * 使用读写锁保证并发安全，通过Mapper统一进行DTO与实体的转换
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class AiSettingsService {
 
-    private final AiProperties aiProperties;
-    private final AiClientFactory aiClientFactory;
-    private final AiSettingsResolver settingsResolver;
-    private final UserAiSettingsRepository settingsRepository;
-    private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+    private final AiProperties aiProperties; // AI相关全局属性
+    private final AiClientFactory aiClientFactory; // AI客户端工厂，配置变更后需重载
+    private final AiSettingsResolver settingsResolver; // 用户AI配置解析器
+    private final UserAiSettingsRepository settingsRepository; // 用户AI配置数据访问层
+    private final AiSettingsMapper aiSettingsMapper; // AI配置实体与DTO映射器
+    private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock(); // 读写锁，保证并发安全
 
+    /**
+     * 获取当前用户的大模型配置
+     * 返回脱敏后的API密钥和完整的模型参数
+     */
     public ModelSettingsDTO getModelSettings() {
         String userId = CurrentUserContext.getRequiredUserId();
         rwLock.readLock().lock();
         try {
             ModelConfigSnapshot config = settingsResolver.resolveModel(userId);
             ModelConfigSnapshot embeddingConfig = settingsResolver.resolveEmbeddingModel(userId);
-            return ModelSettingsDTO.builder()
-                    .baseUrl(config.baseUrl())
-                    .maskedApiKey(maskApiKey(config.apiKey()))
-                    .chatModel(config.chatModel())
-                    .embeddingModel(embeddingConfig.embeddingModel())
-                    .embeddingDimensions(embeddingConfig.embeddingDimensions())
-                    .cloudEmbeddingBaseUrl(embeddingConfig.baseUrl())
-                    .maskedCloudEmbeddingApiKey(maskApiKey(embeddingConfig.apiKey()))
-                    .cloudEmbeddingModel(embeddingConfig.embeddingModel())
-                    .cloudEmbeddingDimensions(embeddingConfig.embeddingDimensions())
-                    .temperature(config.temperature())
-                    .build();
+            return aiSettingsMapper.toModelSettingsDTO(config, embeddingConfig);
         } finally {
             rwLock.readLock().unlock();
         }
     }
 
+    /**
+     * 测试当前用户的大模型连通性
+     * 发送ping请求验证模型服务是否可达
+     */
     public SettingsTestResult testModelSettings() {
         String userId = CurrentUserContext.getRequiredUserId();
         rwLock.readLock().lock();
@@ -81,28 +86,23 @@ public class AiSettingsService {
         }
     }
 
+    /**
+     * 获取当前用户的语音识别配置
+     */
     public AsrConfigDTO getAsrConfig() {
         String userId = CurrentUserContext.getRequiredUserId();
         rwLock.readLock().lock();
         try {
-            AsrConfigSnapshot config = settingsResolver.resolveAsr(userId);
-            return AsrConfigDTO.builder()
-                    .url(config.url())
-                    .model(config.model())
-                    .maskedApiKey(maskApiKey(config.apiKey()))
-                    .language(config.language())
-                    .format(config.format())
-                    .sampleRate(nullToInt(config.sampleRate()))
-                    .enableTurnDetection(config.enableTurnDetection())
-                    .turnDetectionType(config.turnDetectionType())
-                    .turnDetectionThreshold(nullToFloat(config.turnDetectionThreshold()))
-                    .turnDetectionSilenceDurationMs(nullToInt(config.turnDetectionSilenceDurationMs()))
-                    .build();
+            return aiSettingsMapper.toAsrConfigDTO(settingsResolver.resolveAsr(userId));
         } finally {
             rwLock.readLock().unlock();
         }
     }
 
+    /**
+     * 测试语音识别服务的WebSocket连通性
+     * 尝试建立TCP连接到ASR服务的WebSocket地址
+     */
     public SettingsTestResult testAsrConfig() {
         String userId = CurrentUserContext.getRequiredUserId();
         rwLock.readLock().lock();
@@ -111,17 +111,18 @@ public class AiSettingsService {
             try (Socket socket = new Socket()) {
                 URI wsUri = URI.create(config.url());
                 String host = wsUri.getHost();
+                // 根据协议确定端口，wss默认443，ws默认80
                 int port = wsUri.getPort() > 0 ? wsUri.getPort() : ("wss".equals(wsUri.getScheme()) ? 443 : 80);
                 socket.connect(new InetSocketAddress(host, port), 5000);
                 return SettingsTestResult.builder()
                         .success(true)
-                        .message("ASR WebSocket 连接成功: " + host)
+                        .message("语音识别WebSocket连接成功: " + host)
                         .model(config.model())
                         .build();
             } catch (Exception e) {
                 return SettingsTestResult.builder()
                         .success(false)
-                        .message("ASR 连接失败: " + e.getMessage())
+                        .message("语音识别连接失败: " + e.getMessage())
                         .model(config.model())
                         .build();
             }
@@ -130,33 +131,30 @@ public class AiSettingsService {
         }
     }
 
+    /**
+     * 获取当前用户的语音合成配置
+     */
     public TtsConfigDTO getTtsConfig() {
         String userId = CurrentUserContext.getRequiredUserId();
         rwLock.readLock().lock();
         try {
-            TtsConfigSnapshot config = settingsResolver.resolveTts(userId);
-            return TtsConfigDTO.builder()
-                    .model(config.model())
-                    .maskedApiKey(maskApiKey(config.apiKey()))
-                    .voice(config.voice())
-                    .format(config.format())
-                    .sampleRate(nullToInt(config.sampleRate()))
-                    .mode(config.mode())
-                    .languageType(config.languageType())
-                    .speechRate(nullToFloat(config.speechRate()))
-                    .volume(nullToInt(config.volume()))
-                    .build();
+            return aiSettingsMapper.toTtsConfigDTO(settingsResolver.resolveTts(userId));
         } finally {
             rwLock.readLock().unlock();
         }
     }
 
+    /**
+     * 更新当前用户的大模型配置
+     * 包含本地/云端模型切换逻辑和Embedding配置同步
+     */
     @Transactional
     public void updateModelSettings(ModelSettingsRequest request) {
         String userId = CurrentUserContext.getRequiredUserId();
         rwLock.writeLock().lock();
         try {
             UserAiSettingsEntity entity = getOrCreateUserSettings(userId);
+            // 切换本地模型前保留云端配置，用于后续切换回来时恢复
             preserveCurrentCloudConfig(entity);
             if (request.baseUrl() != null) {
                 entity.setModelBaseUrl(requireNonBlank(request.baseUrl(), "baseUrl"));
@@ -166,9 +164,6 @@ public class AiSettingsService {
             }
             if (request.embeddingModel() != null) {
                 entity.setEmbeddingModel(trimOrNull(request.embeddingModel()));
-            }
-            if (request.embeddingDimensions() != null) {
-                entity.setEmbeddingDimensions(resolveEmbeddingDimensions(request.embeddingDimensions()));
             }
             if (request.cloudEmbeddingBaseUrl() != null) {
                 entity.setCloudEmbeddingBaseUrl(requireNonBlank(
@@ -182,34 +177,43 @@ public class AiSettingsService {
             if (request.cloudEmbeddingModel() != null) {
                 entity.setCloudEmbeddingModel(trimOrNull(request.cloudEmbeddingModel()));
             }
+            // 通过Mapper统一处理数值类型字段的更新（temperature等）
+            aiSettingsMapper.patchModelSettings(request, entity);
+            if (request.embeddingDimensions() != null) {
+                entity.setEmbeddingDimensions(resolveEmbeddingDimensions(request.embeddingDimensions()));
+            }
             if (request.cloudEmbeddingDimensions() != null) {
                 entity.setCloudEmbeddingDimensions(resolveEmbeddingDimensions(request.cloudEmbeddingDimensions()));
-            }
-            if (request.temperature() != null) {
-                entity.setTemperature(request.temperature());
             }
             if (request.apiKey() != null) {
                 String apiKey = trimOrNull(request.apiKey());
                 if (apiKey != null) {
                     entity.setModelApiKey(apiKey);
                 } else if (isLocalBaseUrl(entity.getModelBaseUrl())) {
+                    // 本地模型使用固定密钥
                     entity.setModelApiKey("ollama");
                 }
             }
 
+            // 恢复之前保留的云端API密钥
             restoreCloudApiKeyIfNeeded(entity, request);
+            // 同步云端Embedding配置
             syncCloudEmbeddingConfig(entity);
             validateModelConfig(entity);
             validateCloudApiKey(entity);
             validateCloudEmbeddingConfig(entity);
             settingsRepository.save(entity);
+            // 事务提交后重载AI客户端，使新配置生效
             reloadAiClientsAfterCommit(userId);
-            log.info("Updated user AI model settings: userId={}", userId);
+            log.info("用户AI模型配置已更新: userId={}", userId);
         } finally {
             rwLock.writeLock().unlock();
         }
     }
 
+    /**
+     * 更新当前用户的语音识别配置
+     */
     @Transactional
     public void updateAsrConfig(AsrConfigRequest request) {
         String userId = CurrentUserContext.getRequiredUserId();
@@ -231,29 +235,22 @@ public class AiSettingsService {
             if (request.format() != null) {
                 entity.setAsrFormat(requireNonBlank(request.format(), "format"));
             }
-            if (request.sampleRate() != null) {
-                entity.setAsrSampleRate(request.sampleRate());
-            }
-            if (request.enableTurnDetection() != null) {
-                entity.setAsrEnableTurnDetection(request.enableTurnDetection());
-            }
             if (request.turnDetectionType() != null) {
                 entity.setAsrTurnDetectionType(requireNonBlank(request.turnDetectionType(), "turnDetectionType"));
             }
-            if (request.turnDetectionThreshold() != null) {
-                entity.setAsrTurnDetectionThreshold(request.turnDetectionThreshold());
-            }
-            if (request.turnDetectionSilenceDurationMs() != null) {
-                entity.setAsrTurnDetectionSilenceDurationMs(request.turnDetectionSilenceDurationMs());
-            }
+            // 通过Mapper统一处理数值类型字段的更新
+            aiSettingsMapper.patchAsrConfig(request, entity);
 
             settingsRepository.save(entity);
-            log.info("Updated user ASR settings: userId={}", userId);
+            log.info("用户语音识别配置已更新: userId={}", userId);
         } finally {
             rwLock.writeLock().unlock();
         }
     }
 
+    /**
+     * 更新当前用户的语音合成配置
+     */
     @Transactional
     public void updateTtsConfig(TtsConfigRequest request) {
         String userId = CurrentUserContext.getRequiredUserId();
@@ -272,34 +269,34 @@ public class AiSettingsService {
             if (request.format() != null) {
                 entity.setTtsFormat(requireNonBlank(request.format(), "format"));
             }
-            if (request.sampleRate() != null) {
-                entity.setTtsSampleRate(request.sampleRate());
-            }
             if (request.mode() != null) {
                 entity.setTtsMode(requireNonBlank(request.mode(), "mode"));
             }
             if (request.languageType() != null) {
                 entity.setTtsLanguageType(requireNonBlank(request.languageType(), "languageType"));
             }
-            if (request.speechRate() != null) {
-                entity.setTtsSpeechRate(request.speechRate());
-            }
-            if (request.volume() != null) {
-                entity.setTtsVolume(request.volume());
-            }
+            // 通过Mapper统一处理数值类型字段的更新
+            aiSettingsMapper.patchTtsConfig(request, entity);
 
             settingsRepository.save(entity);
-            log.info("Updated user TTS settings: userId={}", userId);
+            log.info("用户语音合成配置已更新: userId={}", userId);
         } finally {
             rwLock.writeLock().unlock();
         }
     }
 
+    /**
+     * 获取或创建用户的AI配置实体
+     */
     private UserAiSettingsEntity getOrCreateUserSettings(String userId) {
         return settingsRepository.findByUserId(userId)
                 .orElseGet(() -> settingsResolver.buildDefaultEntity(userId));
     }
 
+    /**
+     * 切换本地模型前保留当前云端配置
+     * 用于用户从云端模型切换到本地模型时保留云端密钥等配置
+     */
     private void preserveCurrentCloudConfig(UserAiSettingsEntity entity) {
         if (isLocalBaseUrl(entity.getModelBaseUrl())) {
             return;
@@ -319,6 +316,9 @@ public class AiSettingsService {
         }
     }
 
+    /**
+     * 从云端切换回本地时，恢复之前保留的云端API密钥
+     */
     private void restoreCloudApiKeyIfNeeded(UserAiSettingsEntity entity, ModelSettingsRequest request) {
         if (isLocalBaseUrl(entity.getModelBaseUrl())) {
             if (isMissingResolvedValue(entity.getModelApiKey())) {
@@ -335,6 +335,7 @@ public class AiSettingsService {
             return;
         }
 
+        // 尝试使用之前保留的云端密钥
         String preservedApiKey = trimOrNull(ConfigPlaceholderResolver.resolve(entity.getCloudEmbeddingApiKey()));
         if (preservedApiKey != null
                 && !preservedApiKey.contains("${")
@@ -343,6 +344,10 @@ public class AiSettingsService {
         }
     }
 
+    /**
+     * 同步云端Embedding配置
+     * 本地模型时使用默认云端配置，云端模型时与大模型配置保持一致
+     */
     private void syncCloudEmbeddingConfig(UserAiSettingsEntity entity) {
         if (!isLocalBaseUrl(entity.getModelBaseUrl())) {
             ModelConfigSnapshot defaults = settingsResolver.resolveEmbeddingModel(null);
@@ -377,6 +382,10 @@ public class AiSettingsService {
         }
     }
 
+    /**
+     * 在事务提交后重载AI客户端
+     * 确保新配置在事务成功提交后才生效
+     */
     private void reloadAiClientsAfterCommit(String userId) {
         Runnable reloadTask = () -> {
             aiClientFactory.reload(userId);
@@ -394,31 +403,44 @@ public class AiSettingsService {
         });
     }
 
+    /**
+     * 校验大模型必填配置
+     */
     private void validateModelConfig(UserAiSettingsEntity entity) {
         if (isMissingResolvedValue(entity.getModelBaseUrl())
                 || isMissingResolvedValue(entity.getChatModel())) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "AI 模型必填配置不能为空");
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "AI模型必填配置不能为空");
         }
     }
 
+    /**
+     * 校验云端模型的API密钥
+     */
     private void validateCloudApiKey(UserAiSettingsEntity entity) {
         if (!isLocalBaseUrl(entity.getModelBaseUrl())
                 && (isMissingResolvedValue(entity.getModelApiKey())
                 || isInvalidRemoteApiKey(entity.getModelBaseUrl(), entity.getModelApiKey()))) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "云端模型 API Key 不能为空");
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "云端模型API密钥不能为空");
         }
     }
 
+    /**
+     * 校验云端Embedding配置完整性
+     */
     private void validateCloudEmbeddingConfig(UserAiSettingsEntity entity) {
         if (isMissingResolvedValue(entity.getCloudEmbeddingBaseUrl())
                 || isLocalBaseUrl(entity.getCloudEmbeddingBaseUrl())
                 || isInvalidRemoteApiKey(entity.getCloudEmbeddingBaseUrl(), entity.getCloudEmbeddingApiKey())
                 || isMissingResolvedValue(entity.getCloudEmbeddingApiKey())
                 || isMissingResolvedValue(entity.getCloudEmbeddingModel())) {
-            throw new BusinessException(ErrorCode.BAD_REQUEST, "云端 Embedding 配置不能为空");
+            throw new BusinessException(ErrorCode.BAD_REQUEST, "云端Embedding配置不能为空");
         }
     }
 
+    /**
+     * 执行大模型连通性测试
+     * 发送ping请求到模型的chat/completions端点
+     */
     private SettingsTestResult doTestModel(ModelConfigSnapshot config) {
         try {
             String baseUrl = config.baseUrl();
@@ -429,7 +451,7 @@ public class AiSettingsService {
                     || isMissingResolvedValue(chatModel)) {
                 return SettingsTestResult.builder()
                         .success(false)
-                        .message("AI 模型关键配置不能为空")
+                        .message("AI模型关键配置不能为空")
                         .model(chatModel)
                         .build();
             }
@@ -442,12 +464,14 @@ public class AiSettingsService {
                     .requestFactory(requestFactory)
                     .build();
 
+            // 发送ping消息，max_tokens=1减少消耗
             Map<String, Object> requestBody = Map.of(
                     "model", chatModel,
                     "messages", List.of(Map.of("role", "user", "content", "ping")),
                     "max_tokens", 1
             );
-            String lastFailureMessage = "Unknown error";
+            String lastFailureMessage = "未知错误";
+            // 尝试多个可能的端点路径
             for (String targetUrl : buildConnectivityTestUrls(baseUrl)) {
                 try {
                     restClient.post()
@@ -480,6 +504,10 @@ public class AiSettingsService {
         }
     }
 
+    /**
+     * 构建连通性测试的候选URL列表
+     * 尝试带/v1和不带/v1的两种路径
+     */
     private List<String> buildConnectivityTestUrls(String baseUrl) {
         String normalized = baseUrl.endsWith("/") ? baseUrl.substring(0, baseUrl.length() - 1) : baseUrl;
         Set<String> targetUrls = new LinkedHashSet<>();
@@ -490,6 +518,9 @@ public class AiSettingsService {
         return new ArrayList<>(targetUrls);
     }
 
+    /**
+     * 校验字符串非空，为空时抛出异常
+     */
     private String requireNonBlank(String value, String fieldName) {
         String trimmed = trimOrNull(value);
         if (trimmed == null) {
@@ -498,11 +529,17 @@ public class AiSettingsService {
         return trimmed;
     }
 
+    /**
+     * 判断解析后的值是否缺失（null或仍包含未解析的占位符）
+     */
     private boolean isMissingResolvedValue(String value) {
         String resolved = ConfigPlaceholderResolver.resolve(value);
         return trimOrNull(resolved) == null || resolved.contains("${");
     }
 
+    /**
+     * 标准化API密钥，本地模型自动使用"ollama"
+     */
     private String normalizeApiKey(String baseUrl, String apiKey) {
         String normalized = trimOrNull(apiKey);
         if (normalized == null && isLocalBaseUrl(baseUrl)) {
@@ -511,11 +548,17 @@ public class AiSettingsService {
         return normalized;
     }
 
+    /**
+     * 判断云端模型的API密钥是否无效（本地密钥用于云端）
+     */
     private boolean isInvalidRemoteApiKey(String baseUrl, String apiKey) {
         String normalized = trimOrNull(apiKey);
         return !isLocalBaseUrl(baseUrl) && "ollama".equalsIgnoreCase(normalized);
     }
 
+    /**
+     * 判断是否为本地模型地址
+     */
     private boolean isLocalBaseUrl(String baseUrl) {
         if (baseUrl == null) {
             return false;
@@ -527,6 +570,9 @@ public class AiSettingsService {
                 || normalized.contains("host.docker.internal");
     }
 
+    /**
+     * 解析Embedding维度，未配置时使用全局默认值
+     */
     private Integer resolveEmbeddingDimensions(Integer configuredDimensions) {
         if (configuredDimensions != null && configuredDimensions > 0) {
             return configuredDimensions;
@@ -534,29 +580,14 @@ public class AiSettingsService {
         return aiProperties.getEmbeddingDimensions();
     }
 
-    private int nullToInt(Integer value) {
-        return value == null ? 0 : value;
-    }
-
-    private float nullToFloat(Float value) {
-        return value == null ? 0F : value;
-    }
-
+    /**
+     * 去除字符串首尾空格，空字符串返回null
+     */
     private String trimOrNull(String value) {
         if (value == null) {
             return null;
         }
         String trimmed = value.trim();
         return trimmed.isEmpty() ? null : trimmed;
-    }
-
-    private String maskApiKey(String apiKey) {
-        if (apiKey == null || apiKey.isBlank()) {
-            return "";
-        }
-        if (apiKey.length() <= 8) {
-            return "****";
-        }
-        return apiKey.substring(0, 4) + "****" + apiKey.substring(apiKey.length() - 4);
     }
 }

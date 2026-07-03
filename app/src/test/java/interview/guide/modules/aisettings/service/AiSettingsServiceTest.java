@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import interview.guide.common.ai.AiClientFactory;
 import interview.guide.common.config.AiProperties;
+import interview.guide.infrastructure.mapper.AiSettingsMapper;
 import interview.guide.modules.aisettings.dto.ModelSettingsRequest;
 import interview.guide.modules.aisettings.model.UserAiSettingsEntity;
 import interview.guide.modules.aisettings.repository.UserAiSettingsRepository;
@@ -22,12 +23,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mapstruct.factory.Mappers;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("用户 AI 设置服务")
+@DisplayName("User AI settings service")
 class AiSettingsServiceTest {
 
   private static final String USER_ID = "user1";
@@ -63,7 +65,8 @@ class AiSettingsServiceTest {
         new AiProperties(),
         aiClientFactory,
         settingsResolver,
-        settingsRepository
+        settingsRepository,
+        Mappers.getMapper(AiSettingsMapper.class)
     );
   }
 
@@ -73,11 +76,11 @@ class AiSettingsServiceTest {
   }
 
   @Nested
-  @DisplayName("模型切换")
+  @DisplayName("Model switching")
   class ModelSwitching {
 
     @Test
-    @DisplayName("从云端模型切到本地模型时保留当前云端 Key")
+    @DisplayName("preserves cloud key when switching to local model")
     void preservesCloudApiKeyWhenSwitchingToLocalModel() {
       UserAiSettingsEntity entity = cloudEntity();
       entity.setCloudEmbeddingApiKey("sk-old-cloud");
@@ -104,7 +107,7 @@ class AiSettingsServiceTest {
     }
 
     @Test
-    @DisplayName("从本地模型切回云端模型时复用保留的云端 Key")
+    @DisplayName("restores preserved cloud key when switching back to cloud model")
     void restoresPreservedCloudApiKeyWhenSwitchingBackToCloudModel() {
       UserAiSettingsEntity entity = localEntityWithPreservedCloudKey();
       when(settingsRepository.findByUserId(USER_ID)).thenReturn(Optional.of(entity));
@@ -177,3 +180,4 @@ class AiSettingsServiceTest {
     );
   }
 }
+
