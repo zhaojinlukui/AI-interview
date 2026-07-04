@@ -23,9 +23,6 @@ public class KnowledgeBaseParseService {
 
     /**
      * 解析上传的知识库文件，提取文本内容
-     *
-     * @param file 上传的文件（支持PDF、DOCX、DOC、TXT、MD等）
-     * @return 提取的文本内容
      */
     public String parseContent(MultipartFile file) {
         log.info("开始解析知识库文件: {}", file.getOriginalFilename());
@@ -33,23 +30,7 @@ public class KnowledgeBaseParseService {
     }
 
     /**
-     * 解析字节数组形式的文件内容
-     *
-     * @param fileBytes 文件字节数组
-     * @param fileName  原始文件名（用于日志）
-     * @return 提取的文本内容
-     */
-    public String parseContent(byte[] fileBytes, String fileName) {
-        log.info("开始解析知识库文件（从字节数组）: {}", fileName);
-        return documentParseService.parseContent(fileBytes, fileName);
-    }
-
-    /**
      * 从存储下载文件并解析内容
-     *
-     * @param storageKey       存储键
-     * @param originalFilename 原始文件名
-     * @return 提取的文本内容
      */
     public String downloadAndParseContent(String storageKey, String originalFilename) {
         log.info("从存储下载并解析知识库文件: {}", originalFilename);

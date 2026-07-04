@@ -17,19 +17,6 @@ import java.util.Optional;
 public interface RagChatSessionRepository extends JpaRepository<RagChatSessionEntity, Long> {
 
     /**
-     * 按更新时间倒序获取所有活跃会话
-     */
-    List<RagChatSessionEntity> findByUserIdAndStatusOrderByUpdatedAtDesc(
-        String userId,
-        SessionStatus status
-    );
-
-    /**
-     * 获取所有会话（按更新时间倒序）
-     */
-    List<RagChatSessionEntity> findAllByUserIdOrderByUpdatedAtDesc(String userId);
-
-    /**
      * 获取所有会话（按置顶状态和更新时间排序：置顶的在前，然后按更新时间倒序）
      */
     @Query("""
@@ -53,25 +40,6 @@ public interface RagChatSessionRepository extends JpaRepository<RagChatSessionEn
         @Param("userId") String userId,
         @Param("kbIds") List<Long> knowledgeBaseIds
     );
-
-    /**
-     * 获取会话详情（带消息列表和知识库）
-     * 注意：使用 DISTINCT 避免笛卡尔积导致的重复数据
-     */
-    @Query("""
-        SELECT DISTINCT s FROM RagChatSessionEntity s LEFT JOIN FETCH s.knowledgeBases
-        WHERE s.id = :id AND s.userId = :userId
-        """)
-    Optional<RagChatSessionEntity> findByIdAndUserIdWithMessagesAndKnowledgeBases(
-        @Param("id") Long id,
-        @Param("userId") String userId
-    );
-
-    /**
-     * 获取会话（带知识库，不带消息）
-     */
-    @Query("SELECT s FROM RagChatSessionEntity s LEFT JOIN FETCH s.knowledgeBases WHERE s.id = :id")
-    Optional<RagChatSessionEntity> findByIdWithKnowledgeBases(@Param("id") Long id);
 
     @Query("""
         SELECT s FROM RagChatSessionEntity s LEFT JOIN FETCH s.knowledgeBases

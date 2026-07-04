@@ -29,7 +29,8 @@ public class KnowledgeBaseQueryProperties {
         private int topkMedium = 12;
         private int topkLong = 8;
         private double minScoreShort = 0.18;
-        private double minScoreDefault = 0.28;
+        private double minScoreDefault = 0.23;
+        private double minScoreLong = 0.28;
     }
 
     @Data

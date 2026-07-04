@@ -27,8 +27,6 @@ public class KnowledgeBaseCountService {
     /**
      * 批量更新知识库提问计数（使用单条 SQL 批量更新）
      * 每个知识库的 questionCount +1，表示该知识库参与回答的次数
-     *
-     * @param knowledgeBaseIds 知识库ID列表
      */
     @Transactional(rollbackFor = Exception.class)
     public void updateQuestionCounts(List<Long> knowledgeBaseIds) {

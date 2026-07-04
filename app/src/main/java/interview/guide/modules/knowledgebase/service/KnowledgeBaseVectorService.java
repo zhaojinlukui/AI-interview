@@ -36,7 +36,7 @@ public class KnowledgeBaseVectorService {
         log.info("开始向量化知识库: kbId={}, contentLength={}", knowledgeBaseId, content.length());
         boolean hasAttemptedVectorWrite = false;
         try {
-            // 重建向量时先清理旧数据，避免不同 Embedding 模型的向量混在同一知识库中。
+            // 重建向量时先清理旧数据，避免不同 Embedding 模型的向量混在同一知识库中
             vectorRepository.deleteByKnowledgeBaseId(knowledgeBaseId);
 
             // 1. 将文本分块
@@ -95,7 +95,7 @@ public class KnowledgeBaseVectorService {
                 return List.of();
             }
 
-            // 再次按 topK 截断，避免 VectorStore 返回超出请求数量的结果。
+            // 再次按 topK 截断，避免 VectorStore 返回超出请求数量的结果
             List<Document> limitedResults = results.stream()
                 .limit(topK)
                 .collect(Collectors.toList());
