@@ -15,14 +15,6 @@ import java.lang.annotation.Target;
  * 每个注解实例代表一条独立的限流规则，拥有独立的 count/interval/timeUnit 配置。
  * 同一方法上可标注多个 @RateLimit，所有规则必须全部通过才允许请求。
  * <p>
- * 示例：
- * <pre>
- * &#64;RateLimit(dimension = Dimension.GLOBAL, count = 100)
- * &#64;RateLimit(dimension = Dimension.IP, count = 5)
- * public Result query() { ... }
- * </pre>
- *
- * @see RateLimitAspect
  */
 @Target(ElementType.METHOD)      // 只能用在方法上
 @Retention(RetentionPolicy.RUNTIME)  // 运行时保留，便于AOP读取

@@ -1029,13 +1029,6 @@ public class VoiceInterviewWebSocketHandler extends TextWebSocketHandler impleme
     }
 
     /**
-     * 发送文本消息（非最终）
-     */
-    private void sendTextMessage(WebSocketSession session, String text) {
-        sendTextMessage(session, text, false);
-    }
-
-    /**
      * 发送文本消息
      */
     private void sendTextMessage(WebSocketSession session, String text, boolean isFinal) {
@@ -1643,10 +1636,6 @@ public class VoiceInterviewWebSocketHandler extends TextWebSocketHandler impleme
         long getMergeStartedAt() {
             long value = mergeStartedAt.get();
             return value > 0 ? value : System.currentTimeMillis();
-        }
-
-        long getLastSttActivityAt() {
-            return lastSttActivityAt.get();
         }
 
         String getAccumulatedText() {

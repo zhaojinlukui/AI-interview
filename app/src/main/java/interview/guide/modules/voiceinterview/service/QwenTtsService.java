@@ -23,26 +23,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Qwen 实时 TTS 服务（基于 WebSocket）。
- *
- * 通过阿里云 DashScope 的 qwen-tts-realtime 模型和 WebSocket API
+ * Qwen实时语音合成服务（基于WebSocket）
+ * <p>
+ * 通过阿里云DashScope的qwen-tts-realtime模型和WebSocket API
  * 提供实时文本转语音合成能力。
- *
- * 核心能力：
- * - 基于 WebSocket 的实时 TTS 合成。
- * - 使用 commit 模式，由调用方手动控制提交。
- * - 同步合成接口内置 30 秒超时保护。
- * - 通过 response.audio.delta 事件自动收集音频分片。
- * - 支持中文语音，可配置音色、语速和音量。
- *
- * 配置：
- * - 模型：qwen-tts-realtime。
- * - 音色：可配置（Cherry、Serena、Ethan 等）。
- * - 音频格式：PCM，24kHz 采样率。
- * - 模式：commit（调用方控制）。
- *
- * @see QwenTtsRealtime
- * @see QwenTtsRealtimeCallback
+ * </p>
+ * <p>
+ * 核心特性：
+ * - 基于WebSocket的实时语音合成，每次合成创建独立连接
+ * - 使用commit模式，由调用方手动控制提交时机
+ * - 同步合成接口内置30秒超时保护
+ * - 通过response.audio.delta事件自动收集音频分片
+ * - 支持中文语音，可配置音色、语速和音量
+ * - 支持用户级配置覆盖，未登录时使用系统默认配置
+ * </p>
  */
 @Slf4j
 @Service
@@ -51,25 +45,19 @@ public class QwenTtsService {
     private final AiProperties aiProperties;
     private final AiSettingsResolver settingsResolver;
 
-    // 运行时配置值从 VoiceInterviewProperties 加载，setter 保留给测试使用。
     private String model;
-
     private String apiKey;
-
     private String voice;
-
     private String format;
-
     private Integer sampleRate;
-
     private String mode;
-
     private String languageType;
-
     private Float speechRate;
-
     private Integer volume;
 
+    /**
+     * 构造函数，从语音面试配置中加载默认TTS参数
+     */
     public QwenTtsService(
             VoiceInterviewProperties voiceInterviewProperties,
             AiProperties aiProperties,
@@ -79,11 +67,18 @@ public class QwenTtsService {
         applyTtsConfig(voiceInterviewProperties.getQwen().getTts());
     }
 
+    /**
+     * 重载TTS配置
+     * 用于配置热更新场景
+     */
     public void reload(VoiceInterviewProperties voiceInterviewProperties) {
         applyTtsConfig(voiceInterviewProperties.getQwen().getTts());
-        log.info("QwenTtsService reloaded: model={}, voice={}", model, voice);
+        log.info("语音合成服务已重载: model={}, voice={}", model, voice);
     }
 
+    /**
+     * 应用TTS配置参数
+     */
     private void applyTtsConfig(VoiceInterviewProperties.QwenTtsConfig tts) {
         this.model = tts.getModel();
         this.apiKey = resolveApiKey(tts.getApiKey());
@@ -96,79 +91,84 @@ public class QwenTtsService {
         this.volume = tts.getVolume();
     }
 
+    /**
+     * 检查服务是否已配置API密钥
+     */
     public boolean isConfigured() {
         return apiKey != null && !apiKey.trim().isEmpty();
     }
 
     /**
-     * 初始化 TTS 服务。
-     * Spring 会在服务构造完成并加载 VoiceInterviewProperties 后自动调用该方法。
-     *
-     * @throws IllegalStateException 当 apiKey 未配置时抛出
+     * 服务初始化
+     * 检查API密钥配置状态
      */
     @PostConstruct
     public void init() {
         if (!isConfigured()) {
-            log.warn("QwenTtsService initialized without API key; TTS will stay disabled until configured");
+            log.warn("语音合成服务初始化时未配置API密钥，在配置完成前将保持禁用状态");
             return;
         }
-        log.info("QwenTtsService initialized with model: {}, voice: {}, sampleRate: {}Hz",
-                 model, voice, sampleRate);
+        log.info("语音合成服务已初始化: model={}, voice={}, sampleRate={}Hz",
+                model, voice, sampleRate);
     }
 
     /**
-     * 将文本合成为语音音频。
+     * 将文本合成为语音音频（不指定用户ID，使用系统默认配置）
      *
-     * 该方法使用 DashScope 基于 WebSocket 的 TTS API 同步生成 PCM 音频。
-     * 它会建立 WebSocket 连接，发送待合成文本，收集音频分片并返回完整音频数据。
-     *
-     * 方法通过 CountDownLatch 等待合成完成，并设置 30 秒超时以避免无限阻塞。
-     *
-     * @param text 待合成文本，null、空字符串或仅空白文本会返回空数组
-     * @return 按配置采样率生成的 PCM 音频数据，合成失败时返回空数组
+     * @param text 待合成文本，null或空字符串返回空数组
+     * @return PCM音频数据（24kHz、16-bit、单声道），合成失败时返回空数组
      */
     public byte[] synthesize(String text) {
         return synthesize(text, CurrentUserContext.getCurrentUserIdOrNull());
     }
 
+    /**
+     * 将文本合成为语音音频（指定用户ID，使用用户级配置）
+     * <p>
+     * 使用DashScope基于WebSocket的TTS API同步生成PCM音频，
+     * 建立WebSocket连接后发送文本，通过CountDownLatch等待合成完成，
+     * 设置30秒超时避免无限阻塞。
+     * </p>
+     *
+     * @param text 待合成文本
+     * @param userId 用户ID，为null时使用系统默认配置
+     * @return PCM音频数据，合成失败时返回空数组
+     */
     public byte[] synthesize(String text, String userId) {
         TtsConfigSnapshot configSnapshot = resolveConfig(userId);
-        // 处理 null、空字符串或仅空白文本。
+        // 处理空文本
         if (text == null || text.trim().isEmpty()) {
-            log.debug("Empty or null text provided, returning empty audio array");
+            log.debug("文本为空，返回空音频数组");
             return new byte[0];
         }
         if (!isConfigured(configSnapshot)) {
-            log.warn("TTS synthesis skipped: API key is not configured");
+            log.warn("语音合成已跳过：API密钥未配置");
             return new byte[0];
         }
 
-        log.debug("Starting TTS synthesis for text: {} characters", text.length());
+        log.debug("开始语音合成，文本长度：{} 字符", text.length());
 
-        // 同步等待用的锁存器。
+        // 同步等待锁存器
         CountDownLatch synthesisLatch = new CountDownLatch(1);
-
-        // 收集音频数据的容器。
+        // 音频数据收集容器
         ByteArrayContainer audioContainer = new ByteArrayContainer();
-
-        // 错误容器。
+        // 错误跟踪容器
         AtomicReference<Throwable> errorRef = new AtomicReference<>();
-
-        // 跟踪响应 ID 的容器。
+        // 响应ID跟踪容器
         AtomicReference<String> responseIdRef = new AtomicReference<>();
 
         try {
-            // 构造带连接配置的 QwenTtsRealtimeParam。
+            // 构造WebSocket连接参数
             QwenTtsRealtimeParam param = QwenTtsRealtimeParam.builder()
                     .model(configSnapshot.model())
                     .apikey(configSnapshot.apiKey())
                     .build();
 
-            // 创建 WebSocket 事件回调处理器。
+            // 创建WebSocket事件回调处理器
             QwenTtsRealtimeCallback callback = new QwenTtsRealtimeCallback() {
                 @Override
                 public void onOpen() {
-                    log.debug("TTS WebSocket connection established");
+                    log.debug("语音合成WebSocket连接已建立");
                 }
 
                 @Override
@@ -178,19 +178,19 @@ public class QwenTtsService {
 
                 @Override
                 public void onClose(int code, String reason) {
-                    log.debug("TTS WebSocket closed - code: {}, reason: {}", code, reason);
+                    log.debug("语音合成WebSocket已关闭 - code: {}, reason: {}", code, reason);
                     synthesisLatch.countDown();
                 }
             };
 
-            // 创建 QwenTtsRealtime 实例。
+            // 创建语音合成实例并连接
             QwenTtsRealtime qwenTtsRealtime = new QwenTtsRealtime(param, callback);
 
             try {
-                // 连接服务端（阻塞调用）。
+                // 连接服务端（阻塞调用）
                 qwenTtsRealtime.connect();
 
-                // 配置 TTS 会话参数。
+                // 配置语音合成会话参数
                 QwenTtsRealtimeConfig config = QwenTtsRealtimeConfig.builder()
                         .voice(configSnapshot.voice())
                         .responseFormat(getAudioFormat())
@@ -200,107 +200,97 @@ public class QwenTtsService {
                         .volume(configSnapshot.volume())
                         .build();
 
-                // 更新会话配置。
+                // 更新会话配置
                 qwenTtsRealtime.updateSession(config);
 
-                log.info("[TTS] Session configured with voice: {}, triggering synthesis for text (length: {})",
-                         configSnapshot.voice(), text.length());
+                log.info("[TTS] 会话已配置，音色: {}，正在合成文本（长度: {}）",
+                        configSnapshot.voice(), text.length());
 
-                // 使用 commit 模式发送待合成文本。
+                // 使用commit模式发送待合成文本
                 qwenTtsRealtime.appendText(text);
                 qwenTtsRealtime.commit();
 
-                log.info("[TTS] Text sent to TTS service, waiting for audio response...");
+                log.info("[TTS] 文本已发送到语音合成服务，等待音频响应...");
 
-                // 等待合成完成并设置超时。
+                // 等待合成完成，30秒超时
                 boolean completed = synthesisLatch.await(30, TimeUnit.SECONDS);
 
                 if (!completed) {
-                    log.error("TTS synthesis timeout after 30 seconds");
+                    log.error("语音合成超时（30秒）");
                     return new byte[0];
                 }
 
-                // 检查是否发生错误。
+                // 检查是否发生错误
                 Throwable error = errorRef.get();
                 if (error != null) {
-                    log.error("TTS synthesis failed", error);
+                    log.error("语音合成失败", error);
                     return new byte[0];
                 }
 
-                // 返回收集到的音频数据。
+                // 返回收集到的音频数据
                 byte[] audioData = audioContainer.toByteArray();
-                log.info("[TTS] Synthesis completed successfully - {} bytes of audio data, responseId: {}",
-                         audioData.length, responseIdRef.get());
+                log.info("[TTS] 合成成功完成 - {} 字节音频数据, responseId: {}",
+                        audioData.length, responseIdRef.get());
 
                 return audioData;
 
             } finally {
-                // 确保连接被关闭。
+                // 确保连接被关闭
                 try {
                     qwenTtsRealtime.close();
                 } catch (Exception e) {
-                    log.error("Error closing TTS connection", e);
+                    log.error("关闭语音合成连接时出错", e);
                 }
             }
 
         } catch (InterruptedException e) {
-            log.error("TTS synthesis interrupted", e);
+            log.error("语音合成被中断", e);
             Thread.currentThread().interrupt();
             return new byte[0];
         } catch (Exception e) {
-            log.error("Failed to synthesize text", e);
+            log.error("文本合成失败", e);
             return new byte[0];
         }
     }
 
     /**
-     * 获取 Qwen TTS Realtime 的音频格式。
-     * 当前支持 24kHz PCM 格式。
-     *
-     * @return QwenTtsRealtimeAudioFormat 枚举值
+     * 获取语音合成的音频格式
+     * 当前固定使用24kHz PCM单声道16-bit格式
      */
     private QwenTtsRealtimeAudioFormat getAudioFormat() {
-        // Qwen TTS Realtime 默认使用 24kHz。
         return QwenTtsRealtimeAudioFormat.PCM_24000HZ_MONO_16BIT;
     }
 
     /**
-     * 销毁服务并清理资源。
-     *
-     * Spring 容器关闭时会自动调用该方法。
-     * 当前每次合成都会创建独立临时连接，因此没有持久资源需要清理。
+     * 服务销毁时清理资源
+     * 每次合成都创建独立临时连接，无持久资源需要清理
      */
     @PreDestroy
     public void destroy() {
-        log.info("QwenTtsService destroyed successfully");
+        log.info("语音合成服务已销毁");
     }
 
     /**
-     * 处理 DashScope TTS 服务端事件。
-     *
+     * 处理DashScope语音合成服务端事件
+     * <p>
      * 主要处理以下事件：
-     * - session.created：服务端会话已创建。
-     * - session.updated：会话配置已更新。
-     * - response.audio.delta：收到音频分片。
-     * - response.done：响应已完成。
-     * - error：发生错误。
-     *
-     * @param message 服务端返回的 JSON 事件消息
-     * @param audioContainer 音频分片收集容器
-     * @param synthesisLatch 标记合成完成的锁存器
-     * @param errorRef 错误跟踪容器
-     * @param responseIdRef 响应 ID 跟踪容器
+     * - session.created：服务端会话已创建
+     * - session.updated：会话配置已更新
+     * - response.audio.delta：收到音频分片（base64编码），解码后收集
+     * - response.done：响应已完成，触发锁存器
+     * - error：发生错误，记录错误并触发锁存器
+     * </p>
      */
     private void handleServerEvent(JsonObject message, ByteArrayContainer audioContainer,
-                                    CountDownLatch synthesisLatch, AtomicReference<Throwable> errorRef,
-                                    AtomicReference<String> responseIdRef) {
+                                   CountDownLatch synthesisLatch, AtomicReference<Throwable> errorRef,
+                                   AtomicReference<String> responseIdRef) {
         try {
             String eventType = message.get("type").getAsString();
 
             if (log.isTraceEnabled()) {
-                log.trace("Received TTS event: {}, full message: {}", eventType, message);
+                log.trace("收到语音合成事件: {}, 完整消息: {}", eventType, message);
             } else {
-                log.debug("Received TTS event: {}", eventType);
+                log.debug("收到语音合成事件: {}", eventType);
             }
 
             switch (eventType) {
@@ -308,50 +298,50 @@ public class QwenTtsService {
                     String sessionId = message.has("session") && message.get("session").isJsonObject()
                             ? message.get("session").getAsJsonObject().get("id").getAsString()
                             : "unknown";
-                    log.debug("TTS session created: {}", sessionId);
+                    log.debug("语音合成会话已创建: {}", sessionId);
                     break;
 
                 case "session.updated":
-                    log.debug("TTS session configuration updated");
+                    log.debug("语音合成会话配置已更新");
                     break;
 
                 case "response.audio.delta":
-                    // 收到音频分片，delta 本身就是 base64 字符串。
+                    // 收到音频分片，delta字段为base64编码的音频数据
                     if (message.has("delta")) {
                         String audioBase64 = message.get("delta").getAsString();
                         if (audioBase64 != null && !audioBase64.isEmpty()) {
                             byte[] audioChunk = Base64.getDecoder().decode(audioBase64);
                             audioContainer.append(audioChunk);
-                            log.trace("Received audio chunk - {} bytes", audioChunk.length);
+                            log.trace("收到音频分片 - {} 字节", audioChunk.length);
                         }
                     }
                     break;
 
                 case "response.done":
-                    // 响应完成，这是 Qwen TTS API 的最终事件。
+                    // 响应完成，触发锁存器
                     String responseId = responseIdRef.get();
-                    log.debug("TTS response completed - responseId: {}", responseId);
+                    log.debug("语音合成响应已完成 - responseId: {}", responseId);
                     synthesisLatch.countDown();
                     break;
 
                 case "error":
-                    // 错误事件。
+                    // 错误事件，解析错误详情
                     if (message.has("error")) {
                         var errorElement = message.get("error");
                         String errorType = "unknown";
                         String errorCode = "unknown";
-                        String errorMessage = "Unknown error";
+                        String errorMessage = "未知错误";
 
                         if (errorElement.isJsonObject()) {
                             JsonObject errorObj = errorElement.getAsJsonObject();
                             errorType = errorObj.has("type") ? errorObj.get("type").getAsString() : "unknown";
                             errorCode = errorObj.has("code") ? errorObj.get("code").getAsString() : "unknown";
-                            errorMessage = errorObj.has("message") ? errorObj.get("message").getAsString() : "Unknown error";
+                            errorMessage = errorObj.has("message") ? errorObj.get("message").getAsString() : "未知错误";
                         } else {
                             errorMessage = errorElement.toString();
                         }
 
-                        String fullErrorMessage = String.format("TTS Error [%s/%s]: %s", errorType, errorCode, errorMessage);
+                        String fullErrorMessage = String.format("语音合成错误 [%s/%s]: %s", errorType, errorCode, errorMessage);
                         log.error("{}", fullErrorMessage);
 
                         errorRef.set(new IllegalStateException(fullErrorMessage));
@@ -360,20 +350,20 @@ public class QwenTtsService {
                     break;
 
                 default:
-                    log.trace("Unhandled TTS event type: {}", eventType);
+                    log.trace("未处理的语音合成事件类型: {}", eventType);
             }
 
         } catch (Exception e) {
-            log.error("Error processing TTS server event", e);
+            log.error("处理语音合成服务端事件时出错", e);
             errorRef.set(e);
             synthesisLatch.countDown();
         }
     }
 
     /**
-     * 高效收集音频分片的内部类。
-     * 使用 ByteArrayOutputStream 获得摊还 O(1) 的追加性能，
-     * 避免手动扩容数组导致 O(n²) 拷贝。
+     * 高效收集音频分片的内部类
+     * 使用ByteArrayOutputStream获得摊还O(1)的追加性能，
+     * 避免手动扩容数组导致O(n²)拷贝
      */
     private static class ByteArrayContainer {
         private final java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
@@ -387,7 +377,7 @@ public class QwenTtsService {
         }
     }
 
-    // 配置 setter，供测试或运行时配置注入使用。
+    // 配置setter，供测试或运行时配置注入使用
 
     public void setModel(String model) {
         this.model = model;
@@ -397,6 +387,10 @@ public class QwenTtsService {
         this.apiKey = apiKey;
     }
 
+    /**
+     * 解析API密钥
+     * 优先使用覆盖配置，其次使用大模型API密钥作为回退
+     */
     private String resolveApiKey(String overrideApiKey) {
         String override = trimToNull(ConfigPlaceholderResolver.resolve(overrideApiKey));
         if (override != null) {
@@ -408,12 +402,19 @@ public class QwenTtsService {
         return trimToNull(ConfigPlaceholderResolver.resolve(aiProperties.getModel().getApiKey()));
     }
 
+    /**
+     * 根据用户ID解析语音合成配置
+     * 未登录时使用系统默认配置
+     */
     private TtsConfigSnapshot resolveConfig(String userId) {
         return userId == null || userId.isBlank()
                 ? systemConfigSnapshot()
                 : settingsResolver.resolveTts(userId);
     }
 
+    /**
+     * 构建系统默认配置快照
+     */
     private TtsConfigSnapshot systemConfigSnapshot() {
         return new TtsConfigSnapshot(
                 model,
@@ -428,10 +429,16 @@ public class QwenTtsService {
         );
     }
 
+    /**
+     * 检查配置快照是否已配置API密钥
+     */
     private boolean isConfigured(TtsConfigSnapshot config) {
         return config != null && config.apiKey() != null && !config.apiKey().trim().isEmpty();
     }
 
+    /**
+     * 去除字符串首尾空格，空字符串或包含未解析占位符时返回null
+     */
     private String trimToNull(String value) {
         if (value == null) {
             return null;
@@ -456,15 +463,4 @@ public class QwenTtsService {
         this.mode = mode;
     }
 
-    public void setLanguageType(String languageType) {
-        this.languageType = languageType;
-    }
-
-    public void setSpeechRate(Float speechRate) {
-        this.speechRate = speechRate;
-    }
-
-    public void setVolume(Integer volume) {
-        this.volume = volume;
-    }
 }

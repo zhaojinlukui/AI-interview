@@ -38,11 +38,6 @@ public interface InterviewMapper {
     @Mapping(target = "feedback", source = "feedback")
     InterviewReportDTO.QuestionEvaluation toQuestionEvaluation(InterviewAnswerEntity entity);
 
-    /**
-     * 批量转换面试答案实体
-     */
-    List<InterviewReportDTO.QuestionEvaluation> toQuestionEvaluations(List<InterviewAnswerEntity> entities);
-
     // ========== AnswerDetailDTO 映射 ==========
 
     /**
@@ -136,27 +131,6 @@ public interface InterviewMapper {
         List<Object> referenceAnswers,
         List<InterviewDetailDTO.AnswerDetailDTO> answers
     );
-
-    // ========== InterviewSessionEntity 更新映射 ==========
-
-    /**
-     * 从 InterviewReportDTO 更新 InterviewSessionEntity
-     * 注意：JSON 字段需要在 Service 层单独设置
-     */
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "sessionId", ignore = true)
-    @Mapping(target = "resume", ignore = true)
-    @Mapping(target = "totalQuestions", ignore = true)
-    @Mapping(target = "currentQuestionIndex", ignore = true)
-    @Mapping(target = "questionsJson", ignore = true)
-    @Mapping(target = "strengthsJson", ignore = true)
-    @Mapping(target = "improvementsJson", ignore = true)
-    @Mapping(target = "referenceAnswersJson", ignore = true)
-    @Mapping(target = "answers", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "status", ignore = true)
-    @Mapping(target = "completedAt", ignore = true)
-    void updateSessionFromReport(InterviewReportDTO report, @MappingTarget InterviewSessionEntity session);
 
     // ========== 面试历史列表项映射 ==========
 

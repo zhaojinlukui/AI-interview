@@ -10,7 +10,6 @@ public final class AsyncTaskStreamConstants {
     public static final String FIELD_CONTENT = "content";
 
     public static final int MAX_RETRY_COUNT = 3;
-    public static final long POLL_INTERVAL_MS = 1000;
     public static final int STREAM_MAX_LEN = 1000;
 
     public static final String RABBITMQ_EXCHANGE_NAME = "interview.async.tasks.exchange";

@@ -53,24 +53,7 @@ public interface ResumeMapper {
         Integer interviewCount
     );
 
-    /**
-     * 简化版：从 ResumeEntity 直接映射（其他字段为 null）
-     */
-    @Mapping(target = "filename", source = "originalFilename")
-    @Mapping(target = "latestScore", ignore = true)
-    @Mapping(target = "lastAnalyzedAt", ignore = true)
-    @Mapping(target = "interviewCount", ignore = true)
-    ResumeListItemDTO toListItemDTOBasic(ResumeEntity entity);
-
     // ========== ResumeDetailDTO 映射 ==========
-
-    /**
-     * ResumeEntity 转换为 ResumeDetailDTO（不含 analyses 和 interviews）
-     */
-    @Mapping(target = "filename", source = "originalFilename")
-    @Mapping(target = "analyses", ignore = true)
-    @Mapping(target = "interviews", ignore = true)
-    ResumeDetailDTO toDetailDTOBasic(ResumeEntity entity);
 
     /**
      * 组装完整简历详情 DTO，分析历史和面试历史由 Service 层查询后传入。
@@ -128,21 +111,6 @@ public interface ResumeMapper {
     @Mapping(target = "expressionScore", source = "scoreDetail.expressionScore")
     @Mapping(target = "projectScore", source = "scoreDetail.projectScore")
     ResumeAnalysisEntity toAnalysisEntity(ResumeAnalysisResponse response);
-
-    /**
-     * 更新已有的 ResumeAnalysisEntity
-     */
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "resume", ignore = true)
-    @Mapping(target = "strengthsJson", ignore = true)
-    @Mapping(target = "suggestionsJson", ignore = true)
-    @Mapping(target = "analyzedAt", ignore = true)
-    @Mapping(target = "contentScore", source = "scoreDetail.contentScore")
-    @Mapping(target = "structureScore", source = "scoreDetail.structureScore")
-    @Mapping(target = "skillMatchScore", source = "scoreDetail.skillMatchScore")
-    @Mapping(target = "expressionScore", source = "scoreDetail.expressionScore")
-    @Mapping(target = "projectScore", source = "scoreDetail.projectScore")
-    void updateAnalysisEntity(ResumeAnalysisResponse response, @MappingTarget ResumeAnalysisEntity entity);
 
     // ========== 工具方法 ==========
 
