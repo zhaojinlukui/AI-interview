@@ -14,7 +14,7 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 /**
  * WebSocket配置
- * 注册语音面试WebSocket处理器，配置握手拦截器（认证+会话），
+ * 注册语音面试 WebSocket 处理器，配置握手拦截器（认证+会话），
  * 设置跨域允许来源和消息缓冲区大小
  */
 @Configuration

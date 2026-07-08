@@ -45,14 +45,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AiClientFactory {
 
-    private final AiProperties properties; // AI相关全局属性
-    private final AiSettingsResolver settingsResolver; // 用户AI配置解析器
-    private final ToolCallingManager toolCallingManager; // 工具调用管理器
-    private final ObservationRegistry observationRegistry; // 观测注册器
-    private final ToolCallback interviewSkillsToolCallback; // 面试技能工具回调
+    private final AiProperties properties;
+    private final AiSettingsResolver settingsResolver;
+    private final ToolCallingManager toolCallingManager;
+    private final ObservationRegistry observationRegistry;
+    private final ToolCallback interviewSkillsToolCallback;
 
-    private final Map<String, ChatClient> clientCache = new ConcurrentHashMap<>(); // ChatClient缓存
-    private final Map<String, EmbeddingModel> embeddingCache = new ConcurrentHashMap<>(); // EmbeddingModel缓存
+    private final Map<String, ChatClient> clientCache = new ConcurrentHashMap<>();
+    private final Map<String, EmbeddingModel> embeddingCache = new ConcurrentHashMap<>();
 
     @Autowired
     public AiClientFactory(

@@ -170,13 +170,6 @@ public class QwenAsrService {
      * 设置转写结果与错误处理回调，使用服务端VAD自动检测句子边界。
      * 连接在异步线程中建立，不阻塞调用线程。
      * </p>
-     *
-     * @param sessionId 会话唯一标识
-     * @param onFinal 定稿文本回调（completed事件）
-     * @param onPartial 中间结果文本回调（实时字幕），可为null
-     * @param onReady 连接就绪回调
-     * @param onError 错误回调
-     * @param userId 用户ID，为null时使用系统默认配置
      */
     public void startTranscription(
             String sessionId,
@@ -376,10 +369,6 @@ public class QwenAsrService {
      * 启用服务端VAD后，服务会自动检测语音片段并在检测到静音时触发转写。
      * 发送前会等待会话就绪（最多1200ms），未就绪时抛出异常。
      * </p>
-     *
-     * @param sessionId 会话标识
-     * @param audioData 原始PCM音频字节
-     * @throws IllegalStateException 当会话不存在或未就绪时抛出
      */
     public void sendAudio(String sessionId, byte[] audioData) {
         AsrSession session = sessions.get(sessionId);

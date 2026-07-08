@@ -184,7 +184,7 @@ public class VoiceInterviewController {
 
         VoiceInterviewSessionEntity session = voiceInterviewService.getSessionForCurrentUser(sessionId);
 
-        // 已完成时直接返回缓存结果。
+        // 已完成时直接返回缓存结果
         if (session.getEvaluateStatus() == AsyncTaskStatus.COMPLETED) {
             VoiceEvaluationDetailDTO evaluation = evaluationService.getEvaluation(sessionId);
             return Result.success(VoiceEvaluationStatusDTO.builder()
@@ -193,7 +193,7 @@ public class VoiceInterviewController {
                     .build());
         }
 
-        // 已经排队或处理中时返回当前状态。
+        // 已经排队或处理中时返回当前状态
         if (session.getEvaluateStatus() == AsyncTaskStatus.PENDING
                 || session.getEvaluateStatus() == AsyncTaskStatus.PROCESSING) {
             return Result.success(VoiceEvaluationStatusDTO.builder()
@@ -201,7 +201,7 @@ public class VoiceInterviewController {
                     .build());
         }
 
-        // 投递新的异步评估任务。
+        // 投递新的异步评估任务
         voiceInterviewService.triggerEvaluation(sessionId);
 
         return Result.success(VoiceEvaluationStatusDTO.builder()

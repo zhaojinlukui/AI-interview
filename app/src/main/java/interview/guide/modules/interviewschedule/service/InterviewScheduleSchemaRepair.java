@@ -36,9 +36,9 @@ public class InterviewScheduleSchemaRepair {
         try {
             jdbcTemplate.execute(DROP_STATUS_CHECK);
             jdbcTemplate.execute(ADD_STATUS_CHECK);
-            log.info("Interview schedule status check constraint repaired");
+            log.info("面试安排状态检查约束已修复");
         } catch (Exception e) {
-            log.warn("Failed to repair interview schedule status check constraint", e);
+            log.warn("修复面试安排状态检查约束失败", e);
         }
     }
 
@@ -47,7 +47,7 @@ public class InterviewScheduleSchemaRepair {
             String productName = connection.getMetaData().getDatabaseProductName();
             return productName != null && productName.toLowerCase().contains(POSTGRESQL);
         } catch (SQLException e) {
-            log.warn("Failed to detect database product for schedule constraint repair", e);
+            log.warn("无法检测用于计划约束修复的数据库产品", e);
             return false;
         }
     }
