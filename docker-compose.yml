@@ -34,8 +34,8 @@
     image: rabbitmq:3.13-management
     container_name: interview-rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME:-rabbitmq}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-rabbitmq}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -68,8 +68,6 @@
       retries: 5
 
   app:
-    profiles:
-      - container-backend
     build:
       context: .
       dockerfile: app/Dockerfile
@@ -84,6 +82,7 @@
       rustfs:
         condition: service_healthy
     environment:
+      SERVER_PORT: 8200
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: interview_guide
@@ -96,22 +95,27 @@
       RABBITMQ_USERNAME: ${RABBITMQ_USERNAME:-guest}
       RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-guest}
       APP_STORAGE_ENDPOINT: http://rustfs:9000
-      APP_STORAGE_ACCESS_KEY: ${RUSTFS_ACCESS_KEY:-rustfs}
-      APP_STORAGE_SECRET_KEY: ${RUSTFS_SECRET_KEY:-rustfs}
+      APP_STORAGE_ACCESS_KEY: ${RUSTFS_ACCESS_KEY:-rustfsadmin}
+      APP_STORAGE_SECRET_KEY: ${RUSTFS_SECRET_KEY:-rustfsadmin}
       APP_STORAGE_BUCKET: interview-guide
       APP_STORAGE_REGION: us-east-1
-      APP_AI_MODEL_API_KEY: ${APP_AI_MODEL_API_KEY}
-      AI_MODEL: ${AI_MODEL:-qwen-turbo}
+      APP_AI_MODEL_BASE_URL: ${APP_AI_MODEL_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      APP_AI_MODEL_API_KEY: ${APP_AI_MODEL_API_KEY:-}
+      APP_AI_MODEL_CHAT_MODEL: ${APP_AI_MODEL_CHAT_MODEL:-qwen-turbo}
+      APP_AI_MODEL_EMBEDDING_MODEL: ${APP_AI_MODEL_EMBEDDING_MODEL:-text-embedding-v4}
+      APP_AI_MODEL_EMBEDDING_DIMENSIONS: ${APP_AI_MODEL_EMBEDDING_DIMENSIONS:-1024}
       APP_INTERVIEW_FOLLOW_UP_COUNT: ${APP_INTERVIEW_FOLLOW_UP_COUNT:-1}
       APP_INTERVIEW_EVALUATION_BATCH_SIZE: ${APP_INTERVIEW_EVALUATION_BATCH_SIZE:-8}
     ports:
-      - "8080:8080"
+      - "8200:8200"
 
   frontend:
     build: ./frontend
     container_name: interview-frontend
+    depends_on:
+      - app
     environment:
-      API_BACKEND: ${FRONTEND_API_BACKEND:-host.docker.internal:8080}
+      API_BACKEND: ${FRONTEND_API_BACKEND:-app:8200}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:

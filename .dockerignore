@@ -12,6 +12,8 @@
 .gradle
 **/build/
 !gradle/wrapper/gradle-wrapper.jar
+app/out/
+out/
 
 # Node.js (Frontend)
 **/node_modules
@@ -45,7 +47,11 @@ yarn.lock
 logs/
 tmp/
 temp/
+output/
 test-output.txt
+.playwright-cli/
+data/
+rustfs/data/
 
 # OS Generated Files
 .DS_Store
@@ -63,8 +69,6 @@ Thumbs.db
 
 # Documentation (not needed in production image)
 docs/
-*.md
-!README.md
 
 # Docker (avoid recursive context)
 docker-compose*.yml
