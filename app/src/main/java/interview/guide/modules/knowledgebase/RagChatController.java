@@ -26,7 +26,7 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 
 /**
- * RAG 聊天会话控制器。
+ * RAG 聊天会话控制器
  */
 @Slf4j
 @RestController
@@ -37,10 +37,7 @@ public class RagChatController {
     private final RagChatSessionService sessionService;
 
     /**
-     * 创建 RAG 聊天会话。
-     *
-     * @param request 创建请求
-     * @return 会话信息
+     * 创建 RAG 聊天会话
      */
     @PostMapping("/api/rag-chat/sessions")
     public Result<SessionDTO> createSession(@Valid @RequestBody CreateSessionRequest request) {
@@ -48,9 +45,7 @@ public class RagChatController {
     }
 
     /**
-     * 查询 RAG 聊天会话列表。
-     *
-     * @return 会话列表
+     * 查询 RAG 聊天会话列表
      */
     @GetMapping("/api/rag-chat/sessions")
     public Result<List<SessionListItemDTO>> listSessions() {
@@ -58,10 +53,7 @@ public class RagChatController {
     }
 
     /**
-     * 查询 RAG 聊天会话详情。
-     *
-     * @param sessionId 会话 ID
-     * @return 会话详情
+     * 查询 RAG 聊天会话详情
      */
     @GetMapping("/api/rag-chat/sessions/{sessionId}")
     public Result<SessionDetailDTO> getSessionDetail(@PathVariable Long sessionId) {
@@ -69,11 +61,7 @@ public class RagChatController {
     }
 
     /**
-     * 更新 RAG 聊天会话标题。
-     *
-     * @param sessionId 会话 ID
-     * @param request 标题更新请求
-     * @return 更新结果
+     * 更新 RAG 聊天会话标题
      */
     @PutMapping("/api/rag-chat/sessions/{sessionId}/title")
     public Result<Void> updateSessionTitle(
@@ -85,10 +73,7 @@ public class RagChatController {
     }
 
     /**
-     * 切换 RAG 聊天会话置顶状态。
-     *
-     * @param sessionId 会话 ID
-     * @return 更新结果
+     * 切换 RAG 聊天会话置顶状态
      */
     @PutMapping("/api/rag-chat/sessions/{sessionId}/pin")
     public Result<Void> togglePin(@PathVariable Long sessionId) {
@@ -97,10 +82,7 @@ public class RagChatController {
     }
 
     /**
-     * 删除 RAG 聊天会话。
-     *
-     * @param sessionId 会话 ID
-     * @return 删除结果
+     * 删除 RAG 聊天会话
      */
     @DeleteMapping("/api/rag-chat/sessions/{sessionId}")
     public Result<Void> deleteSession(@PathVariable Long sessionId) {
@@ -109,18 +91,14 @@ public class RagChatController {
     }
 
     /**
-     * 发送问题并以 SSE 流式返回 RAG 回答。
+     * 发送问题并以 SSE 流式返回 RAG 回答
      *
      * <p>处理流程：</p>
      * <ol>
-     *   <li>先保存用户消息并创建空的 AI 回复消息。</li>
-     *   <li>逐块转发模型输出，同时拼接完整回答。</li>
-     *   <li>流结束后把完整 AI 回复写回消息记录。</li>
+     *   <li>先保存用户消息并创建空的 AI 回复消息</li>
+     *   <li>逐块转发模型输出，同时拼接完整回答</li>
+     *   <li>流结束后把完整 AI 回复写回消息记录</li>
      * </ol>
-     *
-     * @param sessionId 会话 ID
-     * @param request 消息发送请求
-     * @return SSE 流式回答
      */
     @PostMapping(
             value = "/api/rag-chat/sessions/{sessionId}/messages/stream",
@@ -135,12 +113,12 @@ public class RagChatController {
 
         Long messageId = sessionService.prepareStreamMessage(sessionId, request.question());
 
-        // 拼接完整回复，供流式输出结束后回写数据库。
+        // 拼接完整回复，供流式输出结束后回写数据库
         StringBuilder fullContent = new StringBuilder();
 
         return sessionService.getStreamAnswer(sessionId, request.question())
                 .doOnNext(fullContent::append)
-                // SSE 单个 data 字段不直接保留换行，前端再按转义字符还原。
+                // SSE 单个 data 字段不直接保留换行，前端再按转义字符还原
                 .map(chunk -> ServerSentEvent.<String>builder()
                         .data(chunk.replace("\n", "\\n").replace("\r", "\\r"))
                         .build())

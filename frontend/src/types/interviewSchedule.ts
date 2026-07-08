@@ -1,6 +1,6 @@
 // frontend/src/types/interviewSchedule.ts
 
-export type InterviewStatus = 'PENDING' | 'COMPLETED' | 'CANCELLED' | 'RESCHEDULED';
+export type InterviewStatus = 'PENDING' | 'COMPLETED' | 'CANCELLED' | 'EXPIRED';
 
 export type InterviewType = 'ONSITE' | 'VIDEO' | 'PHONE';
 
@@ -32,13 +32,11 @@ export interface CreateInterviewRequest {
 
 export interface ParseRequest {
   rawText: string;
-  source?: 'feishu' | 'tencent' | 'zoom' | 'other';
 }
 
 export interface ParseResponse {
   success: boolean;
   data: CreateInterviewRequest | null;
-  confidence: number;
   parseMethod: 'rule' | 'ai';
   log: string;
 }

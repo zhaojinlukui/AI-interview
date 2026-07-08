@@ -20,13 +20,9 @@ import java.security.NoSuchAlgorithmException;
 public class FileHashService {
 
     private static final String HASH_ALGORITHM = "SHA-256";
-    private static final int BUFFER_SIZE = 8192;
 
     /**
      * 计算文件的 SHA-256 哈希值
-     *
-     * @param file MultipartFile 文件
-     * @return 十六进制哈希字符串
      */
     public String calculateHash(MultipartFile file) {
         try {
@@ -39,9 +35,6 @@ public class FileHashService {
 
     /**
      * 计算字节数组的 SHA-256 哈希值
-     *
-     * @param data 字节数组
-     * @return 十六进制哈希字符串
      */
     public String calculateHash(byte[] data) {
         try {
@@ -54,26 +47,6 @@ public class FileHashService {
         }
     }
 
-    /**
-     * 流式计算文件的 SHA-256 哈希值（适用于大文件）
-     *
-     * @param inputStream 输入流
-     * @return 十六进制哈希字符串
-     */
-    public String calculateHash(InputStream inputStream) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                digest.update(buffer, 0, bytesRead);
-            }
-            return bytesToHex(digest.digest());
-        } catch (NoSuchAlgorithmException | IOException e) {
-            log.error("计算文件哈希失败", e);
-            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "计算文件哈希失败");
-        }
-    }
 
     /**
      * 将字节数组转换为十六进制字符串

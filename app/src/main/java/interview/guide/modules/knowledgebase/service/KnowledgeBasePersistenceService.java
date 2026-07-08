@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 /**
  * 知识库持久化服务
  * 处理所有需要事务的数据库操作
@@ -25,14 +27,12 @@ public class KnowledgeBasePersistenceService {
     private final KnowledgeBaseRepository knowledgeBaseRepository;
 
     /**
-     * 处理重复知识库（更新访问计数）
+     * 处理重复知识库
      */
     @Transactional(rollbackFor = Exception.class)
     public UploadKnowledgeBaseResponse handleDuplicateKnowledgeBase(KnowledgeBaseEntity kb) {
         log.info("检测到重复知识库，返回已有记录: kbId={}", kb.getId());
-        
-        // 更新访问计数（在事务中）
-        kb.incrementAccessCount();
+        kb.updateAccessedAt();
         knowledgeBaseRepository.save(kb);
         
         // 重复知识库的向量数据应该已经存在，不需要重新向量化

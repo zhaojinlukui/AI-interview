@@ -15,7 +15,7 @@ public class LlmEmbeddingConfig {
 
     @Bean
     public EmbeddingModel embeddingModel(AiClientFactory clientFactory) {
-        log.info("EmbeddingModel bean initialized as AI model delegate");
+        log.info("嵌入模型 bean 已作为 AI 模型委托初始化");
         return new EmbeddingModel() {
             @Override
             public EmbeddingResponse call(EmbeddingRequest request) {

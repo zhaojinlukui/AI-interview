@@ -115,4 +115,6 @@ public interface InterviewSessionRepository extends JpaRepository<InterviewSessi
         String userId,
         String skillId
     );
+
+    void deleteByUserId(String userId);
 }

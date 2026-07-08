@@ -183,37 +183,6 @@ public class FileStorageService {
         }
     }
 
-    public long getFileSize(String fileKey) {
-        try {
-            HeadObjectRequest headRequest = HeadObjectRequest.builder()
-                    .bucket(storageConfig.getBucket())
-                    .key(fileKey)
-                    .build();
-            return s3Client.headObject(headRequest).contentLength();
-        } catch (S3Exception e) {
-            log.error(
-                    "获取文件大小失败: fileKey={}, endpoint={}, bucket={}",
-                    fileKey,
-                    storageConfig.getEndpoint(),
-                    storageConfig.getBucket(),
-                    e
-            );
-            throw new BusinessException(ErrorCode.STORAGE_DOWNLOAD_FAILED, "获取文件信息失败");
-        } catch (SdkClientException e) {
-            log.error(
-                    "连接对象存储获取文件大小失败: fileKey={}, endpoint={}, bucket={}",
-                    fileKey,
-                    storageConfig.getEndpoint(),
-                    storageConfig.getBucket(),
-                    e
-            );
-            throw new BusinessException(
-                    ErrorCode.STORAGE_DOWNLOAD_FAILED,
-                    buildClientErrorMessage("获取信息", e)
-            );
-        }
-    }
-
     private void deleteFile(String fileKey) {
         if (fileKey == null || fileKey.isEmpty()) {
             log.debug("文件 key 为空，跳过删除");

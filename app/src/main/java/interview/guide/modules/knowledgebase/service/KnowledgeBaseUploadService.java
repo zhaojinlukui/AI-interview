@@ -109,11 +109,7 @@ public class KnowledgeBaseUploadService {
     }
 
     /**
-     * 批量导入知识库文件，单个文件失败不影响其他文件继续导入。
-     *
-     * @param files 知识库文件列表
-     * @param names 知识库名称列表（可选，与文件顺序对应）
-     * @return 批量导入汇总结果
+     * 批量导入知识库文件，单个文件失败不影响其他文件继续导入
      */
     public UploadKnowledgeBaseBatchResponse uploadKnowledgeBases(
         List<MultipartFile> files,
@@ -193,8 +189,6 @@ public class KnowledgeBaseUploadService {
     /**
      * 重新向量化知识库（手动重试）
      * 从 RustFS 重新下载文件并发送向量化任务
-     *
-     * @param kbId 知识库ID
      */
     public void revectorize(Long kbId) {
         KnowledgeBaseEntity kb = knowledgeBaseRepository.findByIdAndUserId(

@@ -25,11 +25,6 @@ public interface KnowledgeBaseRepository extends JpaRepository<KnowledgeBaseEnti
     Optional<KnowledgeBaseEntity> findByUserIdAndFileHash(String userId, String fileHash);
 
     /**
-     * 检查文件哈希是否存在
-     */
-    boolean existsByUserIdAndFileHash(String userId, String fileHash);
-
-    /**
      * 按上传时间倒序查找所有知识库
      */
     List<KnowledgeBaseEntity> findAllByUserIdOrderByUploadedAtDesc(String userId);
@@ -49,47 +44,16 @@ public interface KnowledgeBaseRepository extends JpaRepository<KnowledgeBaseEnti
         @Param("keyword") String keyword
     );
 
-    /**
-     * 按文件大小排序
-     */
-    List<KnowledgeBaseEntity> findAllByUserIdOrderByFileSizeDesc(String userId);
-
-    /**
-     * 按提问次数排序
-     */
-    List<KnowledgeBaseEntity> findAllByUserIdOrderByQuestionCountDesc(String userId);
-
     // ==================== 批量更新 ====================
 
     /**
      * 批量增加知识库提问计数
-     * @param ids 知识库ID列表
-     * @return 更新的行数
      */
     @Modifying
     @Query("UPDATE KnowledgeBaseEntity k SET k.questionCount = k.questionCount + 1 WHERE k.id IN :ids")
     int incrementQuestionCountBatch(@Param("ids") List<Long> ids);
 
-    @Modifying
-    @Transactional
-    @Query("""
-        UPDATE KnowledgeBaseEntity k
-        SET k.lastAccessedAt = :accessedAt
-        WHERE k.id = :id AND k.userId = :userId
-        """)
-    int touchAccessedAt(
-        @Param("id") Long id,
-        @Param("userId") String userId,
-        @Param("accessedAt") LocalDateTime accessedAt
-    );
-
     // ==================== 统计查询 ====================
-
-    /**
-     * 统计总提问次数
-     */
-    @Query("SELECT COALESCE(SUM(k.questionCount), 0) FROM KnowledgeBaseEntity k WHERE k.userId = :userId")
-    long sumQuestionCountByUserId(@Param("userId") String userId);
 
     /**
      * 按向量化状态统计数量
@@ -107,4 +71,6 @@ public interface KnowledgeBaseRepository extends JpaRepository<KnowledgeBaseEnti
     );
 
     Optional<KnowledgeBaseEntity> findByIdAndUserId(Long id, String userId);
+
+    void deleteByUserId(String userId);
 }

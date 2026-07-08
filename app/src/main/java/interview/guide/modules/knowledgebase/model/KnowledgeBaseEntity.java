@@ -21,79 +21,73 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(
-    name = "knowledge_bases",
-    indexes = {
-    @Index(name = "idx_kb_user_uploaded", columnList = "userId,uploadedAt"),
-    @Index(name = "idx_kb_user_hash", columnList = "userId,fileHash", unique = true)
-})
+        name = "knowledge_bases",
+        indexes = {
+                @Index(name = "idx_kb_user_uploaded", columnList = "userId,uploadedAt"),
+                @Index(name = "idx_kb_user_hash", columnList = "userId,fileHash", unique = true)
+        })
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class KnowledgeBaseEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;                                 // 主键 ID
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;                                 // 主键 ID
 
-  @Column(nullable = false, length = 64)
-  private String fileHash;                         // 文件 SHA-256 哈希值
+    @Column(nullable = false, length = 64)
+    private String fileHash;                         // 文件 SHA-256 哈希值
 
-  @Column(length = 64)
-  private String userId;                           // 所属用户 ID
+    @Column(length = 64)
+    private String userId;                           // 所属用户 ID
 
-  @Column(nullable = false)
-  private String name;                             // 知识库名称
+    @Column(nullable = false)
+    private String name;                             // 知识库名称
 
-  @Column(nullable = false)
-  private String originalFilename;                 // 原始文件名
+    @Column(nullable = false)
+    private String originalFilename;                 // 原始文件名
 
-  private Long fileSize;                           // 文件大小（字节）
+    private Long fileSize;                           // 文件大小（字节）
 
-  private String contentType;                      // 文件 MIME 类型
+    private String contentType;                      // 文件 MIME 类型
 
-  @Column(length = 500)
-  private String storageKey;                       // RustFS 存储 Key
+    @Column(length = 500)
+    private String storageKey;                       // RustFS 存储 Key
 
-  @Column(length = 1000)
-  private String storageUrl;                       // RustFS 访问 URL
+    @Column(length = 1000)
+    private String storageUrl;                       // RustFS 访问 URL
 
-  @Column(nullable = false)
-  private LocalDateTime uploadedAt;                // 上传时间
+    @Column(nullable = false)
+    private LocalDateTime uploadedAt;                // 上传时间
 
-  private LocalDateTime lastAccessedAt;            // 最后访问时间
+    private LocalDateTime lastAccessedAt;            // 最后访问时间
 
-  @Builder.Default
-  private Integer accessCount = 0;                 // 访问次数
+    @Builder.Default
+    private Integer accessCount = 0;                 // 访问次数
 
-  @Builder.Default
-  private Integer questionCount = 0;               // 提问次数
+    @Builder.Default
+    private Integer questionCount = 0;               // 提问次数
 
-  @Enumerated(EnumType.STRING)
-  @Column(length = 20)
-  @Builder.Default
-  private VectorStatus vectorStatus = VectorStatus.PENDING; // 向量化状态
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    @Builder.Default
+    private VectorStatus vectorStatus = VectorStatus.PENDING; // 向量化状态
 
-  @Column(length = 500)
-  private String vectorError;                      // 向量化失败信息
+    @Column(length = 500)
+    private String vectorError;                      // 向量化失败信息
 
-  @Builder.Default
-  private Integer chunkCount = 0;                  // 向量分块数量
+    @Builder.Default
+    private Integer chunkCount = 0;                  // 向量分块数量
 
-  @PrePersist
-  protected void onCreate() {
-    uploadedAt = LocalDateTime.now();
-    lastAccessedAt = LocalDateTime.now();
-    accessCount = 1;
-  }
+    @PrePersist
+    protected void onCreate() {
+        uploadedAt = LocalDateTime.now();
+        lastAccessedAt = LocalDateTime.now();
+    }
 
-  public void incrementAccessCount() {
-    this.accessCount++;
-    this.lastAccessedAt = LocalDateTime.now();
-  }
+    public void updateAccessedAt() {
+        this.lastAccessedAt = LocalDateTime.now();
+    }
 
-  public void incrementQuestionCount() {
-    this.questionCount++;
-    this.lastAccessedAt = LocalDateTime.now();
-  }
 }

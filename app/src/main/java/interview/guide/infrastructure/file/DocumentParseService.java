@@ -36,9 +36,6 @@ public class DocumentParseService {
 
     /**
      * 解析上传的文件，提取文本内容
-     *
-     * @param file 上传的文件（支持PDF、DOCX、DOC、TXT、MD等）
-     * @return 提取的文本内容
      */
     public String parseContent(MultipartFile file) {
         String fileName = file.getOriginalFilename();
@@ -63,10 +60,6 @@ public class DocumentParseService {
 
     /**
      * 解析字节数组形式的文件内容
-     *
-     * @param fileBytes 文件字节数组
-     * @param fileName  原始文件名（用于日志）
-     * @return 提取的文本内容
      */
     public String parseContent(byte[] fileBytes, String fileName) {
         log.info("开始解析文件（从字节数组）: {}", fileName);
@@ -96,12 +89,6 @@ public class DocumentParseService {
      * 2. 禁用 EmbeddedDocumentExtractor，不解析嵌入资源（图片、附件）
      * 3. 配置 PDFParserConfig，关闭图片和注释提取
      * 4. 显式指定 Parser 到 Context，增强健壮性
-     *
-     * @param inputStream 文件输入流
-     * @return 提取的文本内容
-     * @throws IOException     IO 异常
-     * @throws TikaException   Tika 解析异常
-     * @throws SAXException    SAX 解析异常
      */
     private String parseContent(InputStream inputStream) throws IOException, TikaException, SAXException {
         // 1. 创建自动检测解析器
@@ -134,11 +121,6 @@ public class DocumentParseService {
 
     /**
      * 从存储下载文件并解析内容
-     *
-     * @param storageService   文件存储服务
-     * @param storageKey       存储键
-     * @param originalFilename 原始文件名
-     * @return 提取的文本内容
      */
     public String downloadAndParseContent(FileStorageService storageService, String storageKey, String originalFilename) {
         try {

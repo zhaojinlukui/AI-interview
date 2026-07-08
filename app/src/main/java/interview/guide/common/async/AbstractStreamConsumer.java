@@ -18,7 +18,6 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 
 /**
  * 抽象消息流消费者
- *
  * 提供基于 RabbitMQ 的异步任务消费通用实现，子类只需实现业务相关的抽象方法。
  *
  * 核心功能：
@@ -26,8 +25,6 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
  * 2. 自动重连机制（启动失败时重试）
  * 3. 消息解析与业务处理分发
  * 4. 失败重试策略（最多重试 MAX_RETRY_COUNT 次）
- *
- * @param <T> 业务载荷类型
  */
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -70,13 +67,11 @@ public abstract class AbstractStreamConsumer<T> {
         running.set(true);
         // 提交消费者启动任务
         executorService.submit(this::startConsumerLoop);
-        log.info("{} consumer scheduled: consumerName={}", taskDisplayName(), consumerName);
+        log.info("{}消费者已调度启动: consumerName={}", taskDisplayName(), consumerName);
     }
 
     /**
      * 关闭消费者
-     *
-     * 在 Bean 销毁前自动调用，停止消息监听并关闭线程池。
      */
     @PreDestroy
     public void shutdown() {
@@ -89,7 +84,7 @@ public abstract class AbstractStreamConsumer<T> {
         if (executorService != null) {
             executorService.shutdownNow();
         }
-        log.info("{} consumer stopped: consumerName={}", taskDisplayName(), consumerName);
+        log.info("{}消费者已停止: consumerName={}", taskDisplayName(), consumerName);
     }
 
     /**
@@ -109,14 +104,14 @@ public abstract class AbstractStreamConsumer<T> {
                         threadName(),
                         this::processMessage
                 );
-                log.info("{} consumer started: consumerName={}", taskDisplayName(), consumerName);
+                log.info("{}消费者启动成功: consumerName={}", taskDisplayName(), consumerName);
                 return;  // 启动成功，退出循环
             } catch (Exception e) {
                 // 如果已收到关闭信号，不再重试
                 if (!running.get()) {
                     return;
                 }
-                log.warn("{} consumer start failed, will retry: consumerName={}",
+                log.warn("{}消费者启动失败，将在5秒后重试: consumerName={}",
                         taskDisplayName(), consumerName, e);
                 try {
                     // 等待 5 秒后重试，避免频繁重连
@@ -147,7 +142,7 @@ public abstract class AbstractStreamConsumer<T> {
             // 解析消息载荷
             payload = parsePayload(messageId, data);
         } catch (Exception e) {
-            log.warn("{} task payload parse failed: messageId={}", taskDisplayName(), messageId, e);
+            log.warn("{}任务载荷解析失败: messageId={}", taskDisplayName(), messageId, e);
             return;
         }
 
@@ -158,7 +153,7 @@ public abstract class AbstractStreamConsumer<T> {
 
         // 解析重试次数，默认为 0
         int retryCount = parseRetryCount(data);
-        log.info("Processing {} task: payload={}, messageId={}, retryCount={}",
+        log.info("开始处理{}任务: payload={}, messageId={}, retryCount={}",
                 taskDisplayName(), payloadIdentifier(payload), messageId, retryCount);
 
         try {
@@ -168,9 +163,9 @@ public abstract class AbstractStreamConsumer<T> {
             processBusiness(payload);
             // 标记为已完成
             markCompleted(payload);
-            log.info("{} task completed: {}", taskDisplayName(), payloadIdentifier(payload));
+            log.info("{}任务处理完成: {}", taskDisplayName(), payloadIdentifier(payload));
         } catch (Exception e) {
-            log.error("{} task failed: {}", taskDisplayName(), payloadIdentifier(payload), e);
+            log.error("{}任务处理失败: {}", taskDisplayName(), payloadIdentifier(payload), e);
             // 判断是否需要重试
             if (retryCount < AsyncTaskStreamConstants.MAX_RETRY_COUNT) {
                 // 未超过最大重试次数，发送重试消息（重试次数 +1）
@@ -178,7 +173,7 @@ public abstract class AbstractStreamConsumer<T> {
             } else {
                 // 超过最大重试次数，标记为最终失败
                 markFailed(payload, truncateError(
-                        taskDisplayName() + " failed after retry " + retryCount + ": " + e.getMessage()
+                        taskDisplayName() + "任务重试" + retryCount + "次后最终失败: " + e.getMessage()
                 ));
             }
         }

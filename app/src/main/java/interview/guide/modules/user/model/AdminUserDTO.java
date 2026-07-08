@@ -2,6 +2,9 @@ package interview.guide.modules.user.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * 管理端用户列表展示数据
+ */
 public record AdminUserDTO(
     Long id,
     String username,

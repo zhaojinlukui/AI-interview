@@ -31,8 +31,7 @@ public class KnowledgeBaseDeleteService {
     
     /**
      * 删除知识库
-     * 包括：RAG会话关联、向量数据、RustFS文件、数据库记录
-     */
+     * */
     @Transactional(rollbackFor = Exception.class)
     public void deleteKnowledgeBase(Long id) {
         String userId = CurrentUserContext.getRequiredUserId();

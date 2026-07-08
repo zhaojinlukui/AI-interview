@@ -17,21 +17,6 @@ import java.util.Optional;
 public interface VoiceInterviewSessionRepository extends JpaRepository<VoiceInterviewSessionEntity, Long> {
 
   /**
-   * 根据用户 ID 查询会话，按开始时间倒序排列。
-   */
-  List<VoiceInterviewSessionEntity> findByUserIdOrderByStartTimeDesc(String userId);
-
-  /**
-   * 查询指定评估状态且结束时间早于给定时间的会话。
-   *
-   * <p>这里查询的是 AsyncTaskStatus 字段，不是 InterviewPhase。</p>
-   */
-  Optional<VoiceInterviewSessionEntity> findByStatusAndEndTimeBefore(
-      AsyncTaskStatus status,
-      LocalDateTime time
-  );
-
-  /**
    * 查询用户全部会话，按更新时间倒序排列。
    */
   List<VoiceInterviewSessionEntity> findByUserIdOrderByUpdatedAtDesc(String userId);
@@ -64,4 +49,6 @@ public interface VoiceInterviewSessionRepository extends JpaRepository<VoiceInte
       AsyncTaskStatus evaluateStatus,
       LocalDateTime time
   );
+
+  void deleteByUserId(String userId);
 }

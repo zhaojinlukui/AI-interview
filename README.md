@@ -282,7 +282,7 @@ cd interview-guide
 
 ### 2. 配置环境变量
 
-在项目根目录创建 `.env`，后端通过 Spring config import 读取根目录或 `app/` 上级目录的 `.env`，IDEA 直接运行和 `bootRun` 使用同一套配置来源。最少需要填写 `APP_AI_MODEL_API_KEY`，用于单实例 OpenAI 兼容文本/向量模型；语音 ASR/TTS 默认继承该 Key，也可以在设置页单独覆盖：
+在项目根目录创建 `.env`，后端通过 Spring config import 读取根目录或 `app/` 上级目录的 `.env`，IDEA 直接运行和 `bootRun` 使用同一套配置来源。可以先复制 `.env.example` 再按需修改。最少需要填写 `APP_AI_MODEL_API_KEY`，用于单实例 OpenAI 兼容文本/向量模型；语音 ASR/TTS 默认继承该 Key，也可以在设置页单独覆盖：
 
 ```bash
 # 创建并编辑 .env
@@ -307,7 +307,7 @@ source ~/.bashrc
 
 ### 3. 启动依赖服务（可选）
 
-项目提供了 `docker-compose.dev.yml`，可一键启动 PostgreSQL、Redis、RustFS（S3 兼容存储）三个依赖：
+项目提供了 `docker-compose.dev.yml`，可一键启动 PostgreSQL、Redis、RabbitMQ、RustFS（S3 兼容存储）四个依赖：
 
 ```bash
 # 启动依赖服务
@@ -324,15 +324,18 @@ docker compose -f docker-compose.dev.yml down -v
 
 | 服务         | 地址             | 账号            | 密码            |
 | ------------ | ---------------- | --------------- | --------------- |
-| AI 面试平台管理员 | `localhost:5173` | `admin`         | `123456`        |
+| AI 面试平台管理员 | `localhost:5173` | 默认不自动创建  | -               |
 | PostgreSQL   | `localhost:5432` | `postgres`      | `password`      |
 | Redis        | `localhost:6379` | -               | -               |
+| RabbitMQ 管理台 | `localhost:15672` | `guest`        | `guest`        |
 | RustFS 控制台 | `localhost:9001` | `rustfsadmin`   | `rustfsadmin`   |
 
-AI 面试平台账号会在后端启动时写入 `users` 表，密码以 PBKDF2 哈希保存；
-历史业务数据默认归属到普通用户 `zhaojin`。
 
 > **注意**：首次启动后需浏览器访问 [http://localhost:9001](http://localhost:9001) 登录 RustFS 控制台，手动创建名为 `interview-guide` 的 Bucket。使用 `docker-compose.dev.yml` + `:app:bootRun` 时，请确保 `.env` 中的 `APP_STORAGE_ACCESS_KEY` / `APP_STORAGE_SECRET_KEY` 与 RustFS 账号一致，例如都设为 `rustfsadmin`。如果本地已有其他 S3 兼容存储，也可以直接使用，在 `.env` 中修改 `APP_STORAGE_*` 配置即可。
+
+如需后端启动时自动创建管理员账号，请在 `.env` 中设置
+`APP_AUTH_ADMIN_INITIALIZE_ON_STARTUP=true`，并通过
+`APP_AUTH_ADMIN_USERNAME` / `APP_AUTH_ADMIN_PASSWORD` 指定账号密码。
 
 ### 4. 启动应用
 
@@ -360,7 +363,7 @@ pnpm dev
 
 本项目提供了完整的 Docker 支持，可以一键启动所有服务（前后端、数据库、中间件）。
 
-Docker Compose 编排了 5 个服务：PostgreSQL（pgvector）、Redis、RustFS（S3 兼容存储）、Spring Boot 后端、React 前端（Nginx）。数据通过 Docker 命名卷持久化，`docker-compose down` 不会丢失数据。
+Docker Compose 编排了 6 个服务：PostgreSQL（pgvector）、Redis、RabbitMQ、RustFS（S3 兼容存储）、Spring Boot 后端、React 前端（Nginx）。数据通过 Docker 命名卷持久化，`docker compose down` 不会丢失数据。
 
 ### 1. 前置准备
 
@@ -375,6 +378,7 @@ Docker Compose 编排了 5 个服务：PostgreSQL（pgvector）、Redis、RustFS
 
 ```bash
 # 1. 创建并编辑 .env 文件，填入 AI 配置
+# cp .env.example .env
 # vim .env
 # 必填：APP_AI_MODEL_API_KEY=your_key_here
 # 可选：APP_AI_MODEL_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
@@ -386,10 +390,10 @@ Docker Compose 编排了 5 个服务：PostgreSQL（pgvector）、Redis、RustFS
 # APP_INTERVIEW_EVALUATION_BATCH_SIZE=8   # 回答评估分批大小（默认 8）
 
 # 2. 构建并启动所有服务
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
-> **仅启动依赖服务**：如果只想本地开发调试（用 `./gradlew :app:bootRun` 或 IDEA 启动后端），可以只启动基础设施：`docker compose up -d postgres redis rustfs`。在项目根目录创建 `.env` 并填写 `APP_AI_MODEL_API_KEY` 即可，默认账号与 `docker-compose.yml` 一致。
+> **仅启动依赖服务**：如果只想本地开发调试（用 `./gradlew :app:bootRun` 或 IDEA 启动后端），可以只启动基础设施：`docker compose up -d postgres redis rabbitmq rustfs`。在项目根目录创建 `.env` 并填写 `APP_AI_MODEL_API_KEY` 即可，基础设施默认账号与 `docker-compose.yml` 一致；平台管理员账号默认不自动创建。
 
 ### 3. 服务访问
 
@@ -397,17 +401,18 @@ docker-compose up -d --build
 
 | 服务             | 地址                                           | 默认账号     | 默认密码     | 说明                   |
 | ---------------- | ---------------------------------------------- | ------------ | ------------ | ---------------------- |
-| **前端应用**     | [http://localhost](http://localhost)           | `admin`      | `123456`     | 用户访问入口           |
+| **前端应用**     | [http://localhost](http://localhost)           | 默认不自动创建 | -            | 用户访问入口           |
 | **后端 API**     | [http://localhost:8200](http://localhost:8200) | -            | -            | RESTful API            |
 | **接口文档**     | [http://localhost:8200/swagger-ui.html](http://localhost:8200/swagger-ui.html) | - | - | SpringDoc/Swagger UI |
 | **RustFS 控制台** | [http://localhost:9001](http://localhost:9001) | `rustfsadmin` | `rustfsadmin` | 对象存储管理           |
 | **RustFS API**    | `localhost:9000`                               | -            | -            | S3 兼容接口            |
 | **PostgreSQL**   | `localhost:5432`                               | `postgres`   | `password`   | 数据库 (包含 pgvector) |
 | **Redis**        | `localhost:6379`                               | -            | -            | 缓存与消息队列         |
+| **RabbitMQ 管理台** | [http://localhost:15672](http://localhost:15672) | `guest` | `guest` | 异步任务队列管理       |
 
-平台管理员账号由后端启动时写入 `users` 表，默认账号可通过
-`APP_AUTH_ADMIN_USERNAME` / `APP_AUTH_ADMIN_PASSWORD` 覆盖；历史数据归属用户可通过
-`APP_AUTH_LEGACY_OWNER_USERNAME` 覆盖，默认是普通用户 `zhaojin`。
+平台管理员账号默认不再由后端启动时写入 `users` 表。如需自动初始化，请设置
+`APP_AUTH_ADMIN_INITIALIZE_ON_STARTUP=true`，默认账号可通过
+`APP_AUTH_ADMIN_USERNAME` / `APP_AUTH_ADMIN_PASSWORD` 覆盖。
 
 ### 4. 常用运维命令
 

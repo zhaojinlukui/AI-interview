@@ -21,6 +21,11 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
+/**
+ * 简历持久化服务
+ * 负责简历及其分析结果的存储、查询、删除等操作
+ * 包括重复检测、数据转换和事务管理等功能
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,26 +37,24 @@ public class ResumePersistenceService {
     private final ResumeMapper resumeMapper;
     private final FileHashService fileHashService;
 
+    // 查找是否已存在相同的简历文件
     public Optional<ResumeEntity> findExistingResume(MultipartFile file) {
         try {
             String userId = CurrentUserContext.getRequiredUserId();
-            String fileHash = fileHashService.calculateHash(file);
+            String fileHash = fileHashService.calculateHash(file);  // 获取哈希值
             Optional<ResumeEntity> existing = resumeRepository.findByUserIdAndFileHash(userId, fileHash);
 
             if (existing.isPresent()) {
-                log.info("Detected duplicate resume: userId={}, hash={}", userId, fileHash);
-                ResumeEntity resume = existing.get();
-                resume.incrementAccessCount();
-                resumeRepository.save(resume);
+                log.info("检测到重复简历：userId={}, hash={}", userId, fileHash);
             }
-
             return existing;
         } catch (Exception e) {
-            log.error("Error while checking resume duplicate", e);
+            log.error("检查简历重复时出错", e);
             return Optional.empty();
         }
     }
 
+    // 保存简历信息到数据库
     @Transactional(rollbackFor = Exception.class)
     public ResumeEntity saveResume(MultipartFile file, String resumeText,
                                    String storageKey, String storageUrl) {
@@ -69,15 +72,16 @@ public class ResumePersistenceService {
             resume.setResumeText(resumeText);
 
             ResumeEntity saved = resumeRepository.save(resume);
-            log.info("Resume saved: id={}, userId={}, hash={}",
+            log.info("简历保存成功：id={}, userId={}, hash={}",
                     saved.getId(), saved.getUserId(), fileHash);
             return saved;
         } catch (Exception e) {
-            log.error("Failed to save resume: {}", e.getMessage(), e);
+            log.error("保存简历失败：{}", e.getMessage(), e);
             throw new BusinessException(ErrorCode.RESUME_UPLOAD_FAILED, "Failed to save resume");
         }
     }
 
+    // 保存简历分析结果
     @Transactional(rollbackFor = Exception.class)
     public ResumeAnalysisEntity saveAnalysis(ResumeEntity resume, ResumeAnalysisResponse analysis) {
         try {
@@ -88,32 +92,37 @@ public class ResumePersistenceService {
             entity.setSuggestionsJson(objectMapper.writeValueAsString(analysis.suggestions()));
 
             ResumeAnalysisEntity saved = analysisRepository.save(entity);
-            log.info("Resume analysis saved: analysisId={}, resumeId={}, score={}",
+            log.info("简历分析结果保存成功：analysisId={}, resumeId={}, score={}",
                     saved.getId(), resume.getId(), saved.getOverallScore());
             return saved;
         } catch (JacksonException e) {
-            log.error("Failed to serialize resume analysis result: {}", e.getMessage(), e);
+            log.error("序列化简历分析结果失败：{}", e.getMessage(), e);
             throw new BusinessException(ErrorCode.RESUME_ANALYSIS_FAILED, "Failed to save analysis result");
         }
     }
 
+    // 获取指定简历的最新分析结果（实体形式）
     public Optional<ResumeAnalysisEntity> getLatestAnalysis(Long resumeId) {
         return Optional.ofNullable(analysisRepository.findFirstByResumeIdOrderByAnalyzedAtDesc(resumeId));
     }
 
+    // 获取指定简历的最新分析结果（DTO形式）
     public Optional<ResumeAnalysisResponse> getLatestAnalysisAsDTO(Long resumeId) {
         return getLatestAnalysis(resumeId).map(this::entityToDTO);
     }
 
+    // 查询当前用户的所有简历
     public List<ResumeEntity> findAllResumes() {
         return resumeRepository.findAllByUserIdOrderByUploadedAtDesc(
                 CurrentUserContext.getRequiredUserId());
     }
 
+    // 查询指定简历的所有分析记录
     public List<ResumeAnalysisEntity> findAnalysesByResumeId(Long resumeId) {
         return analysisRepository.findByResumeIdOrderByAnalyzedAtDesc(resumeId);
     }
 
+    // 将分析实体转换为响应DTO
     public ResumeAnalysisResponse entityToDTO(ResumeAnalysisEntity entity) {
         try {
             List<String> strengths = objectMapper.readValue(
@@ -137,15 +146,17 @@ public class ResumePersistenceService {
                     entity.getResume().getResumeText()
             );
         } catch (JacksonException e) {
-            log.error("Failed to deserialize resume analysis result: {}", e.getMessage(), e);
+            log.error("反序列化简历分析结果失败：{}", e.getMessage(), e);
             throw new BusinessException(ErrorCode.RESUME_ANALYSIS_FAILED, "Failed to load analysis result");
         }
     }
 
+    // 根据ID查询简历（带权限验证）
     public Optional<ResumeEntity> findById(Long id) {
         return resumeRepository.findByIdAndUserId(id, CurrentUserContext.getRequiredUserId());
     }
 
+    // 删除简历及其所有分析记录
     @Transactional(rollbackFor = Exception.class)
     public void deleteResume(Long id) {
         Optional<ResumeEntity> resumeOpt = resumeRepository.findById(id);
@@ -158,10 +169,10 @@ public class ResumePersistenceService {
         List<ResumeAnalysisEntity> analyses = analysisRepository.findByResumeIdOrderByAnalyzedAtDesc(id);
         if (!analyses.isEmpty()) {
             analysisRepository.deleteAll(analyses);
-            log.info("Deleted {} resume analysis records", analyses.size());
+            log.info("已删除{}条简历分析记录", analyses.size());
         }
 
         resumeRepository.delete(resume);
-        log.info("Resume deleted: id={}, filename={}", id, resume.getOriginalFilename());
+        log.info("简历删除成功：id={}, filename={}", id, resume.getOriginalFilename());
     }
 }

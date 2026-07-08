@@ -277,6 +277,7 @@ public class InterviewPersistenceService {
         return sessionRepository.findBySessionId(sessionId);
     }
 
+    // 查询该用户的会话
     public Optional<InterviewSessionEntity> findBySessionIdForCurrentUser(String sessionId) {
         return sessionRepository.findBySessionIdAndUserIdWithResume(
             sessionId,

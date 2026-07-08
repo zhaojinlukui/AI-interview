@@ -33,13 +33,11 @@ export function useInterviewSchedule() {
 
   const createInterview = async (data: CreateInterviewRequest): Promise<InterviewSchedule> => {
     const newInterview = await interviewScheduleApi.create(data);
-    await fetchInterviews();
     return newInterview;
   };
 
   const updateInterview = async (id: number, data: CreateInterviewRequest): Promise<InterviewSchedule> => {
     const updated = await interviewScheduleApi.update(id, data);
-    await fetchInterviews();
     return updated;
   };
 
@@ -50,7 +48,6 @@ export function useInterviewSchedule() {
 
   const updateStatus = async (id: number, status: InterviewStatus): Promise<InterviewSchedule> => {
     const updated = await interviewScheduleApi.updateStatus(id, status);
-    await fetchInterviews();
     return updated;
   };
 

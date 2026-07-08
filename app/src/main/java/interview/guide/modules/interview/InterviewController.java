@@ -80,6 +80,7 @@ public class InterviewController {
         return Result.success(mistakeService.createPractice(sourceType, sourceSessionId));
     }
 
+    // 创建会话
     @PostMapping("/api/interview/sessions")
     @RateLimit(dimension = RateLimit.Dimension.GLOBAL, count = 5)
     @RateLimit(dimension = RateLimit.Dimension.IP, count = 5)

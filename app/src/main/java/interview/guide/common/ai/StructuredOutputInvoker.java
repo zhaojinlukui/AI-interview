@@ -191,7 +191,7 @@ public class StructuredOutputInvoker {
         if ((functionEnvelope || lowerContent.contains("\"name\""))
             && lowerContent.contains("\"arguments\"")) {
             throw new IllegalArgumentException(
-                "model returned a function-call envelope instead of the required JSON object"
+                "模型返回了一个函数调用信封，而不是所需的 JSON 对象"
             );
         }
     }

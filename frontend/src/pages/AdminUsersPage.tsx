@@ -2,15 +2,19 @@ import { useEffect, useMemo, useState, type ComponentType, type ReactNode } from
 import {
   ArrowLeft,
   ChevronRight,
+  CheckCircle,
   Download,
   FileText,
   Loader2,
   Lock,
   MessageSquareText,
+  Power,
+  PowerOff,
   RefreshCw,
   Save,
   Search,
   Shield,
+  Trash2,
   UserCog,
 } from 'lucide-react';
 import { adminApi } from '../api/admin';
@@ -25,6 +29,7 @@ import type {
   SystemAiParameters,
 } from '../types/admin';
 import AnalysisPanel from '../components/AnalysisPanel';
+import ConfirmDialog from '../components/ConfirmDialog';
 import InterviewDetailPanel from '../components/InterviewDetailPanel';
 import { formatDateTimeWithSeconds } from '../utils/date';
 
@@ -40,6 +45,7 @@ const DEFAULT_RESUME_WEIGHTS: SystemAiParameters['resumeWeights'] = {
 };
 
 type AdminTab = 'account' | 'resumes' | 'interviews';
+type UserAction = { type: 'enable' | 'disable' | 'delete'; user: AdminUser };
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -48,6 +54,8 @@ export default function AdminUsersPage() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [pendingAction, setPendingAction] = useState<UserAction | null>(null);
+  const [actionLoading, setActionLoading] = useState(false);
 
   const selectedUser = users.find((user) => user.id === selectedUserId) ?? null;
 
@@ -88,6 +96,33 @@ export default function AdminUsersPage() {
   const backToUsers = () => {
     setSelectedUserId(null);
     setActiveTab('account');
+  };
+
+  const requestToggleEnabled = (user: AdminUser) => {
+    setPendingAction({ type: user.enabled ? 'disable' : 'enable', user });
+  };
+
+  const requestDeleteUser = (user: AdminUser) => {
+    setPendingAction({ type: 'delete', user });
+  };
+
+  const confirmUserAction = async () => {
+    if (!pendingAction) return;
+    setActionLoading(true);
+    setError('');
+    try {
+      if (pendingAction.type === 'delete') {
+        await adminApi.deleteUser(pendingAction.user.id);
+      } else {
+        await adminApi.updateEnabled(pendingAction.user.id, pendingAction.type === 'enable');
+      }
+      await loadUsers();
+      setPendingAction(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '账号操作失败');
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   return (
@@ -138,7 +173,14 @@ export default function AdminUsersPage() {
                   </p>
                 </div>
               </div>
-              <StatusBadge enabled={selectedUser.enabled} />
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                <StatusBadge enabled={selectedUser.enabled} />
+                <UserActionButtons
+                  user={selectedUser}
+                  onToggle={requestToggleEnabled}
+                  onDelete={requestDeleteUser}
+                />
+              </div>
             </div>
           </div>
 
@@ -166,7 +208,12 @@ export default function AdminUsersPage() {
           </div>
 
           {activeTab === 'account' && (
-            <AccountPanel user={selectedUser} onSaved={loadUsers} />
+            <AccountPanel
+              user={selectedUser}
+              onSaved={loadUsers}
+              onToggle={requestToggleEnabled}
+              onDelete={requestDeleteUser}
+            />
           )}
           {activeTab === 'resumes' && <ResumesTab userId={selectedUser.id} />}
           {activeTab === 'interviews' && <InterviewsTab userId={selectedUser.id} />}
@@ -199,7 +246,7 @@ export default function AdminUsersPage() {
             ) : filteredUsers.length === 0 ? (
               <div className="p-8 text-center text-sm text-slate-500">暂无用户</div>
             ) : (
-              <table className="w-full min-w-[980px] text-left">
+              <table className="w-full min-w-[1080px] text-left">
                 <thead className="bg-slate-50 text-xs uppercase text-slate-500 dark:bg-slate-900 dark:text-slate-400">
                   <tr>
                     <th className="px-4 py-3 font-medium">用户</th>
@@ -209,7 +256,7 @@ export default function AdminUsersPage() {
                     <th className="px-4 py-3 font-medium">语音面试</th>
                     <th className="px-4 py-3 font-medium">最后登录</th>
                     <th className="px-4 py-3 font-medium">最近活动</th>
-                    <th className="px-4 py-3 font-medium" aria-label="查看详情" />
+                    <th className="px-4 py-3 font-medium">操作</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -257,8 +304,26 @@ export default function AdminUsersPage() {
                       <td className="px-4 py-4 text-sm text-slate-500 dark:text-slate-400">
                         {formatNullableDate(user.recentActivityAt)}
                       </td>
-                      <td className="px-4 py-4 text-right text-slate-400">
-                        <ChevronRight className="ml-auto h-4 w-4" />
+                      <td
+                        className="px-4 py-4"
+                        onClick={(event) => event.stopPropagation()}
+                        onKeyDown={(event) => event.stopPropagation()}
+                      >
+                        <div className="flex items-center justify-end gap-2">
+                          <UserActionButtons
+                            user={user}
+                            onToggle={requestToggleEnabled}
+                            onDelete={requestDeleteUser}
+                          />
+                          <button
+                            onClick={() => selectUser(user.id)}
+                            className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                            title="查看详情"
+                            aria-label="查看详情"
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -268,31 +333,69 @@ export default function AdminUsersPage() {
           </div>
         </section>
       )}
+      <ConfirmDialog
+        open={Boolean(pendingAction)}
+        title={getUserActionTitle(pendingAction)}
+        message={getUserActionMessage(pendingAction)}
+        confirmText={getUserActionConfirmText(pendingAction)}
+        confirmVariant={getUserActionVariant(pendingAction)}
+        loading={actionLoading}
+        onConfirm={confirmUserAction}
+        onCancel={() => {
+          if (!actionLoading) {
+            setPendingAction(null);
+          }
+        }}
+      />
     </div>
   );
 }
 
-function AccountPanel({ user, onSaved }: { user: AdminUser; onSaved: () => Promise<void> }) {
+function AccountPanel({
+  user,
+  onSaved,
+  onToggle,
+  onDelete,
+}: {
+  user: AdminUser;
+  onSaved: () => Promise<void>;
+  onToggle: (user: AdminUser) => void;
+  onDelete: (user: AdminUser) => void;
+}) {
   const [displayName, setDisplayName] = useState(user.displayName);
   const [password, setPassword] = useState('');
   const [savingName, setSavingName] = useState(false);
   const [savingPassword, setSavingPassword] = useState(false);
   const [message, setMessage] = useState('');
+  const [successToast, setSuccessToast] = useState('');
 
   useEffect(() => {
     setDisplayName(user.displayName);
     setPassword('');
     setMessage('');
+    setSuccessToast('');
   }, [user.id, user.displayName]);
+
+  useEffect(() => {
+    if (!successToast) return undefined;
+    const timer = window.setTimeout(() => setSuccessToast(''), 2400);
+    return () => window.clearTimeout(timer);
+  }, [successToast]);
+
+  const showSuccessToast = (text: string) => {
+    setMessage('');
+    setSuccessToast(text);
+  };
 
   const saveDisplayName = async () => {
     if (!displayName.trim()) return;
     setSavingName(true);
     setMessage('');
+    setSuccessToast('');
     try {
       await adminApi.updateDisplayName(user.id, displayName.trim());
       await onSaved();
-      setMessage('昵称已保存');
+      showSuccessToast('昵称修改成功');
     } catch (err) {
       setMessage(err instanceof Error ? err.message : '保存昵称失败');
     } finally {
@@ -307,11 +410,12 @@ function AccountPanel({ user, onSaved }: { user: AdminUser; onSaved: () => Promi
     }
     setSavingPassword(true);
     setMessage('');
+    setSuccessToast('');
     try {
       await adminApi.updatePassword(user.id, password);
       setPassword('');
       await onSaved();
-      setMessage('密码已更新，用户现有登录状态将失效');
+      showSuccessToast('密码修改成功，用户现有登录状态将失效');
     } catch (err) {
       setMessage(err instanceof Error ? err.message : '修改密码失败');
     } finally {
@@ -321,6 +425,7 @@ function AccountPanel({ user, onSaved }: { user: AdminUser; onSaved: () => Promi
 
   return (
     <div className="dark-card p-6">
+      <SuccessToast message={successToast} />
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
           <h3 className="mb-4 flex items-center gap-2 font-semibold text-slate-900 dark:text-white">
@@ -383,11 +488,128 @@ function AccountPanel({ user, onSaved }: { user: AdminUser; onSaved: () => Promi
             </div>
           </label>
 
+          <div className="border-t border-slate-200 pt-5 dark:border-slate-800">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h4 className="text-sm font-semibold text-slate-900 dark:text-white">账号控制</h4>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  禁用会让用户无法登录，删除账号后不可撤销
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => onToggle(user)}
+                  className={`flex h-10 items-center gap-2 rounded-xl px-4 text-sm font-medium transition-colors ${
+                    user.enabled
+                      ? 'border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-900/70 dark:bg-amber-950/30 dark:text-amber-300 dark:hover:bg-amber-950/50'
+                      : 'btn-primary'
+                  }`}
+                >
+                  {user.enabled ? <PowerOff className="h-4 w-4" /> : <Power className="h-4 w-4" />}
+                  {user.enabled ? '禁用账号' : '启用账号'}
+                </button>
+                <button
+                  onClick={() => onDelete(user)}
+                  className="flex h-10 items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 text-sm font-medium text-red-700 transition-colors hover:bg-red-100 dark:border-red-900/70 dark:bg-red-950/30 dark:text-red-300 dark:hover:bg-red-950/50"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  删除账号
+                </button>
+              </div>
+            </div>
+          </div>
+
           {message && <p className="text-sm text-slate-500 dark:text-slate-400">{message}</p>}
         </div>
       </div>
     </div>
   );
+}
+
+function SuccessToast({ message }: { message: string }) {
+  if (!message) return null;
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed left-4 right-4 top-4 z-50 rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm text-emerald-700 shadow-lg shadow-slate-900/10 dark:border-emerald-900/70 dark:bg-slate-900 dark:text-emerald-300 sm:left-auto sm:w-[360px]"
+    >
+      <div className="flex items-start gap-3">
+        <CheckCircle className="mt-0.5 h-5 w-5 shrink-0" />
+        <div>
+          <p className="font-semibold">修改成功</p>
+          <p className="mt-0.5 text-emerald-600 dark:text-emerald-400">{message}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UserActionButtons({
+  user,
+  onToggle,
+  onDelete,
+}: {
+  user: AdminUser;
+  onToggle: (user: AdminUser) => void;
+  onDelete: (user: AdminUser) => void;
+}) {
+  const ToggleIcon = user.enabled ? PowerOff : Power;
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => onToggle(user)}
+        className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${
+          user.enabled
+            ? 'text-amber-600 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-950/40'
+            : 'text-emerald-600 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/40'
+        }`}
+        title={user.enabled ? '禁用账号' : '启用账号'}
+        aria-label={user.enabled ? '禁用账号' : '启用账号'}
+      >
+        <ToggleIcon className="h-4 w-4" />
+      </button>
+      <button
+        onClick={() => onDelete(user)}
+        className="flex h-9 w-9 items-center justify-center rounded-lg text-red-600 transition-colors hover:bg-red-50 dark:text-red-300 dark:hover:bg-red-950/40"
+        title="删除账号"
+        aria-label="删除账号"
+      >
+        <Trash2 className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+function getUserActionTitle(action: UserAction | null) {
+  if (!action) return '';
+  if (action.type === 'delete') return '删除用户账号';
+  return action.type === 'disable' ? '禁用用户账号' : '启用用户账号';
+}
+
+function getUserActionMessage(action: UserAction | null) {
+  if (!action) return '';
+  const name = `${action.user.displayName}（${action.user.username}）`;
+  if (action.type === 'delete') {
+    return `确定删除用户 ${name}？\n此操作不可撤销，历史报告数据不会随账号自动清理。`;
+  }
+  if (action.type === 'disable') {
+    return `确定禁用用户 ${name}？\n禁用后该用户无法登录，现有登录状态会失效。`;
+  }
+  return `确定启用用户 ${name}？\n启用后该用户可以重新登录平台。`;
+}
+
+function getUserActionConfirmText(action: UserAction | null) {
+  if (!action) return '确定';
+  if (action.type === 'delete') return '删除';
+  return action.type === 'disable' ? '禁用' : '启用';
+}
+
+function getUserActionVariant(action: UserAction | null): 'danger' | 'primary' | 'warning' {
+  if (action?.type === 'delete') return 'danger';
+  if (action?.type === 'disable') return 'warning';
+  return 'primary';
 }
 
 function ResumesTab({ userId }: { userId: number }) {
@@ -653,7 +875,13 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 
 function StatusBadge({ enabled }: { enabled: boolean }) {
   return (
-    <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+    <span
+      className={`rounded-full border px-3 py-1 text-xs font-medium ${
+        enabled
+          ? 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-950/30 dark:text-emerald-300'
+          : 'border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300'
+      }`}
+    >
       {enabled ? '已启用' : '已禁用'}
     </span>
   );

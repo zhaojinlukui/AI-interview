@@ -58,18 +58,7 @@ public class ResumeHistoryService {
             int interviewCount = interviewPersistenceService.findByResumeId(resume.getId()).size();
 
             // 使用 MapStruct 映射
-            return new ResumeListItemDTO(
-                    resume.getId(),
-                    resume.getOriginalFilename(),
-                    resume.getFileSize(),
-                    resume.getUploadedAt(),
-                    resume.getAccessCount(),
-                    latestScore,
-                    lastAnalyzedAt,
-                    interviewCount,
-                    resume.getAnalyzeStatus(),
-                    resume.getAnalyzeError()
-            );
+            return resumeMapper.toListItemDTO(resume, latestScore, lastAnalyzedAt, interviewCount);
         }).toList();
     }
 
@@ -95,20 +84,7 @@ public class ResumeHistoryService {
                 interviewPersistenceService.findByResumeId(id)
         );
 
-        return new ResumeDetailDTO(
-                resume.getId(),
-                resume.getOriginalFilename(),
-                resume.getFileSize(),
-                resume.getContentType(),
-                resume.getStorageUrl(),
-                resume.getUploadedAt(),
-                resume.getAccessCount(),
-                resume.getResumeText(),
-                resume.getAnalyzeStatus(),
-                resume.getAnalyzeError(),
-                analysisHistory,
-                interviewHistory
-        );
+        return resumeMapper.toDetailDTO(resume, analysisHistory, interviewHistory);
     }
 
     // 从 JSON 提取 strengths

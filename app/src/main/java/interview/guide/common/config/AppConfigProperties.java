@@ -23,9 +23,7 @@ public class AppConfigProperties {
         this.uploadDir = uploadDir;
     }
     
-    public List<String> getAllowedTypes() {
-        return allowedTypes;
-    }
+    public List<String> getAllowedTypes() {return allowedTypes; }
     
     public void setAllowedTypes(List<String> allowedTypes) {
         this.allowedTypes = allowedTypes;

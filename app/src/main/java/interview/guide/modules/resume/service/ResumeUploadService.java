@@ -38,7 +38,7 @@ public class ResumeUploadService {
     private final AnalyzeStreamProducer analyzeStreamProducer;
     private final ResumeRepository resumeRepository;
 
-    private static final long MAX_FILE_SIZE = 10 * 1024 * 1024;  // 10MB
+    private static final long MAX_FILE_SIZE = 10 * 1024 * 1024;
 
     // 上传并分析简历（异步）
     public Map<String, Object> uploadAndAnalyze(MultipartFile file) {
@@ -49,7 +49,7 @@ public class ResumeUploadService {
 
         // 1. 验证文件
         fileValidationService.validateFile(file, MAX_FILE_SIZE, "简历");
-        String contentType = parseService.detectContentType(file); //获取文件类型
+        String contentType = parseService.detectContentType(file);  // 获取文件类型
         validateContentType(contentType);   // 验证
 
         // 2. 检查简历是否已存在（去重）
@@ -116,7 +116,6 @@ public class ResumeUploadService {
     // 处理重复简历
     private Map<String, Object> handleDuplicateResume(ResumeEntity resume) {
         log.info("检测到重复简历，返回历史分析结果: resumeId={}", resume.getId());
-
         // 获取历史分析结果
         Optional<ResumeAnalysisResponse> analysisOpt = persistenceService.getLatestAnalysisAsDTO(resume.getId());
 

@@ -13,7 +13,7 @@
 # Scoring Rubrics (Total: 100)
 1. projectTechDepth (0-{projectTechDepthMaxScore}): 是否避开了烂大街项目，是否体现了复杂问题排查、性能优化或成熟中间件的深度使用。
 2. skillMatchScore (0-{skillMatchMaxScore}): 技术栈专业度，区分“了解 / 熟悉 / 熟练掌握”，是否满足岗位要求。
-3. contentScore (0-{contentMaxScore}): 简历信息展示顺序是否合理，是否符合“个人信息 -> 教育经历 -> 工作/实习经历 -> 项目经历 -> 专业技能 -> 证书奖项”。
+3. contentScore (0-{contentMaxScore}): 简历信息展示顺序是否合理，是否符合“个人信息 -> 教育经历 -> 工作/实习经历（可选） -> 项目经历 -> 专业技能 -> 证书奖项（可选）”。
 4. structureScore (0-{structureMaxScore}): 技术名词大小写是否规范，如 Java, Spring Boot, MySQL, Redis, GitHub。
 5. expressionScore (0-{expressionMaxScore}): 语言是否简洁专业，是否存在过多口语化表达。
 

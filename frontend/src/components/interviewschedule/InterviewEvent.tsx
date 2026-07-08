@@ -2,14 +2,19 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import type { InterviewSchedule } from '../../types/interviewSchedule';
+import type { InterviewSchedule, InterviewStatus } from '../../types/interviewSchedule';
 
 interface InterviewEventProps {
   event: InterviewSchedule;
 }
 
 export const InterviewEvent: React.FC<InterviewEventProps> = ({ event }) => {
-  const statusConfig = {
+  const statusConfig: Record<InterviewStatus, {
+    bg: string;
+    text: string;
+    border: string;
+    shadow: string;
+  }> = {
     PENDING: {
       bg: 'bg-blue-100/90 dark:bg-blue-500/25',
       text: 'text-blue-900 dark:text-blue-100',
@@ -28,11 +33,11 @@ export const InterviewEvent: React.FC<InterviewEventProps> = ({ event }) => {
       border: 'border-slate-300/60 dark:border-slate-400/40',
       shadow: 'shadow-slate-200/60 dark:shadow-slate-500/20',
     },
-    RESCHEDULED: {
-      bg: 'bg-amber-100/90 dark:bg-amber-500/25',
-      text: 'text-amber-900 dark:text-amber-100',
-      border: 'border-amber-300/60 dark:border-amber-400/40',
-      shadow: 'shadow-amber-200/60 dark:shadow-amber-500/20',
+    EXPIRED: {
+      bg: 'bg-rose-100/90 dark:bg-rose-500/25',
+      text: 'text-rose-900 dark:text-rose-100',
+      border: 'border-rose-300/60 dark:border-rose-400/40',
+      shadow: 'shadow-rose-200/60 dark:shadow-rose-500/20',
     },
   };
 

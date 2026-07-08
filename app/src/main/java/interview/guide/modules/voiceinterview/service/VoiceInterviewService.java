@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 语音面试服务。
+ * 语音面试服务
  *
  * <p>负责语音面试会话的业务编排，包括会话生命周期、阶段流转、消息持久化、
  * 对话历史查询以及活跃会话的 Redis 缓存。</p>
@@ -105,7 +105,7 @@ public class VoiceInterviewService {
     }
 
     /**
-     * 结束面试会话并触发异步评估。
+     * 结束面试会话并触发异步评估
      *
      * @param sessionId 会话 ID 字符串
      */
@@ -122,6 +122,7 @@ public class VoiceInterviewService {
         endSession(session);
     }
 
+    // 结束面试会话
     private void endSession(VoiceInterviewSessionEntity session) {
         session.setEndTime(LocalDateTime.now());
         session.setCurrentPhase(VoiceInterviewSessionEntity.InterviewPhase.COMPLETED);
@@ -135,16 +136,6 @@ public class VoiceInterviewService {
 
         log.info("结束语音面试会话: sessionId={}, duration={}s, evaluationStatus=PENDING",
                 session.getId(), session.getActualDuration());
-    }
-
-    /**
-     * 按字符串会话 ID 查询会话，优先读取 Redis 缓存。
-     *
-     * @param sessionId 会话 ID 字符串
-     * @return 会话实体，不存在时返回 null
-     */
-    public VoiceInterviewSessionEntity getSession(String sessionId) {
-        return getSession(parseSessionId(sessionId));
     }
 
     /**
@@ -221,17 +212,6 @@ public class VoiceInterviewService {
         } catch (IllegalArgumentException e) {
             log.error("无效的面试阶段: phase={}", phaseStr, e);
         }
-    }
-
-    /**
-     * 获取会话当前面试阶段。
-     *
-     * @param sessionId 会话 ID 字符串
-     * @return 当前阶段；会话不存在时返回 null
-     */
-    public VoiceInterviewSessionEntity.InterviewPhase getCurrentPhase(String sessionId) {
-        VoiceInterviewSessionEntity session = getSession(sessionId);
-        return session != null ? session.getCurrentPhase() : null;
     }
 
     /**
@@ -443,76 +423,6 @@ public class VoiceInterviewService {
         return session.getEvaluateStatus() != null ? session.getEvaluateStatus().name() : null;
     }
 
-    /**
-     * 根据阶段耗时和提问数量判断是否应进入下一阶段。
-     *
-     * @param session 当前会话
-     * @param phaseStartTime 当前阶段开始时间
-     * @param questionCount 当前阶段已提问数量
-     * @return 需要切换阶段时返回 true，否则返回 false
-     */
-    public boolean shouldTransitionToNextPhase(VoiceInterviewSessionEntity session,
-                                                LocalDateTime phaseStartTime,
-                                                int questionCount) {
-        VoiceInterviewSessionEntity.InterviewPhase currentPhase = session.getCurrentPhase();
-        if (currentPhase == null || currentPhase == VoiceInterviewSessionEntity.InterviewPhase.COMPLETED) {
-            return false;
-        }
-
-        Duration phaseDuration = Duration.between(phaseStartTime, LocalDateTime.now());
-        VoiceInterviewProperties.DurationConfig config = getPhaseConfig(currentPhase);
-
-        // 规则 1：达到最大时长后强制切换。
-        if (phaseDuration.toMinutes() >= config.getMaxDuration()) {
-            log.info("阶段达到最大时长，强制切换: phase={}, maxDuration={}min",
-                    currentPhase, config.getMaxDuration());
-            return true;
-        }
-
-        // 规则 2：达到最大提问数量后建议切换。
-        if (questionCount >= config.getMaxQuestions()) {
-            log.info("阶段达到最大提问数量，建议切换: phase={}, maxQuestions={}",
-                    currentPhase, config.getMaxQuestions());
-            return true;
-        }
-
-        // 规则 3：达到建议时长且已满足最小提问数量后建议切换。
-        if (phaseDuration.toMinutes() >= config.getSuggestedDuration()
-                && questionCount >= config.getMinQuestions()) {
-            log.info("阶段达到建议切换条件: phase={}, suggestedDuration={}min, questionCount={}",
-                    currentPhase, config.getSuggestedDuration(), questionCount);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * 获取当前阶段之后的下一个启用阶段。
-     *
-     * @param session 当前会话
-     * @return 下一个面试阶段；没有后续阶段时返回 COMPLETED
-     */
-    public VoiceInterviewSessionEntity.InterviewPhase getNextPhase(VoiceInterviewSessionEntity session) {
-        VoiceInterviewSessionEntity.InterviewPhase current = session.getCurrentPhase();
-        if (current == null) {
-            return getFirstEnabledPhase(session);
-        }
-
-        return switch (current) {
-            case INTRO -> session.getTechEnabled() ? VoiceInterviewSessionEntity.InterviewPhase.TECH :
-                    session.getProjectEnabled() ? VoiceInterviewSessionEntity.InterviewPhase.PROJECT :
-                            session.getHrEnabled() ? VoiceInterviewSessionEntity.InterviewPhase.HR :
-                                    VoiceInterviewSessionEntity.InterviewPhase.COMPLETED;
-            case TECH -> session.getProjectEnabled() ? VoiceInterviewSessionEntity.InterviewPhase.PROJECT :
-                    session.getHrEnabled() ? VoiceInterviewSessionEntity.InterviewPhase.HR :
-                            VoiceInterviewSessionEntity.InterviewPhase.COMPLETED;
-            case PROJECT -> session.getHrEnabled() ? VoiceInterviewSessionEntity.InterviewPhase.HR :
-                    VoiceInterviewSessionEntity.InterviewPhase.COMPLETED;
-            case HR, COMPLETED -> VoiceInterviewSessionEntity.InterviewPhase.COMPLETED;
-        };
-    }
-
     // ==================== 私有辅助方法 ====================
 
     /**
@@ -526,17 +436,6 @@ public class VoiceInterviewService {
         return VoiceInterviewSessionEntity.InterviewPhase.COMPLETED;
     }
 
-    /**
-     * 从会话配置中获取首个启用阶段。
-     */
-    private VoiceInterviewSessionEntity.InterviewPhase getFirstEnabledPhase(VoiceInterviewSessionEntity session) {
-        if (session.getIntroEnabled()) return VoiceInterviewSessionEntity.InterviewPhase.INTRO;
-        if (session.getTechEnabled()) return VoiceInterviewSessionEntity.InterviewPhase.TECH;
-        if (session.getProjectEnabled()) return VoiceInterviewSessionEntity.InterviewPhase.PROJECT;
-        if (session.getHrEnabled()) return VoiceInterviewSessionEntity.InterviewPhase.HR;
-        return VoiceInterviewSessionEntity.InterviewPhase.COMPLETED;
-    }
-
     private SessionResponseDTO buildSessionResponse(VoiceInterviewSessionEntity session) {
         return SessionResponseDTO.builder()
                 .sessionId(session.getId())
@@ -547,19 +446,6 @@ public class VoiceInterviewService {
                 .plannedDuration(session.getPlannedDuration())
                 .webSocketUrl(null)
                 .build();
-    }
-
-    /**
-     * 获取阶段时长配置。
-     */
-    private VoiceInterviewProperties.DurationConfig getPhaseConfig(VoiceInterviewSessionEntity.InterviewPhase phase) {
-        return switch (phase) {
-            case INTRO -> voiceInterviewProperties.getPhase().getIntro();
-            case TECH -> voiceInterviewProperties.getPhase().getTech();
-            case PROJECT -> voiceInterviewProperties.getPhase().getProject();
-            case HR -> voiceInterviewProperties.getPhase().getHr();
-            default -> new VoiceInterviewProperties.DurationConfig(0, 0, 0, 0, 0);
-        };
     }
 
     /**

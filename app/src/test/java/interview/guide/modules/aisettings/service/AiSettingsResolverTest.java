@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import interview.guide.common.config.AiProperties;
+import interview.guide.infrastructure.mapper.AiSettingsMapper;
 import interview.guide.modules.aisettings.model.UserAiSettingsEntity;
 import interview.guide.modules.aisettings.repository.UserAiSettingsRepository;
 import interview.guide.modules.aisettings.service.AiSettingsResolver.ModelConfigSnapshot;
@@ -14,11 +15,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("用户 AI 设置解析器")
+@DisplayName("User AI settings resolver")
 class AiSettingsResolverTest {
 
   private static final String LOCAL_BASE_URL = "http://localhost:11434/v1";
@@ -49,16 +51,17 @@ class AiSettingsResolverTest {
     resolver = new AiSettingsResolver(
         aiProperties,
         new VoiceInterviewProperties(),
-        settingsRepository
+        settingsRepository,
+        Mappers.getMapper(AiSettingsMapper.class)
     );
   }
 
   @Nested
-  @DisplayName("Embedding 配置")
+  @DisplayName("Embedding config")
   class EmbeddingConfig {
 
     @Test
-    @DisplayName("默认聊天模型为本地时仍返回云端 Embedding")
+    @DisplayName("returns cloud embedding defaults when chat default is local")
     void returnsCloudEmbeddingDefaultsWhenChatDefaultIsLocal() {
       when(settingsRepository.findByUserId("user1")).thenReturn(Optional.empty());
 
@@ -71,7 +74,7 @@ class AiSettingsResolverTest {
     }
 
     @Test
-    @DisplayName("用户切换本地模型时使用保留的云端 Embedding")
+    @DisplayName("uses preserved cloud embedding when user model is local")
     void returnsCloudEmbeddingFieldsWhenUserModelIsLocal() {
       UserAiSettingsEntity entity = UserAiSettingsEntity.builder()
           .userId("user1")
@@ -117,7 +120,7 @@ class AiSettingsResolverTest {
     }
 
     @Test
-    @DisplayName("云端模型缺少向量字段时使用云端 Embedding 默认值")
+    @DisplayName("fills cloud embedding defaults for cloud chat model")
     void fillsCloudEmbeddingDefaultsForCloudChatModel() {
       UserAiSettingsEntity entity = UserAiSettingsEntity.builder()
           .userId("user1")

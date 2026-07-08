@@ -36,94 +36,87 @@ import lombok.ToString;
  */
 @Entity
 @Table(
-    name = "rag_chat_sessions",
-    indexes = {
-    @Index(name = "idx_rag_session_user_updated", columnList = "userId,updatedAt")
-})
+        name = "rag_chat_sessions",
+        indexes = {
+                @Index(name = "idx_rag_session_user_updated", columnList = "userId,updatedAt")
+        })
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RagChatSessionEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;                                 // 主键 ID
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;                                 // 主键 ID
 
-  @Column(nullable = false)
-  private String title;                            // 会话标题
+    @Column(nullable = false)
+    private String title;                            // 会话标题
 
-  @Column(length = 64)
-  private String userId;                           // 所属用户 ID
+    @Column(length = 64)
+    private String userId;                           // 所属用户 ID
 
-  @Enumerated(EnumType.STRING)
-  @Column(length = 20)
-  @Builder.Default
-  private SessionStatus status = SessionStatus.ACTIVE; // 会话状态
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    @Builder.Default
+    private SessionStatus status = SessionStatus.ACTIVE; // 会话状态
 
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(
-      name = "rag_session_knowledge_bases",
-      joinColumns = @JoinColumn(name = "session_id"),
-      inverseJoinColumns = @JoinColumn(name = "knowledge_base_id")
-  )
-  @Builder.Default
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  private Set<KnowledgeBaseEntity> knowledgeBases = new HashSet<>(); // 关联知识库集合
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "rag_session_knowledge_bases",
+            joinColumns = @JoinColumn(name = "session_id"),
+            inverseJoinColumns = @JoinColumn(name = "knowledge_base_id")
+    )
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<KnowledgeBaseEntity> knowledgeBases = new HashSet<>(); // 关联知识库集合
 
-  @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("messageOrder ASC")
-  @Builder.Default
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  private List<RagChatMessageEntity> messages = new ArrayList<>(); // 会话消息列表
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("messageOrder ASC")
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<RagChatMessageEntity> messages = new ArrayList<>(); // 会话消息列表
 
-  @Column(nullable = false, updatable = false)
-  private LocalDateTime createdAt;                 // 创建时间
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;                 // 创建时间
 
-  private LocalDateTime updatedAt;                 // 更新时间
+    private LocalDateTime updatedAt;                 // 更新时间
 
-  @Builder.Default
-  private Integer messageCount = 0;                // 消息数量
+    @Builder.Default
+    private Integer messageCount = 0;                // 消息数量
 
-  @Column(columnDefinition = "boolean default false")
-  @Builder.Default
-  private Boolean isPinned = false;                // 是否置顶
+    @Column(columnDefinition = "boolean default false")
+    @Builder.Default
+    private Boolean isPinned = false;                // 是否置顶
 
-  public enum SessionStatus {
-    ACTIVE,
-    ARCHIVED
-  }
-
-  @PrePersist
-  protected void onCreate() {
-    createdAt = LocalDateTime.now();
-    updatedAt = LocalDateTime.now();
-  }
-
-  @PreUpdate
-  protected void onUpdate() {
-    updatedAt = LocalDateTime.now();
-  }
-
-  @PostLoad
-  protected void onLoad() {
-    if (isPinned == null) {
-      isPinned = false;
+    public enum SessionStatus {
+        ACTIVE,
+        ARCHIVED
     }
-  }
 
-  public void addMessage(RagChatMessageEntity message) {
-    messages.add(message);
-    message.setSession(this);
-    messageCount = messages.size();
-    updatedAt = LocalDateTime.now();
-  }
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
 
-  public List<Long> getKnowledgeBaseIds() {
-    return knowledgeBases.stream()
-        .map(KnowledgeBaseEntity::getId)
-        .toList();
-  }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PostLoad
+    protected void onLoad() {
+        if (isPinned == null) {
+            isPinned = false;
+        }
+    }
+
+    public List<Long> getKnowledgeBaseIds() {
+        return knowledgeBases.stream()
+                .map(KnowledgeBaseEntity::getId)
+                .toList();
+    }
 }

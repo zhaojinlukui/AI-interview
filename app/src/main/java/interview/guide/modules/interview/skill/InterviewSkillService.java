@@ -32,10 +32,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 面试方向 Skill 管理：分类分配、References 注入、自定义 Skill 构建。
- *
+ * 面试方向 Skill 管理：分类分配、References 注入、自定义 Skill 构建
  * 与 SkillsTool 互补：SkillsTool 负责 LLM 按需加载 persona（SKILL.md body），
- * 本类负责后端解析分类配置（skill.meta.yml）并批量注入 references 到 Prompt。
+ * 本类负责后端解析分类配置（skill.meta.yml）并批量注入 references 到 Prompt
  */
 @Slf4j
 @Service
@@ -150,8 +149,8 @@ public class InterviewSkillService {
     }
 
     /**
-     * 从 JD 解析结果构建自定义 SkillDTO。
-     * 遍历 customCategories，尝试在 categoryRefIndex 中匹配参考文件。
+     * 从 JD 解析结果构建自定义 SkillDTO
+     * 遍历 customCategories，尝试在 categoryRefIndex 中匹配参考文件
      */
     public SkillDTO buildCustomSkill(List<CategoryDTO> customCategories, String jdText) {
         List<SkillCategoryDTO> categories = customCategories.stream()
@@ -250,10 +249,6 @@ public class InterviewSkillService {
         return sb.toString();
     }
 
-    public Map<String, Integer> calculateAllocation(String skillId, int totalQuestions) {
-        return calculateAllocation(getSkill(skillId).categories(), totalQuestions);
-    }
-
     // 计算题目分配策略（基于分类列表）
     public Map<String, Integer> calculateAllocation(List<SkillCategoryDTO> categories, int totalQuestions) {
         List<SkillCategoryDTO> alwaysOneCats = new ArrayList<>();
@@ -342,7 +337,7 @@ public class InterviewSkillService {
     }
 
     /**
-     * 评估阶段参考基线：不限制题量分配，覆盖该 skill 下所有配置了 reference 的分类。
+     * 评估阶段参考基线：不限制题量分配，覆盖该 skill 下所有配置了 reference 的分类
      */
     public String buildEvaluationReferenceSection(String skillId) {
         SkillDTO skill = getSkill(skillId);
@@ -354,7 +349,7 @@ public class InterviewSkillService {
     }
 
     /**
-     * 安全版本的评估参考基线：skillId 为空或加载失败时返回空字符串，不抛异常。
+     * 安全版本的评估参考基线：skillId 为空或加载失败时返回空字符串，不抛异常
      */
     public String buildEvaluationReferenceSectionSafe(String skillId) {
         if (skillId == null || skillId.isBlank()) {
@@ -577,8 +572,8 @@ public class InterviewSkillService {
     }
 
     /**
-     * 清洗 category key：截断长度，非法字符替换为下划线，转大写。
-     * 首字符必须为字母，否则添加 "CAT_" 前缀。
+     * 清洗 category key：截断长度，非法字符替换为下划线，转大写
+     * 首字符必须为字母，否则添加 "CAT_" 前缀
      */
     private String sanitizeCategoryKey(String key) {
         if (key == null || key.isBlank()) {
@@ -600,7 +595,7 @@ public class InterviewSkillService {
     }
 
     /**
-     * 清洗 category label：截断长度，移除换行。
+     * 清洗 category label：截断长度，移除换行
      */
     private String sanitizeCategoryLabel(String label) {
         if (label == null || label.isBlank()) {
@@ -662,7 +657,6 @@ public class InterviewSkillService {
     /**
      * JD 解析返回分类（可携带 LLM 匹配的 ref/shared 信息，后端会按本地 categoryRefIndex 纠正）
      */
-    public record CategoryDTO(String key, String label, String priority,
-                               String ref, Boolean shared) {}
+    public record CategoryDTO(String key, String label, String priority, String ref, Boolean shared) {}
     private record CategoryListDTO(List<CategoryDTO> categories) {}
 }

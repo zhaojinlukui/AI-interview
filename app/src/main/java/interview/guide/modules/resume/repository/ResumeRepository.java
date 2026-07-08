@@ -19,15 +19,10 @@ public interface ResumeRepository extends JpaRepository<ResumeEntity, Long> {
 
     Optional<ResumeEntity> findFirstByUserIdOrderByUploadedAtDesc(String userId);
     
-    /**
-     * 根据文件哈希查找简历（用于去重）
-     */
+    // 根据文件哈希查找简历（用于去重）
     Optional<ResumeEntity> findByUserIdAndFileHash(String userId, String fileHash);
-    
-    /**
-     * 检查文件哈希是否存在
-     */
-    boolean existsByUserIdAndFileHash(String userId, String fileHash);
 
     Optional<ResumeEntity> findByIdAndUserId(Long id, String userId);
+
+    void deleteByUserId(String userId);
 }

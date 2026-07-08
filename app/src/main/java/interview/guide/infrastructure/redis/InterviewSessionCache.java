@@ -57,9 +57,6 @@ public class InterviewSessionCache {
         private int currentIndex;
         private SessionStatus status;
 
-        public CachedSession() {
-        }
-
         public CachedSession(String sessionId, String userId, String resumeText, Long resumeId,
                             List<InterviewQuestionDTO> questions, int currentIndex,
                             SessionStatus status, ObjectMapper objectMapper) {
@@ -85,37 +82,10 @@ public class InterviewSessionCache {
         }
     }
 
-    /**
-     * 保存会话到缓存
-     */
-    public void saveSession(String sessionId, String resumeText, Long resumeId,
-                           List<InterviewQuestionDTO> questions, int currentIndex,
-                           SessionStatus status) {
-        saveSession(sessionId, null, resumeText, resumeId, questions, currentIndex, status, true);
-    }
-
     public void saveSession(String sessionId, String userId, String resumeText, Long resumeId,
                            List<InterviewQuestionDTO> questions, int currentIndex,
                            SessionStatus status) {
         saveSession(sessionId, userId, resumeText, resumeId, questions, currentIndex, status, true);
-    }
-
-    /**
-     * 保存会话到缓存，可选择是否登记为简历的未完成会话。
-     */
-    public void saveSession(String sessionId, String resumeText, Long resumeId,
-                           List<InterviewQuestionDTO> questions, int currentIndex,
-                           SessionStatus status, boolean trackUnfinishedResume) {
-        saveSession(
-            sessionId,
-            null,
-            resumeText,
-            resumeId,
-            questions,
-            currentIndex,
-            status,
-            trackUnfinishedResume
-        );
     }
 
     public void saveSession(String sessionId, String userId, String resumeText, Long resumeId,
@@ -196,21 +166,6 @@ public class InterviewSessionCache {
     }
 
     /**
-     * 删除会话缓存
-     */
-    public void deleteSession(String sessionId) {
-        getSession(sessionId).ifPresent(session -> {
-            if (session.getResumeId() != null) {
-                removeResumeSessionMapping(session.getResumeId(), sessionId);
-            }
-        });
-
-        String key = buildSessionKey(sessionId);
-        redisService.delete(key);
-        log.debug("删除会话缓存: sessionId={}", sessionId);
-    }
-
-    /**
      * 根据简历ID查找未完成的会话ID
      */
     public Optional<String> findUnfinishedSessionId(Long resumeId) {
@@ -235,14 +190,6 @@ public class InterviewSessionCache {
     public void refreshSessionTTL(String sessionId) {
         String key = buildSessionKey(sessionId);
         redisService.expire(key, SESSION_TTL);
-    }
-
-    /**
-     * 检查会话是否在缓存中
-     */
-    public boolean exists(String sessionId) {
-        String key = buildSessionKey(sessionId);
-        return redisService.exists(key);
     }
 
     // ==================== 私有方法 ====================

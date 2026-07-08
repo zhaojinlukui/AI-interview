@@ -111,15 +111,6 @@ public class UnifiedEvaluationService {
             ChatClient chatClient,
             String sessionId,
             List<QaRecord> qaRecords,
-            String resumeText
-    ) {
-        return evaluate(chatClient, sessionId, qaRecords, resumeText, null);
-    }
-
-    public EvaluationReport evaluate(
-            ChatClient chatClient,
-            String sessionId,
-            List<QaRecord> qaRecords,
             String resumeText,
             String referenceContext
     ) {

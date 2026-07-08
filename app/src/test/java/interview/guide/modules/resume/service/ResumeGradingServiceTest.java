@@ -58,21 +58,26 @@ class ResumeGradingServiceTest {
     @DisplayName("system weights should change the final score")
     void analyzeResumeShouldApplySystemWeights() {
         ChatClient chatClient = mock(ChatClient.class);
-        when(aiClientFactory.getDefaultChatClient()).thenReturn(chatClient);
+        when(aiClientFactory.getDefaultChatClient("user-1")).thenReturn(chatClient);
         when(systemAiSettingsResolver.resolve()).thenReturn(new SystemAiSettingsSnapshot(
                 new ResumeWeightsSnapshot(100, 0, 0, 0, 0),
                 new InterviewSnapshot(60, 40, 0.2, 0.2, 0.2, 0.2),
                 new RagSearchSnapshot(20, 12, 8, 0.18, 0.28, 0.28)
         ));
 
-        ResumeAnalysisResponse dto = new ResumeAnalysisResponse(
+        ResumeGradingService.ResumeAnalysisResponseDTO dto =
+            new ResumeGradingService.ResumeAnalysisResponseDTO(
                 0,
-                new ResumeAnalysisResponse.ScoreDetail(15, 10, 20, 8, 30),
+                new ResumeGradingService.ScoreDetailDTO(15, 10, 20, 8, 30),
                 "summary",
                 List.of("strength"),
-                List.of(new ResumeAnalysisResponse.Suggestion("project", "high", "issue", "recommendation")),
-                "resume"
-        );
+                List.of(new ResumeGradingService.SuggestionDTO(
+                    "project",
+                    "high",
+                    "issue",
+                    "recommendation"
+                ))
+            );
 
         when(structuredOutputInvoker.invoke(
                 any(ChatClient.class),
@@ -86,7 +91,7 @@ class ResumeGradingServiceTest {
                 any()
         )).thenReturn(dto);
 
-        ResumeAnalysisResponse result = service.analyzeResume("resume text");
+        ResumeAnalysisResponse result = service.analyzeResume("user-1", "resume text");
 
         assertThat(result.overallScore()).isEqualTo(40);
 

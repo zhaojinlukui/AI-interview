@@ -19,7 +19,6 @@ COPY app/build.gradle app/
 # 2. 预下载依赖 (Dependency Resolution)
 
 # 作用：利用 Docker 缓存层预先下载依赖。只要 gradle 配置不变，这一层就会被缓存。
-xxxxxxxxxx24 1// eslint.config.js2import reactX from 'eslint-plugin-react-x'3import reactDom from 'eslint-plugin-react-dom'4​5export default defineConfig([6  globalIgnores(['dist']),7  {8    files: ['**/*.{ts,tsx}'],9    extends: [10      // Other configs...11      // Enable lint rules for React12      reactX.configs['recommended-typescript'],13      // Enable lint rules for React DOM14      reactDom.configs.recommended,15    ],16    languageOptions: {17      parserOptions: {18        project: ['./tsconfig.node.json', './tsconfig.app.json'],19        tsconfigRootDir: import.meta.dirname,20      },21      // other options...22    },23  },24])js
 # 参数详解：
 # --no-daemon: 
 #   Docker 容器是"用完即焚"的临时环境，不需要 Gradle 守护进程常驻后台。
@@ -52,7 +51,7 @@ WORKDIR /app
 COPY --from=builder /workspace/app/build/libs/*.jar app.jar
 
 # 声明容器将暴露的端口（仅作为文档说明，实际映射需在 docker-compose 中配置）
-EXPOSE 8080
+EXPOSE 8200
 
 # 容器启动时执行的命令
 ENTRYPOINT ["java", "-jar", "app.jar"]

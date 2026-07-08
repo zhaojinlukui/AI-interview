@@ -57,8 +57,8 @@ services:
     container_name: interview-rustfs
     command: ["/data"]
     environment:
-      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY:-rustfs}
-      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY:-rustfs}
+      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY:-rustfsadmin}
+      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY:-rustfsadmin}
       RUSTFS_CONSOLE_ENABLE: "true"
     ports:
       - "${RUSTFS_API_PORT:-9000}:9000"
@@ -75,10 +75,12 @@ services:
 # 使用 ${RUSTFS_ACCESS_KEY} / ${RUSTFS_SECRET_KEY} 登录，手动创建名为 interview-guide 的 bucket
 
   frontend:
+    profiles:
+      - frontend
     build: ./frontend
     container_name: interview-frontend-dev
     environment:
-      API_BACKEND: ${FRONTEND_API_BACKEND:-host.docker.internal:8080}
+      API_BACKEND: ${FRONTEND_API_BACKEND:-host.docker.internal:8200}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:

@@ -20,75 +20,75 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SystemAiSettingsEntity {
 
-  public static final Long SINGLETON_ID = 1L;
+    public static final Long SINGLETON_ID = 1L;
 
-  @Id
-  private Long id;
+    @Id
+    private Long id;
 
-  @Column(nullable = false)
-  private Integer resumeProjectWeight;
+    @Column(nullable = false)
+    private Integer resumeProjectWeight;
 
-  @Column(nullable = false)
-  private Integer resumeSkillMatchWeight;
+    @Column(nullable = false)
+    private Integer resumeSkillMatchWeight;
 
-  @Column(nullable = false)
-  private Integer resumeContentWeight;
+    @Column(nullable = false)
+    private Integer resumeContentWeight;
 
-  @Column(nullable = false)
-  private Integer resumeStructureWeight;
+    @Column(nullable = false)
+    private Integer resumeStructureWeight;
 
-  @Column(nullable = false)
-  private Integer resumeExpressionWeight;
+    @Column(nullable = false)
+    private Integer resumeExpressionWeight;
 
-  @Column(nullable = false)
-  private Integer interviewResumeQuestionRatio;
+    @Column(nullable = false)
+    private Integer interviewResumeQuestionRatio;
 
-  @Column(nullable = false)
-  private Integer interviewDirectionQuestionRatio;
+    @Column(nullable = false)
+    private Integer interviewDirectionQuestionRatio;
 
-  @Column(nullable = false)
-  private Double interviewQuestionTemperature;
+    @Column(nullable = false)
+    private Double interviewQuestionTemperature;
 
-  @Column(nullable = false)
-  private Double interviewFollowUpTemperature;
+    @Column(nullable = false)
+    private Double interviewFollowUpTemperature;
 
-  @Column(nullable = false)
-  private Double interviewScoringTemperature;
+    @Column(nullable = false)
+    private Double interviewScoringTemperature;
 
-  @Column(nullable = false)
-  private Double interviewCommentTemperature;
+    @Column(nullable = false)
+    private Double interviewCommentTemperature;
 
-  @Column(nullable = false)
-  private Integer ragTopkShort;
+    @Column(nullable = false)
+    private Integer ragTopkShort;
 
-  @Column(nullable = false)
-  private Integer ragTopkMedium;
+    @Column(nullable = false)
+    private Integer ragTopkMedium;
 
-  @Column(nullable = false)
-  private Integer ragTopkLong;
+    @Column(nullable = false)
+    private Integer ragTopkLong;
 
-  @Column(nullable = false)
-  private Double ragMinScoreShort;
+    @Column(nullable = false)
+    private Double ragMinScoreShort;
 
-  @Column(nullable = false)
-  private Double ragMinScoreMedium;
+    @Column(nullable = false)
+    private Double ragMinScoreMedium;
 
-  @Column(nullable = false)
-  private Double ragMinScoreLong;
+    @Column(nullable = false)
+    private Double ragMinScoreLong;
 
-  @Column(nullable = false, updatable = false)
-  private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-  private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
-  @PrePersist
-  protected void onCreate() {
-    createdAt = LocalDateTime.now();
-    updatedAt = LocalDateTime.now();
-  }
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
 
-  @PreUpdate
-  protected void onUpdate() {
-    updatedAt = LocalDateTime.now();
-  }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }

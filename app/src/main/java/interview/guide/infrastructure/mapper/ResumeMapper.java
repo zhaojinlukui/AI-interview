@@ -1,15 +1,19 @@
 package interview.guide.infrastructure.mapper;
 
+import interview.guide.modules.interview.model.InterviewHistoryItemDTO;
 import interview.guide.modules.interview.model.ResumeAnalysisResponse;
 import interview.guide.modules.resume.model.ResumeAnalysisEntity;
 import interview.guide.modules.resume.model.ResumeDetailDTO;
 import interview.guide.modules.resume.model.ResumeEntity;
 import interview.guide.modules.resume.model.ResumeListItemDTO;
-import org.mapstruct.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 
 /**
  * 简历相关的对象映射器
@@ -38,44 +42,30 @@ public interface ResumeMapper {
      * ResumeEntity 转换为 ResumeListItemDTO
      * 需要额外传入 latestScore, lastAnalyzedAt, interviewCount
      */
-    default ResumeListItemDTO toListItemDTO(
+    @Mapping(target = "filename", source = "resume.originalFilename")
+    @Mapping(target = "latestScore", source = "latestScore")
+    @Mapping(target = "lastAnalyzedAt", source = "lastAnalyzedAt")
+    @Mapping(target = "interviewCount", source = "interviewCount")
+    ResumeListItemDTO toListItemDTO(
         ResumeEntity resume,
         Integer latestScore,
         LocalDateTime lastAnalyzedAt,
         Integer interviewCount
-    ) {
-        return new ResumeListItemDTO(
-            resume.getId(),
-            resume.getOriginalFilename(),
-            resume.getFileSize(),
-            resume.getUploadedAt(),
-            resume.getAccessCount(),
-            latestScore,
-            lastAnalyzedAt,
-            interviewCount,
-            null,
-            null
-        );
-    }
-
-    /**
-     * 简化版：从 ResumeEntity 直接映射（其他字段为 null）
-     */
-    @Mapping(target = "filename", source = "originalFilename")
-    @Mapping(target = "latestScore", ignore = true)
-    @Mapping(target = "lastAnalyzedAt", ignore = true)
-    @Mapping(target = "interviewCount", ignore = true)
-    ResumeListItemDTO toListItemDTOBasic(ResumeEntity entity);
+    );
 
     // ========== ResumeDetailDTO 映射 ==========
 
     /**
-     * ResumeEntity 转换为 ResumeDetailDTO（不含 analyses 和 interviews）
+     * 组装完整简历详情 DTO，分析历史和面试历史由 Service 层查询后传入。
      */
-    @Mapping(target = "filename", source = "originalFilename")
-    @Mapping(target = "analyses", ignore = true)
-    @Mapping(target = "interviews", ignore = true)
-    ResumeDetailDTO toDetailDTOBasic(ResumeEntity entity);
+    @Mapping(target = "filename", source = "resume.originalFilename")
+    @Mapping(target = "analyses", source = "analyses")
+    @Mapping(target = "interviews", source = "interviews")
+    ResumeDetailDTO toDetailDTO(
+        ResumeEntity resume,
+        List<ResumeDetailDTO.AnalysisHistoryDTO> analyses,
+        List<InterviewHistoryItemDTO> interviews
+    );
 
     // ========== AnalysisHistoryDTO 映射 ==========
 
@@ -121,21 +111,6 @@ public interface ResumeMapper {
     @Mapping(target = "expressionScore", source = "scoreDetail.expressionScore")
     @Mapping(target = "projectScore", source = "scoreDetail.projectScore")
     ResumeAnalysisEntity toAnalysisEntity(ResumeAnalysisResponse response);
-
-    /**
-     * 更新已有的 ResumeAnalysisEntity
-     */
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "resume", ignore = true)
-    @Mapping(target = "strengthsJson", ignore = true)
-    @Mapping(target = "suggestionsJson", ignore = true)
-    @Mapping(target = "analyzedAt", ignore = true)
-    @Mapping(target = "contentScore", source = "scoreDetail.contentScore")
-    @Mapping(target = "structureScore", source = "scoreDetail.structureScore")
-    @Mapping(target = "skillMatchScore", source = "scoreDetail.skillMatchScore")
-    @Mapping(target = "expressionScore", source = "scoreDetail.expressionScore")
-    @Mapping(target = "projectScore", source = "scoreDetail.projectScore")
-    void updateAnalysisEntity(ResumeAnalysisResponse response, @MappingTarget ResumeAnalysisEntity entity);
 
     // ========== 工具方法 ==========
 

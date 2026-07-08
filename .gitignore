@@ -1,24 +1,42 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Gradle
+.gradle/
+build/
+**/build/
 
-# Ignore Gradle build output directory
-build
-/.claude
-/.idea
-/app/bin
-# Environment variables
-.env
-test-output.txt
-# IDEA code analysis
+# IDE and assistant-local files
+/.claude/
+/.idea/
+/app/bin/
+app/out/
+out/
 qodana.yaml
-
-app/src/main/resources/application-dev.yml
-/docs
-SETUP_API_KEYS.md
-
-# AI Assistant documentation
 CLAUDE.md
 GEMINI.md
 
-# Playwright MCP
+# Environment variables and local config
+.env
+.env.*
+!.env.example
+app/src/main/resources/application-dev.yml
+SETUP_API_KEYS.md
+
+# Runtime data and generated output
+logs/
+*.log
+*.err.log
+tmp/
+output/
+data/
+rustfs/data/
+test-output.txt
+.playwright-cli/
 .playwright-mcp/
+
+# Frontend local artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Local Word reports kept outside the repository
+/*.doc
+/*.docx

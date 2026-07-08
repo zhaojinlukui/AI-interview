@@ -17,41 +17,30 @@ public class TextCleaningService {
      * 图片文件名行：image123.png
      * 整行匹配，防止误删正文中的文件名字符串
      */
-    private static final Pattern IMAGE_FILENAME_LINE =
-            Pattern.compile("(?m)^image\\d+\\.(png|jpe?g|gif|bmp|webp)\\s*$");
-
+    private static final Pattern IMAGE_FILENAME_LINE = Pattern.compile("(?m)^image\\d+\\.(png|jpe?g|gif|bmp|webp)\\s*$");
     /**
      * HTTP/HTTPS 图片链接
      * 支持 URL 查询参数，大小写不敏感
      */
-    private static final Pattern IMAGE_URL =
-            Pattern.compile("https?://\\S+?\\.(png|jpe?g|gif|bmp|webp)(\\?\\S*)?", Pattern.CASE_INSENSITIVE);
-
+    private static final Pattern IMAGE_URL = Pattern.compile("https?://\\S+?\\.(png|jpe?g|gif|bmp|webp)(\\?\\S*)?", Pattern.CASE_INSENSITIVE);
     /**
      * 文件协议 URL（Tika PDF 临时文件路径等）
      */
-    private static final Pattern FILE_URL =
-            Pattern.compile("file:(//)?\\S+", Pattern.CASE_INSENSITIVE);
-
+    private static final Pattern FILE_URL = Pattern.compile("file:(//)?\\S+", Pattern.CASE_INSENSITIVE);
     /**
      * 分隔线：---, ___, ***, ===
      * 整行匹配，至少 3 个连续符号
      */
-    private static final Pattern SEPARATOR_LINE =
-            Pattern.compile("(?m)^\\s*[-_*=]{3,}\\s*$");
-
+    private static final Pattern SEPARATOR_LINE = Pattern.compile("(?m)^\\s*[-_*=]{3,}\\s*$");
     /**
      * 控制字符（不可见字符）
      * 保留换行符 \n (0x0A) 和制表符 \t (0x09)
      */
-    private static final Pattern CONTROL_CHARS =
-            Pattern.compile("[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]");
-
+    private static final Pattern CONTROL_CHARS = Pattern.compile("[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]");
     /**
      * HTML 标签
      */
-    private static final Pattern HTML_TAGS =
-            Pattern.compile("<[^>]+>");
+    private static final Pattern HTML_TAGS = Pattern.compile("<[^>]+>");
 
     /**
      * 清理和规范化文本内容
@@ -71,17 +60,11 @@ public class TextCleaningService {
      *   <li>去除行尾空格，保留空行（保持段落结构）</li>
      *   <li>压缩连续空行（最多保留 2 个换行符）</li>
      * </ul>
-     * 
-     * <p>作为 RAG/AI 分析前的"保险层"，确保文本质量</p>
-     *
-     * @param text 原始文本
-     * @return 清理后的文本
      */
     public String cleanText(String text) {
         if (text == null || text.isBlank()) {
             return "";
         }
-
         String t = text;
 
         // ========== 第一层：语义去噪 ==========
@@ -106,10 +89,6 @@ public class TextCleaningService {
 
     /**
      * 清理文本并限制最大长度
-     *
-     * @param text      原始文本
-     * @param maxLength 最大长度
-     * @return 清理后的文本（可能被截断）
      */
     public String cleanTextWithLimit(String text, int maxLength) {
         String cleaned = cleanText(text);
@@ -122,9 +101,6 @@ public class TextCleaningService {
     /**
      * 清理文本并移除所有换行符（转为空格）
      * 适用于需要单行显示的场景
-     *
-     * @param text 原始文本
-     * @return 单行文本
      */
     public String cleanToSingleLine(String text) {
         if (text == null || text.isBlank()) {
@@ -139,15 +115,11 @@ public class TextCleaningService {
 
     /**
      * 移除 HTML 标签和常见 HTML 实体
-     *
-     * @param text 可能包含 HTML 的文本
-     * @return 纯文本
      */
     public String stripHtml(String text) {
         if (text == null || text.isBlank()) {
             return "";
         }
-
         return HTML_TAGS.matcher(text).replaceAll(" ")
             .replace("&nbsp;", " ")
             .replace("&amp;", "&")

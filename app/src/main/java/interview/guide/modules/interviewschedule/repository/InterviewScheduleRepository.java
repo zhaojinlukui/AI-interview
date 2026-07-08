@@ -14,8 +14,6 @@ import java.util.Optional;
 
 @Repository
 public interface InterviewScheduleRepository extends JpaRepository<InterviewScheduleEntity, Long> {
-    List<InterviewScheduleEntity> findByStatusAndInterviewTimeBefore(InterviewStatus status, LocalDateTime time);
-
     List<InterviewScheduleEntity> findByUserIdAndStatus(String userId, InterviewStatus status);
 
     List<InterviewScheduleEntity> findByUserIdAndInterviewTimeBetween(
@@ -27,6 +25,8 @@ public interface InterviewScheduleRepository extends JpaRepository<InterviewSche
     List<InterviewScheduleEntity> findByUserId(String userId);
 
     Optional<InterviewScheduleEntity> findByIdAndUserId(Long id, String userId);
+
+    void deleteByUserId(String userId);
 
     @Modifying
     @Query("UPDATE InterviewScheduleEntity e SET e.status = :newStatus WHERE e.status = :oldStatus AND e.interviewTime < :cutoff")

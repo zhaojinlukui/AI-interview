@@ -1,7 +1,5 @@
 package interview.guide.modules.voiceinterview;
 
-import interview.guide.common.exception.BusinessException;
-import interview.guide.common.exception.ErrorCode;
 import interview.guide.common.model.AsyncTaskStatus;
 import interview.guide.common.result.Result;
 import interview.guide.modules.voiceinterview.dto.CreateSessionRequest;
@@ -31,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 语音面试控制器。
+ * 语音面试控制器
  *
  * <p>提供语音面试会话创建、结束、暂停、恢复、消息历史查询、异步评估触发和状态轮询接口。</p>
  */
@@ -45,7 +43,7 @@ public class VoiceInterviewController {
     private final VoiceInterviewEvaluationService evaluationService;
 
     /**
-     * 创建新的语音面试会话。
+     * 创建新的语音面试会话
      *
      * @param request 创建请求
      * @return 会话信息
@@ -58,7 +56,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 结束语音面试会话，并触发异步评估。
+     * 结束语音面试会话，并触发异步评估
      *
      * @param sessionId 会话 ID
      * @return 结束结果
@@ -71,7 +69,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 暂停语音面试会话。
+     * 暂停语音面试会话
      *
      * @param sessionId 会话 ID
      * @param request 暂停请求
@@ -89,7 +87,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 恢复语音面试会话。
+     * 恢复语音面试会话
      *
      * @param sessionId 会话 ID
      * @return 恢复后的会话信息
@@ -103,7 +101,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 查询用户语音面试会话列表。
+     * 查询用户语音面试会话列表
      *
      * @param status 状态过滤，可选
      * @return 会话列表
@@ -118,7 +116,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 删除语音面试会话。
+     * 删除语音面试会话
      *
      * @param sessionId 会话 ID
      * @return 删除结果
@@ -131,7 +129,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 查询语音面试对话历史。
+     * 查询语音面试对话历史
      *
      * @param sessionId 会话 ID
      * @return 对话消息列表
@@ -145,7 +143,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 查询语音面试评估状态和结果。
+     * 查询语音面试评估状态和结果
      *
      * <p>评估完成时返回评估详情；未完成时返回当前异步任务状态，前端可轮询该接口。</p>
      *
@@ -173,7 +171,7 @@ public class VoiceInterviewController {
     }
 
     /**
-     * 触发语音面试异步评估。
+     * 触发语音面试异步评估
      *
      * <p>如果评估已完成则直接返回结果；如果评估正在进行则返回当前状态；否则投递新的评估任务。</p>
      *
@@ -186,7 +184,7 @@ public class VoiceInterviewController {
 
         VoiceInterviewSessionEntity session = voiceInterviewService.getSessionForCurrentUser(sessionId);
 
-        // 已完成时直接返回缓存结果。
+        // 已完成时直接返回缓存结果
         if (session.getEvaluateStatus() == AsyncTaskStatus.COMPLETED) {
             VoiceEvaluationDetailDTO evaluation = evaluationService.getEvaluation(sessionId);
             return Result.success(VoiceEvaluationStatusDTO.builder()
@@ -195,7 +193,7 @@ public class VoiceInterviewController {
                     .build());
         }
 
-        // 已经排队或处理中时返回当前状态。
+        // 已经排队或处理中时返回当前状态
         if (session.getEvaluateStatus() == AsyncTaskStatus.PENDING
                 || session.getEvaluateStatus() == AsyncTaskStatus.PROCESSING) {
             return Result.success(VoiceEvaluationStatusDTO.builder()
@@ -203,7 +201,7 @@ public class VoiceInterviewController {
                     .build());
         }
 
-        // 投递新的异步评估任务。
+        // 投递新的异步评估任务
         voiceInterviewService.triggerEvaluation(sessionId);
 
         return Result.success(VoiceEvaluationStatusDTO.builder()

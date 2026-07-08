@@ -1,13 +1,13 @@
 /* ScheduleCalendar.css - Custom styles for the interview calendar */
 
-/* Increase time slot height in week and day views */
+/* Compact time slots so the calendar fits comfortably in the viewport. */
 .rbc-time-view .rbc-time-content .rbc-timeslot-group {
-  min-height: 60px !important;
+  min-height: 48px !important;
 }
 
-/* Ensure events have minimum height */
+/* Keep event cards readable without forcing tall rows. */
 .rbc-event {
-  min-height: 50px !important;
+  min-height: 39px !important;
 }
 
 /* Month view events don't need minimum height */
@@ -20,9 +20,9 @@
   overflow: visible !important;
 }
 
-/* Set time slot height */
+/* Set compact time slot height */
 .rbc-time-view .rbc-time-slot {
-  height: 30px !important;
+  height: 24px !important;
 }
 
 /* Style time slot borders for light mode */
@@ -46,16 +46,16 @@
   overflow-y: auto !important;
 }
 
-/* Better spacing for month view */
+/* Better compact spacing for month view */
 .rbc-month-row {
-  min-height: 100px !important;
+  min-height: 87px !important;
 }
 
 /* Improve calendar header styling */
 .rbc-header {
-  padding: 12px 8px !important;
+  padding: 6px 6px !important;
   font-weight: 600 !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
 }
 
 /* Dark mode calendar header */

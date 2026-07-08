@@ -1,68 +1,40 @@
 package interview.guide.modules.user.service;
 
-import interview.guide.common.exception.BusinessException;
-import interview.guide.common.exception.ErrorCode;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.util.Base64;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
+import java.util.regex.Pattern;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * 用户密码哈希与校验服务
+ */
 @Service
 public class PasswordService {
 
-    private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
-    private static final String PREFIX = "pbkdf2_sha256";
-    private static final int ITERATIONS = 120_000;
-    private static final int KEY_LENGTH_BITS = 256;
-    private static final int SALT_BYTES = 16;
+    private static final int BCRYPT_STRENGTH = 12;
+    private static final Pattern BCRYPT_PATTERN = Pattern.compile(
+            "^\\$2[aby]\\$\\d{2}\\$[./A-Za-z0-9]{53}$"
+    );
 
-    private final SecureRandom secureRandom = new SecureRandom();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCRYPT_STRENGTH);
 
+    /**
+     * 为明文密码生成 BCrypt 哈希
+     */
     public String hash(String rawPassword) {
-        byte[] salt = new byte[SALT_BYTES];
-        secureRandom.nextBytes(salt);
-        byte[] hash = hash(rawPassword, salt, ITERATIONS);
-        return String.join(
-                "$",
-                PREFIX,
-                String.valueOf(ITERATIONS),
-                Base64.getEncoder().encodeToString(salt),
-                Base64.getEncoder().encodeToString(hash)
-        );
+        return passwordEncoder.encode(rawPassword);
     }
 
+    /**
+     * 校验明文密码是否匹配 BCrypt 哈希
+     */
     public boolean matches(String rawPassword, String encoded) {
         if (rawPassword == null || encoded == null || encoded.isBlank()) {
             return false;
         }
-        String[] parts = encoded.split("\\$");
-        if (parts.length != 4 || !PREFIX.equals(parts[0])) {
+        if (!BCRYPT_PATTERN.matcher(encoded).matches()) {
             return false;
         }
-        try {
-            int iterations = Integer.parseInt(parts[1]);
-            byte[] salt = Base64.getDecoder().decode(parts[2]);
-            byte[] expected = Base64.getDecoder().decode(parts[3]);
-            byte[] actual = hash(rawPassword, salt, iterations);
-            return MessageDigest.isEqual(expected, actual);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private byte[] hash(String rawPassword, byte[] salt, int iterations) {
-        try {
-            PBEKeySpec spec = new PBEKeySpec(
-                    rawPassword.toCharArray(),
-                    salt,
-                    iterations,
-                    KEY_LENGTH_BITS
-            );
-            return SecretKeyFactory.getInstance(ALGORITHM).generateSecret(spec).getEncoded();
-        } catch (Exception e) {
-            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "密码处理失败", e);
-        }
+        return passwordEncoder.matches(rawPassword, encoded);
     }
 }

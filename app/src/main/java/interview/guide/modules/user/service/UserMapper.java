@@ -5,9 +5,15 @@ import interview.guide.modules.user.model.AuthUserDTO;
 import interview.guide.modules.user.model.UserEntity;
 import org.springframework.stereotype.Component;
 
+/**
+ * 用户模块 DTO 映射器
+ */
 @Component
 public class UserMapper {
 
+    /**
+     * 转换为认证场景使用的用户信息
+     */
     public AuthUserDTO toAuthUserDTO(UserEntity user) {
         return new AuthUserDTO(
                 user.getId(),
@@ -18,10 +24,9 @@ public class UserMapper {
         );
     }
 
-    public AdminUserDTO toAdminUserDTO(UserEntity user) {
-        return toAdminUserDTO(user, 0, 0, 0, user.getLastLoginAt());
-    }
-
+    /**
+     * 转换为管理端用户展示信息，并附带业务统计数据
+     */
     public AdminUserDTO toAdminUserDTO(
             UserEntity user,
             long resumeCount,

@@ -20,4 +20,6 @@ public interface VoiceInterviewEvaluationRepository extends JpaRepository<VoiceI
     Optional<VoiceInterviewEvaluationEntity> findBySessionId(Long sessionId);
 
     List<VoiceInterviewEvaluationEntity> findBySessionIdIn(Collection<Long> sessionIds);
+
+    void deleteBySessionIdIn(Collection<Long> sessionIds);
 }

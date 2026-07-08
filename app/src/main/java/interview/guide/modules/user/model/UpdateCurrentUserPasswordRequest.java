@@ -3,6 +3,9 @@ package interview.guide.modules.user.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * 当前用户修改自己密码的请求
+ */
 public record UpdateCurrentUserPasswordRequest(
     @NotBlank(message = "当前密码不能为空")
     String currentPassword,
